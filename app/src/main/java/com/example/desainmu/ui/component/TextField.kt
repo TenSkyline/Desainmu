@@ -28,7 +28,7 @@ fun CustomOutlinedTextField(
         onValueChange = onValueChange,
         placeholder = { Text(text = placeHolder) },
         label = { Text(text = label) },
-        singleLine = true,
+        singleLine = false,
         isError = isError
     )
 }

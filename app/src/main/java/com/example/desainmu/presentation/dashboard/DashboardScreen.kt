@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -20,7 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.desainmu.presentation.dashboard.components.OrderItemModel
 import com.example.desainmu.presentation.dashboard.components.OrderItemView
 import com.example.desainmu.presentation.dashboard.components.dummyValue
 import com.example.desainmu.ui.component.CustomIconButton
@@ -40,11 +40,17 @@ private fun DashboardScreen() {
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Dashboard")
+                    Text("Halaman Utama")
                 },
                 navigationIcon = {
                     CustomIconButton(
                         icon = Icons.Default.Menu,
+                        onClick = { }
+                    )
+                },
+                actions = {
+                    CustomIconButton(
+                        icon = Icons.Default.Search,
                         onClick = { }
                     )
                 }
