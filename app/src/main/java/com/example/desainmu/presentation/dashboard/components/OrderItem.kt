@@ -28,11 +28,11 @@ internal fun OrderItemView (item: OrderItemModel, onClick: () -> Unit) {
             Column (
                 Modifier.weight(1f)
             ){
-                Text("Title")
+                Text(item.title)
                 Spacer(Modifier.size(16.dp))
-                Text("Subtitle")
+                Text(item.subtitle)
                 Spacer(Modifier.size(24.dp))
-                Text("Deadline")
+                Text(item.deadline)
             }
             Checkbox(
                 checked = item.isChecked,
@@ -47,6 +47,7 @@ internal fun OrderItemView (item: OrderItemModel, onClick: () -> Unit) {
 @Composable
 private fun OrderItemPreview () {
     val item = OrderItemModel(
+        id = 1,
         title = "tes",
         subtitle = "TODO()",
         deadline = "2 august",
