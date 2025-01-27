@@ -1,7 +1,6 @@
-package com.example.desainmu.presentation.addOrder.navigation
+package com.example.desainmu.presentation.addOrderMeasurement
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -18,20 +17,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.desainmu.presentation.addOrder.components.AddOrderItemView
+import com.example.desainmu.model.Design
 import com.example.desainmu.ui.component.CustomIconButton
 import com.example.desainmu.ui.theme.DesainmuTheme
 
-@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+internal fun AddOrderMeasurementRoute(design: Any) {
+    AddOrderMeasurementScreen(design = design)
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-
-internal fun AddOrderScreen () {
-    Scaffold (
+internal fun AddOrderMeasurementScreen(design: Any) {
+    Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Tambah Pesanan")
+                    Text("Pengukuran")
                 },
                 navigationIcon = {
                     CustomIconButton(
@@ -48,13 +50,13 @@ internal fun AddOrderScreen () {
             )
         },
         content = { padding ->
-            Column (
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding)
                     .padding(16.dp)
-            ){
-                AddOrderItemView()
+            ) {
+                Text("Pengukuran $design")
                 ElevatedButton(
                     onClick = { },
                     modifier = Modifier
@@ -68,11 +70,10 @@ internal fun AddOrderScreen () {
     )
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
-private fun AddOrderScreenPreview() {
+private fun AddOrderMeasurementScreenPreview() {
     DesainmuTheme {
-        AddOrderScreen()
+        AddOrderMeasurementScreen(design = Design.Kaos)
     }
 }
