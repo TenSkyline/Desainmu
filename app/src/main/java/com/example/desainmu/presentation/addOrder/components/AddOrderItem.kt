@@ -1,26 +1,18 @@
 package com.example.desainmu.presentation.addOrder.components
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
 import com.example.desainmu.model.Design
-import com.example.desainmu.presentation.addOrder.AddOrderViewModel
 import com.example.desainmu.ui.component.CustomOutlinedTextField
 import com.example.desainmu.ui.component.DatePickerDocked
 import com.example.desainmu.ui.component.DropdownTextField
 
 @Composable
-internal fun AddOrderItemView(onClickDesign: (Design) -> Unit) {
-    var selectedDesign by remember { mutableStateOf(Design.Kaos) }
+internal fun AddOrderItemView(selectedDesign: Design, onSelectedDesign: (String) -> Unit) {
+
     CustomOutlinedTextField(
         placeHolder = "Judul",
         value = "",
@@ -36,8 +28,7 @@ internal fun AddOrderItemView(onClickDesign: (Design) -> Unit) {
         options = Design.entries.map { it.name },
         selectedOption = selectedDesign.name,
         onOptionSelected = {
-            selectedDesign = Design.valueOf(it)
-            onClickDesign.invoke(selectedDesign)
+            onSelectedDesign.invoke(it)
         }
     )
 }
