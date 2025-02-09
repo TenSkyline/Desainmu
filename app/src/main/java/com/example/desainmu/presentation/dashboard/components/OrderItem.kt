@@ -7,31 +7,38 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.desainmu.ui.theme.DesainmuTheme
 
 @Composable
-internal fun OrderItemView (item: OrderItemModel, onClick: () -> Unit) {
-    Surface {
-        Row (
-            Modifier.padding(8.dp).fillMaxWidth(),
+internal fun OrderItemView(item: OrderItemModel, onClick: () -> Unit) {
+    Surface(
+        shadowElevation = 2.dp,
+        shape = RoundedCornerShape(8.dp),
+    ) {
+        Row(
+            Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
-            Column (
+        ) {
+            Column(
                 Modifier.weight(1f)
-            ){
-                Text(item.title)
+            ) {
+                Text(item.title, overflow = TextOverflow.Ellipsis, maxLines = 1)
+                Spacer(Modifier.size(8.dp))
+                Text(item.subtitle, overflow = TextOverflow.Ellipsis, maxLines = 1)
                 Spacer(Modifier.size(16.dp))
-                Text(item.subtitle)
-                Spacer(Modifier.size(24.dp))
                 Text(item.deadline)
             }
             Checkbox(
@@ -39,13 +46,13 @@ internal fun OrderItemView (item: OrderItemModel, onClick: () -> Unit) {
                 onCheckedChange = { onClick.invoke() }
             )
         }
-        
+
     }
 }
 
 @Preview
 @Composable
-private fun OrderItemPreview () {
+private fun OrderItemPreview() {
     val item = OrderItemModel(
         id = 1,
         title = "tes",
@@ -53,7 +60,9 @@ private fun OrderItemPreview () {
         deadline = "2 august",
         isChecked = true
     )
-    DesainmuTheme { OrderItemView(
-        item = item
-    ) { } }
+    DesainmuTheme {
+        OrderItemView(
+            item = item
+        ) { }
+    }
 }

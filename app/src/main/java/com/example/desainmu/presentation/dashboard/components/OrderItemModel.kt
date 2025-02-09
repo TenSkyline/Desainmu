@@ -11,8 +11,8 @@ data class OrderItemModel(
 val dummyValue = listOf(
     OrderItemModel(
         id = 1,
-        title = "Kaos Andini",
-        subtitle = "Kain 1m, uang 50.000",
+        title = "Kaos Andini jwoiajojojsrogjnordngndrngndohgnhntnhnthntnhnthnhntntnhtonhtonhotnoht",
+        subtitle = "Kain 1m, uang 50.000 wijojigjoehjguihrignrnrjngjrghiuhsduighrushighsiguhriugrhgirngiuhhnrtgjnkfgkkg",
         deadline = "10 agustus 2025",
         isChecked = true
     ),

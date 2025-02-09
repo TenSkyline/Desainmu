@@ -1,7 +1,5 @@
 package com.example.desainmu.ui.component
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,11 +31,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DatePickerDocked() {
@@ -47,8 +42,6 @@ fun DatePickerDocked() {
     val selectedDate = datePickerState.selectedDateMillis?.let {
         convertMillisToDate(it)
     } ?: ""
-
-    val locale = Locale("id", "ID") // Indonesian locale
 
     Box(
         modifier = Modifier.fillMaxWidth()
@@ -88,7 +81,12 @@ fun DatePickerDocked() {
                         state = datePickerState,
                         showModeToggle = false,
                         title = { Text("Pilih Tanggal", color = Color.Black) }, // Set title color
-                        headline = { Text("Pilih Tanggal", color = Color.Black) }, // Set headline color
+                        headline = {
+                            Text(
+                                "Pilih Tanggal",
+                                color = Color.Black
+                            )
+                        }, // Set headline color
                         colors = DatePickerDefaults.colors(
                             containerColor = Color.White, // Set container color
                             titleContentColor = Color.Black, // Set title content color

@@ -77,7 +77,7 @@ private fun DashboardScreen(onClick: () -> Unit = {}) {
             ) {
                 SelectCategoryTabView()
                 LazyColumn(
-                    contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp),
+                    contentPadding = PaddingValues(vertical = 24.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(dummyValue, key = { it.id }) { category ->
