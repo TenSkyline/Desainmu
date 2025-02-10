@@ -39,7 +39,7 @@ internal fun OrderItemView(item: OrderItemModel, onClick: () -> Unit) {
                 Spacer(Modifier.size(8.dp))
                 Text(item.subtitle, overflow = TextOverflow.Ellipsis, maxLines = 1)
                 Spacer(Modifier.size(16.dp))
-                Text(item.deadline)
+                Text("Tenggat waktu: "+item.deadline)
             }
             Checkbox(
                 checked = item.isChecked,

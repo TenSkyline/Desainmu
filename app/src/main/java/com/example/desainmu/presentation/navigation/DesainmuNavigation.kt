@@ -21,7 +21,7 @@ fun DesainmuNavigation (startDestination: String = DASHBOARD_ROUTE) {
             navController.navigateToAddOrderMeasurement(it.ordinal)
         },
             navigateUp = {navController.navigateUp()})
-        addOrderMeasurementScreen()
+        addOrderMeasurementScreen(navigateUp = {navController.navigateUp()})
 
     }
 

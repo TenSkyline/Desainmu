@@ -18,33 +18,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.desainmu.model.Design
+import com.example.desainmu.presentation.addOrderMeasurement.components.AddOrderMeasurementItemView
 import com.example.desainmu.ui.component.CustomIconButton
 import com.example.desainmu.ui.theme.DesainmuTheme
 
 @Composable
-internal fun AddOrderMeasurementRoute(design: Any) {
-    AddOrderMeasurementScreen(design = design)
+internal fun AddOrderMeasurementRoute(design: Any, navigateUp: () -> Unit) {
+    AddOrderMeasurementScreen(design = design, navigateUp)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun AddOrderMeasurementScreen(design: Any) {
+internal fun AddOrderMeasurementScreen(design: Any, navigateUp: () -> Unit = {}) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Pengukuran")
+                    Text("Pengukuran $design")
                 },
                 navigationIcon = {
                     CustomIconButton(
-                        icon = Icons.Default.Menu,
-                        onClick = { }
-                    )
-                },
-                actions = {
-                    CustomIconButton(
                         icon = Icons.AutoMirrored.Filled.ArrowBack,
-                        onClick = { }
+                        onClick = {navigateUp.invoke()}
                     )
                 }
             )
@@ -56,7 +51,7 @@ internal fun AddOrderMeasurementScreen(design: Any) {
                     .padding(padding)
                     .padding(16.dp)
             ) {
-                Text("Pengukuran $design")
+                AddOrderMeasurementItemView(design = Design.Kaos)
                 ElevatedButton(
                     onClick = { },
                     modifier = Modifier

@@ -18,12 +18,12 @@ fun NavController.navigateToAddOrderMeasurement(
     navigate(route , navOptions)
 }
 
-fun NavGraphBuilder.addOrderMeasurementScreen() {
+fun NavGraphBuilder.addOrderMeasurementScreen(navigateUp: () -> Unit = {}) {
     val route = "$ADD_ORDER_MEASUREMENT_ROUTE/{$DesignArgs}"
     val arguments = listOf(navArgument(DesignArgs) { type = NavType.IntType })
     composable(route, arguments) { backStackEntry ->
         val designArgs = backStackEntry.arguments?.getInt(DesignArgs) ?: 0
         val design = Design.entries.find{ it.ordinal == designArgs } ?: Design.entries
-        AddOrderMeasurementRoute(design = design)
+        AddOrderMeasurementRoute(design = design, navigateUp)
     }
 }
