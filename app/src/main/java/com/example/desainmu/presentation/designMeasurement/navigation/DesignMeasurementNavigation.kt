@@ -1,4 +1,4 @@
-package com.example.desainmu.presentation.addOrderMeasurement.navigation
+package com.example.desainmu.presentation.designMeasurement.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.desainmu.model.Design
 import com.example.desainmu.model.NavArgs.DesignArgs
-import com.example.desainmu.presentation.addOrderMeasurement.AddOrderMeasurementRoute
+import com.example.desainmu.presentation.designMeasurement.AddOrderMeasurementRoute
 
 const val ADD_ORDER_MEASUREMENT_ROUTE = "add_order_measurement_route"
 
@@ -23,7 +23,7 @@ fun NavGraphBuilder.addOrderMeasurementScreen(navigateUp: () -> Unit = {}) {
     val arguments = listOf(navArgument(DesignArgs) { type = NavType.IntType })
     composable(route, arguments) { backStackEntry ->
         val designArgs = backStackEntry.arguments?.getInt(DesignArgs) ?: 0
-        val design = Design.entries.find{ it.ordinal == designArgs } ?: Design.entries
+        val design = Design.entries.find{ it.ordinal == designArgs } ?: Design.Kaos
         AddOrderMeasurementRoute(design = design, navigateUp)
     }
 }

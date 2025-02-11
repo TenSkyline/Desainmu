@@ -1,12 +1,12 @@
-package com.example.desainmu.presentation.addOrderMeasurement.components
+package com.example.desainmu.presentation.designMeasurement.components
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.example.desainmu.model.Design
 
 @Composable
-internal fun AddOrderMeasurementItemView (design: Design) {
-    when (design) {
+internal fun DesignMeasurementItemView (selectedDesign: Design) {
+    when (selectedDesign) {
         Design.Kaos -> {
             MeasurementKaosView()
         }
@@ -19,6 +19,9 @@ internal fun AddOrderMeasurementItemView (design: Design) {
         }
         Design.Rok -> {
             // Tambahkan logika untuk desain Rok
+        }
+        Design.AtasanPerempuan -> {
+
         }
     }
 }

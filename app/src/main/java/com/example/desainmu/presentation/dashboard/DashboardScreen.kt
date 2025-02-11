@@ -3,9 +3,11 @@ package com.example.desainmu.presentation.dashboard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
@@ -14,25 +16,29 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import com.example.desainmu.presentation.addOrder.navigation.ADD_ORDER_ROUTE
+import com.example.desainmu.presentation.dashboard.components.OrderItemModel
 import com.example.desainmu.presentation.dashboard.components.OrderItemView
-import com.example.desainmu.presentation.dashboard.components.dummyValue
+import com.example.desainmu.presentation.dashboard.components.OrderItemViewHistory
+import com.example.desainmu.presentation.dashboard.components.dummyValueDelayed
+import com.example.desainmu.presentation.dashboard.components.dummyValueHistory
+import com.example.desainmu.presentation.dashboard.components.dummyValueOrder
 import com.example.desainmu.ui.component.CustomIconButton
-import com.example.desainmu.ui.component.CustomTabRowView
-import com.example.desainmu.ui.component.CustomTabView
 import com.example.desainmu.ui.theme.DesainmuTheme
+import kotlinx.coroutines.launch
 
 @Composable
 internal fun DashboardRoute(navigateToAddOrder: () -> Unit) {
@@ -76,14 +82,6 @@ private fun DashboardScreen(onClick: () -> Unit = {}) {
                     .padding(vertical = 24.dp, horizontal = 16.dp)
             ) {
                 SelectCategoryTabView()
-                LazyColumn(
-                    contentPadding = PaddingValues(vertical = 24.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    items(dummyValue, key = { it.id }) { category ->
-                        OrderItemView(item = category) { }
-                    }
-                }
             }
         }
     )
@@ -91,27 +89,74 @@ private fun DashboardScreen(onClick: () -> Unit = {}) {
 
 @Composable
 private fun SelectCategoryTabView() {
-    var selectedTab by remember{ mutableStateOf<OrderType>(OrderType.Order) }
-    CustomTabRowView (
-        selectedTabIndex = selectedTab.ordinal,
-        tabWidth = 180.dp
-    ) {
-        OrderType.entries.forEach { tab ->
-            val selected = selectedTab == tab
-            CustomTabView (
-                selected = selected,
-                onClick = { selectedTab = tab }
-            ) {
-                Text(tab.title)
+    val tabs = listOf(DashboardTab.Order, DashboardTab.Delayed, DashboardTab.History)
+    var selectedTabIndex by remember { mutableIntStateOf(0) }
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        TabRow(selectedTabIndex = selectedTabIndex) {
+            tabs.forEachIndexed { index, tab ->
+                Tab(
+                    text = { Text(tab.title) },
+                    selected = selectedTabIndex == index,
+                    onClick = {
+                        selectedTabIndex = index
+                        coroutineScope.launch {
+                            listState.animateScrollToItem(0)
+                        }
+                    }
+                )
             }
         }
+        LazyColumn(
+            contentPadding = PaddingValues(vertical = 24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            state = listState
+        ) {
+            val selectedTab = tabs[selectedTabIndex]
+            items(selectedTab.data) { item ->
+                if (selectedTab is DashboardTab.History) {
+                    OrderItemViewHistory(item = item, onClick = { })
+                } else {
+                    OrderItemView(item = item, onClick = { })
+                }
+            }
+        }
+
     }
 }
-enum class OrderType (val title:String){
-    Order("Pesanan"),
-    Delayed("Belum Bayar"),
-    History("Riwayat")
+
+@Immutable
+sealed class DashboardTab(val title: String, val data: List<OrderItemModel>) {
+    data object Order : DashboardTab("Pesanan", dummyValueOrder)
+    data object Delayed : DashboardTab("Belum Bayar", dummyValueDelayed)
+    data object History : DashboardTab("Riwayat", dummyValueHistory)
 }
+
+//@Composable
+//private fun SelectCategoryTabView() {
+//    var selectedTab by remember{ mutableStateOf(OrderType.Order) }
+//    CustomTabRowView (
+//        selectedTabIndex = selectedTab.ordinal,
+//        tabWidth = 180.dp
+//    ) {
+//        OrderType.entries.forEach { tab ->
+//            val selected = selectedTab == tab
+//            CustomTabView (
+//                selected = selected,
+//                onClick = { selectedTab = tab }
+//            ) {
+//                Text(tab.title)
+//            }
+//        }
+//    }
+//}
+//enum class OrderType (val title:String){
+//    Order("Pesanan"),
+//    Delayed("Belum Bayar"),
+//    History("Riwayat")
+//}
 
 @Preview
 @Composable

@@ -1,8 +1,13 @@
 package com.example.desainmu.presentation.addOrder
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
@@ -23,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.desainmu.model.Design
 import com.example.desainmu.presentation.addOrder.components.AddOrderItemView
+import com.example.desainmu.presentation.designMeasurement.components.DesignMeasurementItemView
 import com.example.desainmu.ui.component.CustomIconButton
 import com.example.desainmu.ui.theme.DesainmuTheme
 
@@ -50,21 +56,29 @@ internal fun AddOrderScreen(onClickDesign: (Design) -> Unit, navigateUp: () -> U
             )
         },
         content = { padding ->
-            var selectedDesign by remember { mutableStateOf(Design.Kaos) }
-
-            Column(
+            var selectedDesign by remember { mutableStateOf(Design.Kaos)}
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding)
                     .padding(16.dp)
             ) {
-                AddOrderItemView(selectedDesign = selectedDesign, onSelectedDesign = {selectedDesign = Design.valueOf(it)})
+                LazyColumn (
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(bottom = 72.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ){
+                    item {
+                        AddOrderItemView(selectedDesign = selectedDesign, onSelectedDesign = {selectedDesign = Design.valueOf(it)})
+                    }
+                }
                 ElevatedButton(
                     onClick = {
                         onClickDesign.invoke(selectedDesign)
                     },
                     modifier = Modifier
-                        .align(alignment = Alignment.CenterHorizontally)
+                        .fillMaxWidth()
+                        .align(alignment = Alignment.BottomCenter)
                         .padding(16.dp)
                 ) {
                     Text("Berikutnya")

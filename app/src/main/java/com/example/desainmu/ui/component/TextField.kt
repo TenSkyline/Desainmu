@@ -2,6 +2,8 @@ package com.example.desainmu.ui.component
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -11,6 +13,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 
 @Composable
 fun CustomOutlinedTextField(
@@ -19,8 +24,11 @@ fun CustomOutlinedTextField(
     label: String = placeHolder,
     value: String,
     isError: Boolean = false,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    onDone: () -> Unit = {}
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
     OutlinedTextField(
         modifier = modifier,
         shape = MaterialTheme.shapes.small,
@@ -29,7 +37,11 @@ fun CustomOutlinedTextField(
         placeholder = { Text(text = placeHolder) },
         label = { Text(text = label) },
         singleLine = false,
-        isError = isError
+        isError = isError,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(onDone = { onDone()
+        keyboardController?.hide()
+        focusManager.clearFocus()})
     )
 }
 

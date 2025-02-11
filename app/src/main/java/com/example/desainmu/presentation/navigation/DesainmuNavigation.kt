@@ -5,8 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.desainmu.presentation.addOrder.navigation.addOrderScreen
 import com.example.desainmu.presentation.addOrder.navigation.navigateToAddOrder
-import com.example.desainmu.presentation.addOrderMeasurement.navigation.addOrderMeasurementScreen
-import com.example.desainmu.presentation.addOrderMeasurement.navigation.navigateToAddOrderMeasurement
+import com.example.desainmu.presentation.designMeasurement.navigation.addOrderMeasurementScreen
+import com.example.desainmu.presentation.designMeasurement.navigation.navigateToAddOrderMeasurement
 import com.example.desainmu.presentation.dashboard.navigation.DASHBOARD_ROUTE
 import com.example.desainmu.presentation.dashboard.navigation.dashboardScreen
 

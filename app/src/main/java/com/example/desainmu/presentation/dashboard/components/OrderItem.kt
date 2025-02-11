@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,16 +36,63 @@ internal fun OrderItemView(item: OrderItemModel, onClick: () -> Unit) {
             Column(
                 Modifier.weight(1f)
             ) {
-                Text(item.title, overflow = TextOverflow.Ellipsis, maxLines = 1)
+                Text(
+                    item.title,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.titleMedium
+                )
                 Spacer(Modifier.size(8.dp))
-                Text(item.subtitle, overflow = TextOverflow.Ellipsis, maxLines = 1)
+                Text(
+                    item.subtitle,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 2,
+                    style = MaterialTheme.typography.bodyMedium
+                )
                 Spacer(Modifier.size(16.dp))
-                Text("Tenggat waktu: "+item.deadline)
+                Text("Tenggat waktu: " + item.deadline, style = MaterialTheme.typography.bodySmall)
             }
             Checkbox(
                 checked = item.isChecked,
                 onCheckedChange = { onClick.invoke() }
             )
+        }
+
+    }
+}
+
+@Composable
+internal fun OrderItemViewHistory(item: OrderItemModel, onClick: () -> Unit) {
+    Surface(
+        shadowElevation = 2.dp,
+        shape = RoundedCornerShape(8.dp),
+    ) {
+        Row(
+            Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                Modifier.weight(1f)
+            ) {
+                Text(
+                    item.title,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Spacer(Modifier.size(8.dp))
+                Text(
+                    item.subtitle,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 2,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Spacer(Modifier.size(16.dp))
+                Text("Tenggat waktu: " + item.deadline, style = MaterialTheme.typography.bodySmall)
+            }
         }
 
     }
