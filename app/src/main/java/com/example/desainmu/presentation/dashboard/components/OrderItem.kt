@@ -93,7 +93,7 @@ internal fun DelayedItemView(item: OrderItemModel, onClick: () -> Unit) {
                 )
                 Spacer(Modifier.size(16.dp))
                 Text("Tanggal Selesai: " + item.deadline, style = MaterialTheme.typography.bodySmall)
-                Text("Lama Pengerjaan: " + item.dayLeft, style = MaterialTheme.typography.bodySmall)
+                Text("Lama Pengerjaan: " + item.dayLeft + " Hari", style = MaterialTheme.typography.bodySmall)
             }
             Checkbox(
                 checked = item.isChecked,
@@ -135,6 +135,7 @@ internal fun HistoryItemView(item: OrderItemModel, onClick: () -> Unit) {
                 )
                 Spacer(Modifier.size(16.dp))
                 Text("Tanggal Pembayaran: " + item.deadline, style = MaterialTheme.typography.bodySmall)
+                Text("Lama Pengerjaan: " + item.dayLeft + " Hari", style = MaterialTheme.typography.bodySmall)
             }
         }
 
