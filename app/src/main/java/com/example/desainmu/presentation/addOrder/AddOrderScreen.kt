@@ -50,26 +50,30 @@ internal fun AddOrderScreen(onClickDesign: (Design) -> Unit, navigateUp: () -> U
                 navigationIcon = {
                     CustomIconButton(
                         icon = Icons.AutoMirrored.Filled.ArrowBack,
-                        onClick = {navigateUp.invoke()}
+                        onClick = { navigateUp.invoke() }
                     )
                 }
             )
         },
         content = { padding ->
-            var selectedDesign by remember { mutableStateOf(Design.Kaos)}
+            var selectedDesign by remember { mutableStateOf(Design.Kaos) }
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding)
                     .padding(16.dp)
             ) {
-                LazyColumn (
+                LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(bottom = 72.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
-                ){
+                ) {
                     item {
-                        AddOrderItemView(selectedDesign = selectedDesign, onSelectedDesign = {selectedDesign = Design.valueOf(it)})
+                        AddOrderItemView(
+                            selectedDesign = selectedDesign,
+                            onSelectedDesign = {
+                                selectedDesign = it
+                            })
                     }
                 }
                 ElevatedButton(

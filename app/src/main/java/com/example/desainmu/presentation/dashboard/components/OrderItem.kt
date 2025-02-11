@@ -51,6 +51,7 @@ internal fun OrderItemView(item: OrderItemModel, onClick: () -> Unit) {
                 )
                 Spacer(Modifier.size(16.dp))
                 Text("Tenggat waktu: " + item.deadline, style = MaterialTheme.typography.bodySmall)
+                Text("Sisa Hari: " + item.dayLeft, style = MaterialTheme.typography.bodySmall)
             }
             Checkbox(
                 checked = item.isChecked,
@@ -62,7 +63,7 @@ internal fun OrderItemView(item: OrderItemModel, onClick: () -> Unit) {
 }
 
 @Composable
-internal fun OrderItemViewHistory(item: OrderItemModel, onClick: () -> Unit) {
+internal fun DelayedItemView(item: OrderItemModel, onClick: () -> Unit) {
     Surface(
         shadowElevation = 2.dp,
         shape = RoundedCornerShape(8.dp),
@@ -91,26 +92,68 @@ internal fun OrderItemViewHistory(item: OrderItemModel, onClick: () -> Unit) {
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Spacer(Modifier.size(16.dp))
-                Text("Tenggat waktu: " + item.deadline, style = MaterialTheme.typography.bodySmall)
+                Text("Tanggal Selesai: " + item.deadline, style = MaterialTheme.typography.bodySmall)
+                Text("Lama Pengerjaan: " + item.dayLeft, style = MaterialTheme.typography.bodySmall)
+            }
+            Checkbox(
+                checked = item.isChecked,
+                onCheckedChange = { onClick.invoke() }
+            )
+        }
+
+    }
+}
+
+@Composable
+internal fun HistoryItemView(item: OrderItemModel, onClick: () -> Unit) {
+    Surface(
+        shadowElevation = 2.dp,
+        shape = RoundedCornerShape(8.dp),
+    ) {
+        Row(
+            Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                Modifier.weight(1f)
+            ) {
+                Text(
+                    item.title,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Spacer(Modifier.size(8.dp))
+                Text(
+                    item.subtitle,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 2,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Spacer(Modifier.size(16.dp))
+                Text("Tanggal Pembayaran: " + item.deadline, style = MaterialTheme.typography.bodySmall)
             }
         }
 
     }
 }
 
-@Preview
-@Composable
-private fun OrderItemPreview() {
-    val item = OrderItemModel(
-        id = 1,
-        title = "tes",
-        subtitle = "TODO()",
-        deadline = "2 august",
-        isChecked = true
-    )
-    DesainmuTheme {
-        OrderItemView(
-            item = item
-        ) { }
-    }
-}
+//@Preview
+//@Composable
+//private fun OrderItemPreview() {
+//    val item = OrderItemModel(
+//        id = 1,
+//        title = "tes",
+//        subtitle = "TODO()",
+//        deadline = "2 august",
+//        isChecked = true
+//    )
+//    DesainmuTheme {
+//        OrderItemView(
+//            item = item
+//        ) { }
+//    }
+//}

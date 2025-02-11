@@ -20,7 +20,3 @@ fun CustomIconButton(modifier: Modifier = Modifier, icon: ImageVector, onClick: 
     }
 }
 
-@Composable
-fun ElevatedButton(onClick: () -> Unit) {
-    ElevatedButton(onClick = { onClick() }) {}
-}

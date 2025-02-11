@@ -1,61 +1,68 @@
 package com.example.desainmu.presentation.designMeasurement.components
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import com.example.desainmu.ui.component.CustomOutlinedTextField
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.example.desainmu.ui.component.CustomOutlinedTextFieldNumber
 
 @Composable
 internal fun MeasurementKaosView() {
-    Column {
-        KaosBadan()
-        KaosLengan()
+    Row {
+        KaosBadan(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.size(16.dp))
+        KaosLengan(modifier = Modifier.weight(1f))
     }
 }
 
 @Composable
-fun KaosBadan() {
-    Column {
-        CustomOutlinedTextField(
+fun KaosBadan(modifier: Modifier) {
+    Column (modifier = modifier){
+
+        CustomOutlinedTextFieldNumber(
             placeHolder = "Lingkar Leher",
             value = "",
             onValueChange = {}
         ) { }
-        CustomOutlinedTextField(
+        CustomOutlinedTextFieldNumber(
             placeHolder = "Lingkar Badan",
             value = "",
             onValueChange = {}
         ) { }
-        CustomOutlinedTextField(
+        CustomOutlinedTextFieldNumber(
             placeHolder = "Panjang Dada",
             value = "",
             onValueChange = {}
         ) { }
-        CustomOutlinedTextField(
+        CustomOutlinedTextFieldNumber(
             placeHolder = "Lebar Dada",
             value = "",
             onValueChange = {}
         ) { }
-        CustomOutlinedTextField(
+        CustomOutlinedTextFieldNumber(
             placeHolder = "Panjang Seluruhnya",
             value = "",
             onValueChange = {}
         ) { }
-        CustomOutlinedTextField(
+        CustomOutlinedTextFieldNumber(
             placeHolder = "Panjang Bahu",
             value = "",
             onValueChange = {}
         ) { }
-        CustomOutlinedTextField(
+        CustomOutlinedTextFieldNumber(
             placeHolder = "Panjang Punggung",
             value = "",
             onValueChange = {}
         ) { }
-        CustomOutlinedTextField(
+        CustomOutlinedTextFieldNumber(
             placeHolder = "Lebar Punggung",
             value = "",
             onValueChange = {}
         ) { }
-        CustomOutlinedTextField(
+        CustomOutlinedTextFieldNumber(
             placeHolder = "Kerung Lengan",
             value = "",
             onValueChange = {}
@@ -64,14 +71,14 @@ fun KaosBadan() {
 }
 
 @Composable
-fun KaosLengan(){
-    Column {
-        CustomOutlinedTextField(
+fun KaosLengan(modifier: Modifier){
+    Column (modifier = modifier){
+        CustomOutlinedTextFieldNumber(
             placeHolder = "Panjang Lengan",
             value = "",
             onValueChange = {}
         ) { }
-        CustomOutlinedTextField(
+        CustomOutlinedTextFieldNumber(
             placeHolder = "Lebar Lengan",
             value = "",
             onValueChange = {}

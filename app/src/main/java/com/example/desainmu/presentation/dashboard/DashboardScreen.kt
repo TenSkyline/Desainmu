@@ -30,9 +30,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.desainmu.presentation.dashboard.components.DelayedItemView
 import com.example.desainmu.presentation.dashboard.components.OrderItemModel
 import com.example.desainmu.presentation.dashboard.components.OrderItemView
-import com.example.desainmu.presentation.dashboard.components.OrderItemViewHistory
+import com.example.desainmu.presentation.dashboard.components.HistoryItemView
 import com.example.desainmu.presentation.dashboard.components.dummyValueDelayed
 import com.example.desainmu.presentation.dashboard.components.dummyValueHistory
 import com.example.desainmu.presentation.dashboard.components.dummyValueOrder
@@ -79,7 +80,7 @@ private fun DashboardScreen(onClick: () -> Unit = {}) {
             Column(
                 modifier = Modifier
                     .padding(padding)
-                    .padding(vertical = 24.dp, horizontal = 16.dp)
+                    .padding(horizontal = 16.dp)
             ) {
                 SelectCategoryTabView()
             }
@@ -117,7 +118,9 @@ private fun SelectCategoryTabView() {
             val selectedTab = tabs[selectedTabIndex]
             items(selectedTab.data) { item ->
                 if (selectedTab is DashboardTab.History) {
-                    OrderItemViewHistory(item = item, onClick = { })
+                    HistoryItemView(item = item, onClick = { })
+                } else if (selectedTab is DashboardTab.Delayed) {
+                    DelayedItemView(item = item, onClick = { })
                 } else {
                     OrderItemView(item = item, onClick = { })
                 }

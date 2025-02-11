@@ -5,6 +5,7 @@ data class OrderItemModel(
     val title: String,
     val subtitle: String,
     val deadline: String,
+    val dayLeft: Int,
     val isChecked: Boolean,
 )
 
@@ -14,6 +15,7 @@ val dummyValueOrder = listOf(
         title = "Kaos Andini jwoiajojojsrogjnordngndrngndohgnhntnhnthntnhnthnhntntnhtonhtonhotnoht",
         subtitle = "Kain 1m, uang 50.000 wijojigjoehjguihrignrnrjngjrghiuhsduighrushighsiguhriugrhgirngiuhhnrtgjnkfgkkg",
         deadline = "10 agustus 2025",
+        dayLeft = 25,
         isChecked = false
     ),
     OrderItemModel(
@@ -21,6 +23,7 @@ val dummyValueOrder = listOf(
         title = "Celana Budi",
         subtitle = "Bayar ketika selesai",
         deadline = "4 Juli 2025",
+        dayLeft = 10,
         isChecked = false
     ),
     OrderItemModel(
@@ -28,6 +31,7 @@ val dummyValueOrder = listOf(
         title = "Rok Kartika",
         subtitle = "Butuh cepat selesai sebelum juli",
         deadline = "30 Juni 2025",
+        dayLeft = 5,
         isChecked = false
     ),
     OrderItemModel(
@@ -35,6 +39,7 @@ val dummyValueOrder = listOf(
         title = "Batik Anto",
         subtitle = "Bahan disediakan pembeli",
         deadline = "25 Juni 2025",
+        dayLeft = 1,
         isChecked = false
     ),
     OrderItemModel(
@@ -42,6 +47,7 @@ val dummyValueOrder = listOf(
         title = "Batik Anto",
         subtitle = "Bahan disediakan pembeli",
         deadline = "25 Juni 2025",
+        dayLeft = 7,
         isChecked = false
     )
 )
@@ -52,6 +58,7 @@ val dummyValueDelayed = listOf(
         title = "Kaos Andini ",
         subtitle = "Kain 1m, uang 50.000 wijojigjoehjguihrignrnrjngjrghiuhsduighrushighsiguhriugrhgirngiuhhnrtgjnkfgkkg",
         deadline = "10 agustus 2025",
+        dayLeft = 11,
         isChecked = true
     ),
     OrderItemModel(
@@ -59,6 +66,7 @@ val dummyValueDelayed = listOf(
         title = "Celana Budi",
         subtitle = "Bayar ketika selesai",
         deadline = "4 Juli 2025",
+        dayLeft = 11,
         isChecked = false
     ),
     OrderItemModel(
@@ -66,6 +74,7 @@ val dummyValueDelayed = listOf(
         title = "Rok Kartika",
         subtitle = "Butuh cepat selesai sebelum juli",
         deadline = "30 Juni 2025",
+        dayLeft = 11,
         isChecked = false
     ),
     OrderItemModel(
@@ -73,6 +82,7 @@ val dummyValueDelayed = listOf(
         title = "Batik Anto",
         subtitle = "Bahan disediakan pembeli",
         deadline = "25 Juni 2025",
+        dayLeft = 11,
         isChecked = false
     ),
     OrderItemModel(
@@ -80,6 +90,7 @@ val dummyValueDelayed = listOf(
         title = "Batik Anto",
         subtitle = "Bahan disediakan pembeli",
         deadline = "25 Juni 2025",
+        dayLeft = 11,
         isChecked = false
     )
 )
@@ -90,6 +101,7 @@ val dummyValueHistory = listOf(
         title = "Kaos Andini jwoiajojojsrogjnordngndrngndohgnhntnhnthntnhnthnhntntnhtonhtonhotnoht",
         subtitle = "Kain 1m, ",
         deadline = "10 agustus 2025",
+        dayLeft = 11,
         isChecked = false
     ),
     OrderItemModel(
@@ -97,6 +109,7 @@ val dummyValueHistory = listOf(
         title = "Celana Budi",
         subtitle = "Bayar ketika selesai",
         deadline = "4 Juli 2025",
+        dayLeft = 11,
         isChecked = false
     ),
     OrderItemModel(
@@ -104,6 +117,7 @@ val dummyValueHistory = listOf(
         title = "Rok Kartika",
         subtitle = "Butuh cepat selesai sebelum juli",
         deadline = "30 Juni 2025",
+        dayLeft = 11,
         isChecked = false
     ),
     OrderItemModel(
@@ -111,6 +125,7 @@ val dummyValueHistory = listOf(
         title = "Batik Anto",
         subtitle = "Bahan disediakan pembeli",
         deadline = "25 Juni 2025",
+        dayLeft = 11,
         isChecked = false
     ),
     OrderItemModel(
@@ -118,6 +133,7 @@ val dummyValueHistory = listOf(
         title = "Batik Anto",
         subtitle = "Bahan disediakan pembeli",
         deadline = "25 Juni 2025",
+        dayLeft = 11,
         isChecked = false
     )
 )

@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
 fun CustomOutlinedTextField(
@@ -39,9 +40,44 @@ fun CustomOutlinedTextField(
         singleLine = false,
         isError = isError,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-        keyboardActions = KeyboardActions(onDone = { onDone()
-        keyboardController?.hide()
-        focusManager.clearFocus()})
+        keyboardActions = KeyboardActions(onDone = {
+            onDone()
+            keyboardController?.hide()
+            focusManager.clearFocus()
+        })
+    )
+}
+
+@Composable
+fun CustomOutlinedTextFieldNumber(
+    modifier: Modifier = Modifier,
+    placeHolder: String = "",
+    label: String = placeHolder,
+    value: String,
+    isError: Boolean = false,
+    onValueChange: (String) -> Unit,
+    onDone: () -> Unit = {}
+) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
+    OutlinedTextField(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.small,
+        value = value,
+        onValueChange = onValueChange,
+        placeholder = { Text(text = placeHolder) },
+        label = { Text(text = label) },
+        singleLine = false,
+        isError = isError,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(onDone = {
+            onDone()
+            keyboardController?.hide()
+            focusManager.clearFocus()
+        })
     )
 }
 
