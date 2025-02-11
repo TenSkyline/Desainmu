@@ -27,6 +27,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import com.example.desainmu.R
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -102,9 +103,14 @@ fun DatePickerModal(
 }
 
 fun convertMillisToDate(millis: Long): String {
-    val locale = Locale("id", "ID") // Indonesian locale
-    val formatter = SimpleDateFormat("dd MMMM yyyy", locale)
-    return formatter.format(Date(millis))
+    val calendar = Calendar.getInstance().apply { timeInMillis = millis }
+    val locale = Locale.getDefault()
+    val formatter = if (locale.language == "in") {
+        SimpleDateFormat("EEEE, dd MMMM yyyy", locale)
+    } else {
+        SimpleDateFormat("MMMM dd, yyyy", locale)
+    }
+    return formatter.format(calendar.time)
 }
 
 
