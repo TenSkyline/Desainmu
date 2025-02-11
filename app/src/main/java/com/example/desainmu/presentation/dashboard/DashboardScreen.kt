@@ -117,12 +117,10 @@ private fun SelectCategoryTabView() {
         ) {
             val selectedTab = tabs[selectedTabIndex]
             items(selectedTab.data) { item ->
-                if (selectedTab is DashboardTab.History) {
-                    HistoryItemView(item = item, onClick = { })
-                } else if (selectedTab is DashboardTab.Delayed) {
-                    DelayedItemView(item = item, onClick = { })
-                } else {
-                    OrderItemView(item = item, onClick = { })
+                when (selectedTab) {
+                    is DashboardTab.Order -> OrderItemView(item = item, onClick = { })
+                    DashboardTab.Delayed -> DelayedItemView(item = item, onClick = { })
+                    DashboardTab.History -> HistoryItemView(item = item, onClick = { })
                 }
             }
         }
@@ -137,29 +135,6 @@ sealed class DashboardTab(val title: String, val data: List<OrderItemModel>) {
     data object History : DashboardTab("Riwayat", dummyValueHistory)
 }
 
-//@Composable
-//private fun SelectCategoryTabView() {
-//    var selectedTab by remember{ mutableStateOf(OrderType.Order) }
-//    CustomTabRowView (
-//        selectedTabIndex = selectedTab.ordinal,
-//        tabWidth = 180.dp
-//    ) {
-//        OrderType.entries.forEach { tab ->
-//            val selected = selectedTab == tab
-//            CustomTabView (
-//                selected = selected,
-//                onClick = { selectedTab = tab }
-//            ) {
-//                Text(tab.title)
-//            }
-//        }
-//    }
-//}
-//enum class OrderType (val title:String){
-//    Order("Pesanan"),
-//    Delayed("Belum Bayar"),
-//    History("Riwayat")
-//}
 
 @Preview
 @Composable
