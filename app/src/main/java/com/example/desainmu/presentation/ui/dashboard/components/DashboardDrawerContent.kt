@@ -39,7 +39,7 @@ fun DashboardDrawerContent() {
 @Composable
 private fun DrawerTitle() {
     Text(
-        "Drawer Title",
+        "Menu",
         modifier = Modifier.padding(16.dp),
         style = MaterialTheme.typography.titleLarge
     )
