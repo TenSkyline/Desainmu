@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,10 +23,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 @Composable
-fun DashboardDrawerContent() {
+fun DashboardDrawerContent(onClick: () -> Unit, scope: CoroutineScope, drawerState: DrawerState) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
     val drawerWidth = screenWidth * 0.8f
@@ -38,7 +42,7 @@ fun DashboardDrawerContent() {
         ) {
             Spacer(Modifier.height(12.dp))
             DrawerTitle()
-            DrawerSection1()
+            DrawerSection1(onClick, scope, drawerState)
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
             DrawerSection2()
         }
@@ -56,16 +60,19 @@ private fun DrawerTitle() {
 }
 
 @Composable
-private fun DrawerSection1() {
+private fun DrawerSection1(onClick: () -> Unit, scope: CoroutineScope, drawerState: DrawerState) {
     NavigationDrawerItem(
-        label = { Text("Galeri") },
-        icon = {Icon(Icons.Filled.Star, contentDescription = "Galeri")},
+        label = { Text("Belum Bayar") },
+        icon = { Icon(Icons.Filled.Warning, contentDescription = "Belum Bayar") },
         selected = false,
-        onClick = { /* Handle click */ }
+        onClick = {
+            scope.launch { drawerState.close() }
+            onClick.invoke()
+        }
     )
     NavigationDrawerItem(
-        label = { Text("Disukai") },
-        icon = {Icon(Icons.Filled.Favorite, contentDescription = "Disukai")},
+        label = { Text("Riwayat") },
+        icon = { Icon(Icons.Filled.Done, contentDescription = "Riwayat") },
         selected = false,
         onClick = { /* Handle click */ }
     )
@@ -73,6 +80,18 @@ private fun DrawerSection1() {
 
 @Composable
 private fun DrawerSection2() {
+    NavigationDrawerItem(
+        label = { Text("Galeri") },
+        icon = { Icon(Icons.Filled.Star, contentDescription = "Galeri") },
+        selected = false,
+        onClick = { /* Handle click */ }
+    )
+    NavigationDrawerItem(
+        label = { Text("Disukai") },
+        icon = { Icon(Icons.Filled.Favorite, contentDescription = "Disukai") },
+        selected = false,
+        onClick = { /* Handle click */ }
+    )
 //    NavigationDrawerItem(
 //        label = { Text("Settings") },
 //        selected = false,

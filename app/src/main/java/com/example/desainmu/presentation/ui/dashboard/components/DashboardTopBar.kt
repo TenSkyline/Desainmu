@@ -2,7 +2,6 @@ package com.example.desainmu.presentation.ui.dashboard.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -34,11 +33,6 @@ fun DashboardTopBar(
                 }
             )
         },
-        actions = {
-            CustomIconButton(
-                icon = Icons.Default.Search,
-                onClick = { }
-            )
-        }
+        actions = {}
     )
 }

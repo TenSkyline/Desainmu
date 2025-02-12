@@ -31,7 +31,8 @@ internal fun AddOrderItemView(selectedDesign: Design, onSelectedDesign: (Design)
     ) { }
     DatePickerFieldToModal()
     Spacer(modifier = Modifier.height(16.dp))
-    DropdownTextField( label = "Pilih Desain Ukuran",
+    DropdownTextField( modifier = Modifier,
+        label = "Pilih Desain Ukuran",
         options = Design.entries.map { it.title },
         selectedOption = selectedDesign.title,
         onOptionSelected = {title->

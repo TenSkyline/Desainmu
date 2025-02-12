@@ -16,22 +16,22 @@ import com.example.desainmu.presentation.ui.dashboard.components.DashboardTopBar
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
-internal fun DashboardRoute(navigateToAddOrder: () -> Unit) {
-    DashboardScreen(navigateToAddOrder)
+internal fun DashboardRoute(navigateToAddOrder: () -> Unit, navigateToDelayedPayment: () -> Unit) {
+    DashboardScreen(navigateToAddOrder, navigateToDelayedPayment)
 }
 
 @Composable
-private fun DashboardScreen(onClick: () -> Unit = {}) {
+private fun DashboardScreen(navigateToAddOrder: () -> Unit, navigateToDelayedPayment: () -> Unit) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
     ModalNavigationDrawer(
+        drawerState = drawerState,
         drawerContent = {
-            DashboardDrawerContent()
+            DashboardDrawerContent(navigateToDelayedPayment, scope, drawerState)
         },
-        drawerState = drawerState
     ) {
-        DashboardScaffold(drawerState, scope, onClick)
+        DashboardScaffold(drawerState, scope, navigateToAddOrder)
     }
 }
 
