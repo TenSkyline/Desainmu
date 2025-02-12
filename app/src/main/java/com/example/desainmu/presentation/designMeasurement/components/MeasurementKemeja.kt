@@ -12,18 +12,18 @@ import com.example.desainmu.ui.component.CustomOutlinedTextFieldNumber
 @Composable
 internal fun MeasurementKemejaLView() {
     Row {
-        KemejaLBadan(modifier = Modifier)
+        KemejaLBadan(modifier = Modifier.weight(1f))
         Spacer(modifier = Modifier.size(16.dp))
-        KemejaLengan(modifier = Modifier)
+        KemejaLengan(modifier = Modifier.weight(1f))
     }
 }
 
 @Composable
 internal fun MeasurementKemejaPView() {
     Row {
-        KemejaPBadan(modifier = Modifier)
+        KemejaPBadan(modifier = Modifier.weight(1f))
         Spacer(modifier = Modifier.size(16.dp))
-        KemejaLengan(modifier = Modifier)
+        KemejaLengan(modifier = Modifier.weight(1f))
     }
 }
 

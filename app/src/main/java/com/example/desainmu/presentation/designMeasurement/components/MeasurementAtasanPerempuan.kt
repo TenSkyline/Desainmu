@@ -12,9 +12,9 @@ import com.example.desainmu.ui.component.CustomOutlinedTextFieldNumber
 @Composable
 internal fun MeasurementAtasanPView() {
     Row {
-        AtasanPBadan(modifier = Modifier)
+        AtasanPBadan(modifier = Modifier.weight(1f))
         Spacer(modifier = Modifier.size(16.dp))
-        AtasanPLengan(modifier = Modifier)
+        AtasanPLengan(modifier = Modifier.weight(1f))
     }
 }
 
