@@ -1,4 +1,4 @@
-package com.example.desainmu.presentation.ui.delayedPayment
+package com.example.desainmu.presentation.ui.history
 
 import android.app.Activity
 import android.view.inputmethod.InputMethodManager
@@ -36,32 +36,32 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.desainmu.presentation.common.sharedComponents.CustomIconButton
-import com.example.desainmu.presentation.ui.dashboard.components.DelayedItemView
+import com.example.desainmu.presentation.ui.dashboard.components.HistoryItemView
 import com.example.desainmu.presentation.ui.dashboard.components.OrderItemModel
 
 @Composable
-internal fun DelayedPaymentRoute(
+internal fun HistoryRoute(
     navigateUp: () -> Unit = {},
-    dummyValueDelayed: List<OrderItemModel>
+    dummyValueHistory: List<OrderItemModel>
 ) {
-    DelayedPaymentScreen(dummyValueDelayed, navigateUp)
+    HistoryScreen(dummyValueHistory, navigateUp)
 }
 
 @Composable
-internal fun DelayedPaymentScreen(dummyValueDelayed: List<OrderItemModel>, navigateUp: () -> Unit) {
-    DelayedPaymentScaffold(dummyValueDelayed = dummyValueDelayed, navigateUp = navigateUp)
+internal fun HistoryScreen(dummyValueHistory: List<OrderItemModel>, navigateUp: () -> Unit) {
+    HistoryScaffold(dummyValueHistory = dummyValueHistory, navigateUp = navigateUp)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DelayedPaymentScaffold(
+private fun HistoryScaffold(
     navigateUp: () -> Unit,
 //    onClick: () -> Unit = {},
-    dummyValueDelayed: List<OrderItemModel>
+    dummyValueHistory: List<OrderItemModel>
 ) {
     var searchQuery by remember { mutableStateOf("") }
     var isSearchActive by remember { mutableStateOf(false) }
-    val filteredList = dummyValueDelayed.filter {
+    val filteredList = dummyValueHistory.filter {
         it.title.contains(searchQuery, ignoreCase = true)
     }
     val focusManager = LocalFocusManager.current
@@ -71,7 +71,7 @@ private fun DelayedPaymentScaffold(
         modifier = Modifier,
         topBar = {
             TopAppBar(
-                title = { Text("Belum Bayar") },
+                title = { Text("Riwayat") },
                 navigationIcon = {
                     CustomIconButton(
                         icon = Icons.AutoMirrored.Filled.ArrowBack,
@@ -153,7 +153,7 @@ private fun DelayedPaymentScaffold(
                 ) {
                     if (filteredList.isNotEmpty()) {
                         items(filteredList) {
-                            DelayedItemView(item = it, onClick = {
+                            HistoryItemView(item = it, onClick = {
                                 // Handle the click event for this specific item
                                 // You can add navigation or other actions here
                             })
@@ -169,11 +169,3 @@ private fun DelayedPaymentScaffold(
         }
     )
 }
-
-
-//@Composable
-//fun DelayedPaymentView() {
-//     val delayed = DashboardTab.Delayed
-//
-//}
-

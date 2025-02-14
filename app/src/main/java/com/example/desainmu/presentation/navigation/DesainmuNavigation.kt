@@ -11,6 +11,8 @@ import com.example.desainmu.presentation.ui.delayedPayment.navigation.delayedPay
 import com.example.desainmu.presentation.ui.delayedPayment.navigation.navigateToDelayedPayment
 import com.example.desainmu.presentation.ui.designMeasurement.navigation.addOrderMeasurementScreen
 import com.example.desainmu.presentation.ui.designMeasurement.navigation.navigateToAddOrderMeasurement
+import com.example.desainmu.presentation.ui.history.navigation.historyScreen
+import com.example.desainmu.presentation.ui.history.navigation.navigateToHistory
 
 @Composable
 fun DesainmuNavigation(startDestination: String = DASHBOARD_ROUTE) {
@@ -20,6 +22,8 @@ fun DesainmuNavigation(startDestination: String = DASHBOARD_ROUTE) {
             navController.navigateToAddOrder()
         }, navigateToDelayedPayment = {
           navController.navigateToDelayedPayment()
+        }, navigateToHistory = {
+            navController.navigateToHistory()
         })
         addOrderScreen(navigateToMeasurement = {
             navController.navigateToAddOrderMeasurement(it.ordinal)
@@ -28,6 +32,7 @@ fun DesainmuNavigation(startDestination: String = DASHBOARD_ROUTE) {
         addOrderMeasurementScreen(navigateUp = { navController.navigateUp() })
         // Make sure you have this line!
         delayedPaymentScreen(navigateUp = { navController.navigateUp() })
+        historyScreen(navigateUp = { navController.navigateUp() })
     }
 }
 

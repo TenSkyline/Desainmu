@@ -12,8 +12,8 @@ fun NavController.navigateToDashboard(navOptions: NavOptions? = null) {
     navigate(DASHBOARD_ROUTE)
 }
 
-fun NavGraphBuilder.dashboardScreen(navigateToAddOrder: () -> Unit, navigateToDelayedPayment: () -> Unit) {
+fun NavGraphBuilder.dashboardScreen(navigateToAddOrder: () -> Unit, navigateToDelayedPayment: () -> Unit, navigateToHistory: () -> Unit) {
     composable(DASHBOARD_ROUTE) {
-        DashboardRoute(navigateToAddOrder = navigateToAddOrder, navigateToDelayedPayment = navigateToDelayedPayment)
+        DashboardRoute(navigateToAddOrder = navigateToAddOrder, navigateToDelayedPayment = navigateToDelayedPayment, navigateToHistory = navigateToHistory)
     }
 }

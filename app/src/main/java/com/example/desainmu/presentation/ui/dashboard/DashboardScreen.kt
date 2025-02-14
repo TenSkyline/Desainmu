@@ -23,19 +23,23 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun DashboardRoute(navigateToAddOrder: () -> Unit, navigateToDelayedPayment: () -> Unit) {
-    DashboardScreen(navigateToAddOrder, navigateToDelayedPayment)
+internal fun DashboardRoute(navigateToAddOrder: () -> Unit, navigateToDelayedPayment: () -> Unit, navigateToHistory: () -> Unit) {
+    DashboardScreen(navigateToAddOrder, navigateToDelayedPayment, navigateToHistory)
 }
 
 @Composable
-private fun DashboardScreen(navigateToAddOrder: () -> Unit, navigateToDelayedPayment: () -> Unit) {
+private fun DashboardScreen(
+    navigateToAddOrder: () -> Unit,
+    navigateToDelayedPayment: () -> Unit,
+    navigateToHistory: () -> Unit
+) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            DashboardDrawerContent(navigateToDelayedPayment, scope, drawerState)
+            DashboardDrawerContent(navigateToDelayedPayment, navigateToHistory, scope, drawerState)
         },
     ) {
 //        DashboardScaffold(drawerState, scope, navigateToAddOrder)

@@ -28,7 +28,12 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun DashboardDrawerContent(onClick: () -> Unit, scope: CoroutineScope, drawerState: DrawerState) {
+fun DashboardDrawerContent(
+    onClick: () -> Unit,
+    navigateToHistory: () -> Unit,
+    scope: CoroutineScope,
+    drawerState: DrawerState
+) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
     val drawerWidth = screenWidth * 0.8f
@@ -42,7 +47,7 @@ fun DashboardDrawerContent(onClick: () -> Unit, scope: CoroutineScope, drawerSta
         ) {
             Spacer(Modifier.height(12.dp))
             DrawerTitle()
-            DrawerSection1(onClick, scope, drawerState)
+            DrawerSection1(onClick, navigateToHistory, scope, drawerState)
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
             DrawerSection2()
         }
@@ -60,7 +65,7 @@ private fun DrawerTitle() {
 }
 
 @Composable
-private fun DrawerSection1(onClick: () -> Unit, scope: CoroutineScope, drawerState: DrawerState) {
+private fun DrawerSection1(onClick: () -> Unit, navigateToHistory: () -> Unit, scope: CoroutineScope, drawerState: DrawerState) {
     NavigationDrawerItem(
         label = { Text("Belum Bayar") },
         icon = { Icon(Icons.Filled.Warning, contentDescription = "Belum Bayar") },
@@ -74,7 +79,9 @@ private fun DrawerSection1(onClick: () -> Unit, scope: CoroutineScope, drawerSta
         label = { Text("Riwayat") },
         icon = { Icon(Icons.Filled.Done, contentDescription = "Riwayat") },
         selected = false,
-        onClick = { /* Handle click */ }
+        onClick = { scope.launch { drawerState.close() }
+            navigateToHistory.invoke()
+        }
     )
 }
 
