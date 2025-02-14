@@ -22,16 +22,27 @@ import com.example.desainmu.presentation.ui.dashboard.components.DashboardFloati
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+sealed class DashboardNav {
+    data object ToDelayed : DashboardNav()
+    data object ToHistory : DashboardNav()
+    data object ToAddOrder : DashboardNav()
+}
+
 @Composable
 internal fun DashboardRoute(navigateToAddOrder: () -> Unit, navigateToDelayedPayment: () -> Unit, navigateToHistory: () -> Unit) {
-    DashboardScreen(navigateToAddOrder, navigateToDelayedPayment, navigateToHistory)
+    val eventVariation: (DashboardNav) -> Unit = {
+        when (it) {
+            is DashboardNav.ToAddOrder -> navigateToAddOrder()
+            is DashboardNav.ToDelayed -> navigateToDelayedPayment()
+            is DashboardNav.ToHistory -> navigateToHistory()
+        }
+    }
+    DashboardScreen(navigationEvent = eventVariation)
 }
 
 @Composable
 private fun DashboardScreen(
-    navigateToAddOrder: () -> Unit,
-    navigateToDelayedPayment: () -> Unit,
-    navigateToHistory: () -> Unit
+    navigationEvent: (DashboardNav) -> Unit,
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -39,7 +50,7 @@ private fun DashboardScreen(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            DashboardDrawerContent(navigateToDelayedPayment, navigateToHistory, scope, drawerState)
+            DashboardDrawerContent(navigationEvent, scope, drawerState)
         },
     ) {
 //        DashboardScaffold(drawerState, scope, navigateToAddOrder)
@@ -47,7 +58,7 @@ private fun DashboardScreen(
             drawerState, scope) {
             Scaffold(
                 topBar = { MainMenuTopBar(title = "Halaman Utama", drawerState, scope) },
-                floatingActionButton = { DashboardFloatingActionButton(onClick = navigateToAddOrder) },
+                floatingActionButton = { DashboardFloatingActionButton(onClick = {navigationEvent.invoke(DashboardNav.ToAddOrder)}) },
                 content = { padding -> DashboardContent(padding) }
             )
         }

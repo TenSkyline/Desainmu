@@ -25,9 +25,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -35,6 +33,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.desainmu.presentation.common.sharedComponents.CustomIconButton
 import com.example.desainmu.presentation.ui.dashboard.components.DelayedItemView
 import com.example.desainmu.presentation.ui.dashboard.components.OrderItemModel
@@ -42,27 +42,27 @@ import com.example.desainmu.presentation.ui.dashboard.components.OrderItemModel
 @Composable
 internal fun DelayedPaymentRoute(
     navigateUp: () -> Unit = {},
-    dummyValueDelayed: List<OrderItemModel>
-) {
-    DelayedPaymentScreen(dummyValueDelayed, navigateUp)
-}
+    dummyValueDelayed: List<OrderItemModel>,
 
-@Composable
-internal fun DelayedPaymentScreen(dummyValueDelayed: List<OrderItemModel>, navigateUp: () -> Unit) {
-    DelayedPaymentScaffold(dummyValueDelayed = dummyValueDelayed, navigateUp = navigateUp)
+) {
+//    val viewModel = remember { DelayedPaymentViewModel() }
+    val viewModel: DelayedPaymentViewModel = viewModel()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    DelayedPaymentScreen(onEvent = viewModel::handleEvent, uiState, dummyValueDelayed, navigateUp)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DelayedPaymentScaffold(
-    navigateUp: () -> Unit,
-//    onClick: () -> Unit = {},
-    dummyValueDelayed: List<OrderItemModel>
+private fun DelayedPaymentScreen(
+    onEvent: (DelayedPaymentEvent) -> Unit,
+    uiState: DelayedPaymentState,
+    dummyValueDelayed: List<OrderItemModel>,
+    navigateUp: () -> Unit
 ) {
-    var searchQuery by remember { mutableStateOf("") }
-    var isSearchActive by remember { mutableStateOf(false) }
+//    var searchQuery by remember { mutableStateOf("") }
+//    val isSearchActive by remember { mutableStateOf(false) }
     val filteredList = dummyValueDelayed.filter {
-        it.title.contains(searchQuery, ignoreCase = true)
+        it.title.contains(uiState.searchQuery, ignoreCase = true)
     }
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
@@ -76,24 +76,34 @@ private fun DelayedPaymentScaffold(
                     CustomIconButton(
                         icon = Icons.AutoMirrored.Filled.ArrowBack,
                         onClick = {
-                            if (isSearchActive) {
-                                isSearchActive = false
-                                searchQuery = ""
+                            if (uiState.isSearchActive) {
+                                onEvent.invoke(DelayedPaymentEvent.UpdateSearchActive(false))
+                                onEvent.invoke(DelayedPaymentEvent.SearchItem(""))
                             } else {
                                 navigateUp.invoke()
                             }
+//                            if (isSearchActive) {
+//                                isSearchActive = false
+//                                searchQuery = ""
+//                            } else {
+//                                navigateUp.invoke()
+//                            }
                         }
                     )
                 },
                 actions = {
                     TextButton(onClick = {
-                        isSearchActive = !isSearchActive
-                        if (!isSearchActive) {
-                            searchQuery = ""
+                        onEvent.invoke(DelayedPaymentEvent.UpdateSearchActive(!uiState.isSearchActive))
+                        if (uiState.isSearchActive) {
+                            onEvent.invoke(DelayedPaymentEvent.SearchItem(""))
                         }
+//                        isSearchActive = !isSearchActive
+//                        if (!isSearchActive) {
+//                            searchQuery = ""
+//                        }
                     }) {
                         Text(
-                            text = if (isSearchActive) "Tutup" else "Cari",
+                            text = if (uiState.isSearchActive) "Tutup" else "Cari",
                             color = Color.Blue
                         )
                     }
@@ -106,10 +116,10 @@ private fun DelayedPaymentScaffold(
                     .padding(innerPadding)
                     .fillMaxSize()
             ) {
-                if (isSearchActive) {
+                if (uiState.isSearchActive) {
                     TextField(
-                        value = searchQuery,
-                        onValueChange = { searchQuery = it },
+                        value = uiState.searchQuery,
+                        onValueChange = { onEvent.invoke(DelayedPaymentEvent.SearchItem(it)) },
                         modifier = Modifier
                             .fillMaxWidth(),
                         placeholder = { Text("Cari judul pesanan") },
@@ -145,7 +155,7 @@ private fun DelayedPaymentScaffold(
                         )
                     )
                 } else {
-                    !isSearchActive
+                    !uiState.isSearchActive
                 }
                 LazyColumn(
                     contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp),
@@ -169,11 +179,4 @@ private fun DelayedPaymentScaffold(
         }
     )
 }
-
-
-//@Composable
-//fun DelayedPaymentView() {
-//     val delayed = DashboardTab.Delayed
-//
-//}
 
