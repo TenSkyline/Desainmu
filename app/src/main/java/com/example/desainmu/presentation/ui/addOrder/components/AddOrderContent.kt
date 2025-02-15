@@ -16,15 +16,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.desainmu.model.Design
-import com.example.desainmu.presentation.ui.addOrder.AddOrderEvent
+import com.example.desainmu.presentation.ui.addOrder.AddOrderNav
 import com.example.desainmu.presentation.ui.addOrder.AddOrderState
 
 @Composable
 fun AddOrderContent(
     padding: PaddingValues,
-    onClickDesign: (Design) -> Unit,
-    onEvent: (AddOrderEvent) -> Unit,
-    uiState: AddOrderState
+    navigationEvent: (AddOrderNav) -> Unit,
+    uiState: AddOrderState,
+//    onClickDesign: (Design) -> Unit,
+//    onEvent: (AddOrderEvent) -> Unit,
+//    uiState: AddOrderState
 ) {
     var selectedDesign by remember { mutableStateOf(Design.Kaos) }
     Box(
@@ -36,11 +38,13 @@ fun AddOrderContent(
         AddOrderDesignList(
             selectedDesign = selectedDesign,
             onSelectedDesign = { selectedDesign = it },
-            onEvent = onEvent,
+//            onEvent = onEvent,
+            onEvent = { navigationEvent.invoke(AddOrderNav.OnEvent(it)) },
             uiState = uiState
         )
         ElevatedButton(
-            onClick = { onClickDesign.invoke(selectedDesign) },
+//            onClick = { onClickDesign.invoke(selectedDesign) },
+            onClick = { navigationEvent.invoke(AddOrderNav.ToMeasurement(selectedDesign)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .align(alignment = Alignment.BottomCenter)

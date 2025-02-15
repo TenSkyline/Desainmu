@@ -11,28 +11,46 @@ import com.example.desainmu.presentation.theme.DesainmuTheme
 import com.example.desainmu.presentation.ui.addOrder.components.AddOrderContent
 import com.example.desainmu.presentation.ui.addOrder.components.AddOrderTopBar
 
+sealed class AddOrderNav {
+    data class ToMeasurement(val design: Design) : AddOrderNav()
+    data object NavigateUp : AddOrderNav()
+    data class OnEvent(val event: AddOrderEvent) : AddOrderNav()
+    data class UiState (val uiState: AddOrderState): AddOrderNav()
+}
+
 @Composable
 internal fun AddOrderRoute(navigateToMeasurement: (Design) -> Unit, navigateUp: () -> Unit = {}) {
     val viewModel: AddOrderViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    AddOrderScreen(
-        onClickDesign = navigateToMeasurement,
-        navigateUp,
-        onEvent = viewModel::handleEvent,
-        uiState
-    )
+    val eventVariation: (AddOrderNav) -> Unit = { nav ->
+        when (nav) {
+            is AddOrderNav.ToMeasurement -> navigateToMeasurement(nav.design)
+            is AddOrderNav.NavigateUp -> navigateUp()
+            is AddOrderNav.OnEvent -> viewModel.handleEvent(nav.event)
+            is AddOrderNav.UiState -> viewModel.uiState
+        }
+    }
+//    AddOrderScreen(
+//        onClickDesign = navigateToMeasurement,
+//        navigateUp,
+//        onEvent = viewModel::handleEvent,
+//        uiState
+//    )
+    AddOrderScreen(navigationEvent = eventVariation, uiState = uiState)
 }
 
 @Composable
-internal fun AddOrderScreen(
-    onClickDesign: (Design) -> Unit,
-    navigateUp: () -> Unit = {},
-    onEvent: (AddOrderEvent) -> Unit,
+fun AddOrderScreen(
+    navigationEvent: (AddOrderNav) -> Unit,
     uiState: AddOrderState
+//    onClickDesign: (Design) -> Unit,
+//    navigateUp: () -> Unit = {},
+//    onEvent: (AddOrderEvent) -> Unit,
+//    uiState: AddOrderState
 ) {
     Scaffold(
-        topBar = { AddOrderTopBar(navigateUp) },
-        content = { padding -> AddOrderContent(padding, onClickDesign, onEvent, uiState) }
+        topBar = { AddOrderTopBar(navigationEvent) },
+        content = { padding -> AddOrderContent(padding, navigationEvent, uiState) }
     )
 }
 
