@@ -13,29 +13,34 @@ import com.example.desainmu.model.Design
 import com.example.desainmu.presentation.common.sharedComponents.CustomOutlinedTextField
 import com.example.desainmu.presentation.common.sharedComponents.DatePickerFieldToModal
 import com.example.desainmu.presentation.common.sharedComponents.DropdownTextField
+import com.example.desainmu.presentation.ui.addOrder.AddOrderEvent
+import com.example.desainmu.presentation.ui.addOrder.AddOrderState
+import com.example.desainmu.presentation.ui.history.HistoryEvent
 
 @Composable
-internal fun AddOrderItemView(selectedDesign: Design, onSelectedDesign: (Design) -> Unit) {
-    var judul by remember { mutableStateOf("") }
-    var deskripsi by remember { mutableStateOf("") }
-
+internal fun AddOrderItemView(
+    selectedDesign: Design,
+    onSelectedDesign: (Design) -> Unit,
+    onEvent: (AddOrderEvent) -> Unit,
+    uiState: AddOrderState
+) {
     CustomOutlinedTextField(
         placeHolder = "Judul",
-        value = judul,
-        onValueChange = {judul = it}
+        value = uiState.title,
+        onValueChange = { onEvent.invoke(AddOrderEvent.Title(it)) }
     ) { }
     CustomOutlinedTextField(
         placeHolder = "Deskripsi",
-        value = deskripsi,
-        onValueChange = {deskripsi = it}
+        value = uiState.description,
+        onValueChange = { onEvent.invoke(AddOrderEvent.Description(it)) }
     ) { }
     DatePickerFieldToModal()
     Spacer(modifier = Modifier.height(16.dp))
-    DropdownTextField( modifier = Modifier,
+    DropdownTextField(modifier = Modifier,
         label = "Pilih Desain Ukuran",
         options = Design.entries.map { it.title },
         selectedOption = selectedDesign.title,
-        onOptionSelected = {title->
+        onOptionSelected = { title ->
             val design = Design.findByTitle(title)
             onSelectedDesign(design)
         }

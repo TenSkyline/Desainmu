@@ -25,9 +25,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -35,6 +32,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.desainmu.presentation.common.sharedComponents.CustomIconButton
 import com.example.desainmu.presentation.ui.dashboard.components.HistoryItemView
 import com.example.desainmu.presentation.ui.dashboard.components.OrderItemModel
@@ -44,25 +43,21 @@ internal fun HistoryRoute(
     navigateUp: () -> Unit = {},
     dummyValueHistory: List<OrderItemModel>
 ) {
-    HistoryScreen(dummyValueHistory, navigateUp)
-}
-
-@Composable
-internal fun HistoryScreen(dummyValueHistory: List<OrderItemModel>, navigateUp: () -> Unit) {
-    HistoryScaffold(dummyValueHistory = dummyValueHistory, navigateUp = navigateUp)
+    val viewModel: HistoryViewModel = viewModel()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    HistoryScreen(onEvent = viewModel::handleEvent, uiState, dummyValueHistory, navigateUp)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HistoryScaffold(
-    navigateUp: () -> Unit,
-//    onClick: () -> Unit = {},
-    dummyValueHistory: List<OrderItemModel>
+private fun HistoryScreen(
+    onEvent: (HistoryEvent) -> Unit,
+    uiState: HistoryState,
+    dummyValueHistory: List<OrderItemModel>,
+    navigateUp: () -> Unit
 ) {
-    var searchQuery by remember { mutableStateOf("") }
-    var isSearchActive by remember { mutableStateOf(false) }
     val filteredList = dummyValueHistory.filter {
-        it.title.contains(searchQuery, ignoreCase = true)
+        it.title.contains(uiState.searchQuery, ignoreCase = true)
     }
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
@@ -76,9 +71,9 @@ private fun HistoryScaffold(
                     CustomIconButton(
                         icon = Icons.AutoMirrored.Filled.ArrowBack,
                         onClick = {
-                            if (isSearchActive) {
-                                isSearchActive = false
-                                searchQuery = ""
+                            if (uiState.isSearchActive) {
+                                onEvent.invoke(HistoryEvent.UpdateSearchActive(false))
+                                onEvent.invoke(HistoryEvent.SearchItem(""))
                             } else {
                                 navigateUp.invoke()
                             }
@@ -87,13 +82,13 @@ private fun HistoryScaffold(
                 },
                 actions = {
                     TextButton(onClick = {
-                        isSearchActive = !isSearchActive
-                        if (!isSearchActive) {
-                            searchQuery = ""
+                        onEvent.invoke(HistoryEvent.UpdateSearchActive(!uiState.isSearchActive))
+                        if (uiState.isSearchActive) {
+                            onEvent.invoke(HistoryEvent.SearchItem(""))
                         }
                     }) {
                         Text(
-                            text = if (isSearchActive) "Tutup" else "Cari",
+                            text = if (uiState.isSearchActive) "Tutup" else "Cari",
                             color = Color.Blue
                         )
                     }
@@ -106,10 +101,10 @@ private fun HistoryScaffold(
                     .padding(innerPadding)
                     .fillMaxSize()
             ) {
-                if (isSearchActive) {
+                if (uiState.isSearchActive) {
                     TextField(
-                        value = searchQuery,
-                        onValueChange = { searchQuery = it },
+                        value = uiState.searchQuery,
+                        onValueChange = { onEvent.invoke(HistoryEvent.SearchItem(it)) },
                         modifier = Modifier
                             .fillMaxWidth(),
                         placeholder = { Text("Cari judul pesanan") },
@@ -145,7 +140,7 @@ private fun HistoryScaffold(
                         )
                     )
                 } else {
-                    !isSearchActive
+                    !uiState.isSearchActive
                 }
                 LazyColumn(
                     contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp),

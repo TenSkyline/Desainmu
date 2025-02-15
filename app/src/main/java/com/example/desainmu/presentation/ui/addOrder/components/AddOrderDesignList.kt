@@ -8,9 +8,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.desainmu.model.Design
+import com.example.desainmu.presentation.ui.addOrder.AddOrderEvent
+import com.example.desainmu.presentation.ui.addOrder.AddOrderState
 
 @Composable
-fun AddOrderDesignList(selectedDesign: Design, onSelectedDesign: (Design) -> Unit) {
+fun AddOrderDesignList(
+    selectedDesign: Design,
+    onSelectedDesign: (Design) -> Unit,
+    onEvent: (AddOrderEvent) -> Unit,
+    uiState: AddOrderState
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(bottom = 72.dp),
@@ -19,7 +26,9 @@ fun AddOrderDesignList(selectedDesign: Design, onSelectedDesign: (Design) -> Uni
         item {
             AddOrderItemView(
                 selectedDesign = selectedDesign,
-                onSelectedDesign = onSelectedDesign
+                onSelectedDesign = onSelectedDesign,
+                onEvent = onEvent,
+                uiState = uiState
             )
         }
     }
