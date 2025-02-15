@@ -8,14 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.desainmu.model.Design
 import com.example.desainmu.presentation.ui.addOrder.AddOrderNav
 import com.example.desainmu.presentation.ui.addOrder.AddOrderState
 
@@ -28,7 +23,7 @@ fun AddOrderContent(
 //    onEvent: (AddOrderEvent) -> Unit,
 //    uiState: AddOrderState
 ) {
-    var selectedDesign by remember { mutableStateOf(Design.Kaos) }
+//    val selectedDesign by remember { mutableStateOf(Design.Kaos) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -36,15 +31,15 @@ fun AddOrderContent(
             .padding(16.dp)
     ) {
         AddOrderDesignList(
-            selectedDesign = selectedDesign,
-            onSelectedDesign = { selectedDesign = it },
+//            selectedDesign = selectedDesign,
+//            onSelectedDesign = { selectedDesign = it },
 //            onEvent = onEvent,
             onEvent = { navigationEvent.invoke(AddOrderNav.OnEvent(it)) },
             uiState = uiState
         )
         ElevatedButton(
 //            onClick = { onClickDesign.invoke(selectedDesign) },
-            onClick = { navigationEvent.invoke(AddOrderNav.ToMeasurement(selectedDesign)) },
+            onClick = { navigationEvent.invoke(AddOrderNav.ToMeasurement(uiState.selectedDesign)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .align(alignment = Alignment.BottomCenter)

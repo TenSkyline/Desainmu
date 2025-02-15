@@ -7,14 +7,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.desainmu.model.Design
 import com.example.desainmu.presentation.ui.addOrder.AddOrderEvent
 import com.example.desainmu.presentation.ui.addOrder.AddOrderState
 
 @Composable
 fun AddOrderDesignList(
-    selectedDesign: Design,
-    onSelectedDesign: (Design) -> Unit,
+//    selectedDesign: Design,
+//    onSelectedDesign: (Design) -> Unit,
     onEvent: (AddOrderEvent) -> Unit,
     uiState: AddOrderState
 ) {
@@ -25,8 +24,8 @@ fun AddOrderDesignList(
     ) {
         item {
             AddOrderItemView(
-                selectedDesign = selectedDesign,
-                onSelectedDesign = onSelectedDesign,
+//                selectedDesign = selectedDesign,
+//                onSelectedDesign = onSelectedDesign,
                 onEvent = onEvent,
                 uiState = uiState
             )

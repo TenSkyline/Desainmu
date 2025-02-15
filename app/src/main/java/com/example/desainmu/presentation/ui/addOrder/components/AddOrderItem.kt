@@ -15,15 +15,15 @@ import com.example.desainmu.presentation.common.sharedComponents.DatePickerField
 import com.example.desainmu.presentation.common.sharedComponents.DropdownTextField
 import com.example.desainmu.presentation.ui.addOrder.AddOrderEvent
 import com.example.desainmu.presentation.ui.addOrder.AddOrderState
-import com.example.desainmu.presentation.ui.history.HistoryEvent
 
 @Composable
 internal fun AddOrderItemView(
-    selectedDesign: Design,
-    onSelectedDesign: (Design) -> Unit,
+//    selectedDesign: Design,
+//    onSelectedDesign: (Design) -> Unit,
     onEvent: (AddOrderEvent) -> Unit,
     uiState: AddOrderState
 ) {
+//    var selectedOption by remember { mutableStateOf(selectedDesign.title) }
     CustomOutlinedTextField(
         placeHolder = "Judul",
         value = uiState.title,
@@ -39,10 +39,15 @@ internal fun AddOrderItemView(
     DropdownTextField(modifier = Modifier,
         label = "Pilih Desain Ukuran",
         options = Design.entries.map { it.title },
-        selectedOption = selectedDesign.title,
+        selectedOption = uiState.selectedDesign.title,
         onOptionSelected = { title ->
             val design = Design.findByTitle(title)
-            onSelectedDesign(design)
+            onEvent(AddOrderEvent.SelectedDesign(design))
+//        selectedOption = selectedDesign.title,
+//        onOptionSelected = { title ->
+//            val design = Design.findByTitle(title)
+//            onSelectedDesign(design)
+//        }
         }
     )
 }
