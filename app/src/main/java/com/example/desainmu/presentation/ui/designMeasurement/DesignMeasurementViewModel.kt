@@ -17,6 +17,9 @@ class DesignMeasurementViewModel : ViewModel() {
             is DesignMeasurementEvent.BanTangan -> _uiState.update {
                 it.copy(banTangan = event.banTangan)
             }
+            is DesignMeasurementEvent.JarakBustier -> _uiState.update {
+                it.copy(jarakBustier = event.jarakBustier)
+            }
             is DesignMeasurementEvent.KerungLengan -> _uiState.update {
                 it.copy(kerungLengan = event.kerungLengan)
             }
@@ -37,6 +40,9 @@ class DesignMeasurementViewModel : ViewModel() {
             }
             is DesignMeasurementEvent.LingkarBadan -> _uiState.update {
                 it.copy(lingkarBadan = event.lingkarBadan)
+            }
+            is DesignMeasurementEvent.LingkarBawah -> _uiState.update {
+                it.copy(lingkarBawah = event.lingkarBawah)
             }
             is DesignMeasurementEvent.LingkarBawahCelana -> _uiState.update {
                 it.copy(lingkarBawahCelana = event.lingkarBawahCelana)
@@ -74,6 +80,12 @@ class DesignMeasurementViewModel : ViewModel() {
             is DesignMeasurementEvent.PanjangDada -> _uiState.update {
                 it.copy(panjangDada = event.panjangDada)
             }
+            is DesignMeasurementEvent.PanjangGamis -> _uiState.update {
+                it.copy(panjangGamis = event.panjangGamis)
+            }
+            is DesignMeasurementEvent.PanjangLengan -> _uiState.update {
+                it.copy(panjangLengan = event.panjangLengan)
+            }
             is DesignMeasurementEvent.PanjangLenganPanjang -> _uiState.update {
                 it.copy(panjangLenganPanjang = event.panjangLenganPanjang)
             }
@@ -97,6 +109,12 @@ class DesignMeasurementViewModel : ViewModel() {
             }
             is DesignMeasurementEvent.PanjangSiku -> _uiState.update {
                 it.copy(panjangSiku = event.panjangSiku)
+            }
+            is DesignMeasurementEvent.SisiBadan -> _uiState.update {
+                it.copy(sisiBadan = event.sisiBadan)
+            }
+            is DesignMeasurementEvent.TinggiBustier -> _uiState.update {
+                it.copy(tinggiBustier = event.tinggiBustier)
             }
             is DesignMeasurementEvent.TinggiDuduk -> _uiState.update {
                 it.copy(tinggiDuduk = event.tinggiDuduk)

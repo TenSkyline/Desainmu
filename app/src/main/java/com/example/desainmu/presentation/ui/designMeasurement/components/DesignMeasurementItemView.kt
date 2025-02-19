@@ -16,19 +16,19 @@ internal fun DesignMeasurementItemView (
             MeasurementKaosView(onEvent = onEvent, uiState = uiState)
         }
         Design.Celana -> {
-            MeasurementCelanaView()
+            MeasurementCelanaView(onEvent = onEvent, uiState = uiState)
         }
         Design.KemejaL -> {
-            MeasurementKemejaLView()
+            MeasurementKemejaLView(onEvent = onEvent, uiState = uiState)
         }
         Design.KemejaP -> {
-            MeasurementKemejaPView()
+            MeasurementKemejaPView(onEvent = onEvent, uiState = uiState)
         }
         Design.Rok -> {
-            MeasurementRokView()
+            MeasurementRokView(onEvent = onEvent, uiState = uiState)
         }
         Design.AtasanPerempuan -> {
-            MeasurementAtasanPView()
+            MeasurementAtasanPView(onEvent = onEvent, uiState = uiState)
         }
     }
 }

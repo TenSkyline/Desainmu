@@ -4,69 +4,80 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.desainmu.presentation.common.sharedComponents.CustomOutlinedTextFieldNumber
+import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementEvent
+import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementState
 
 @Composable
-internal fun MeasurementCelanaView() {
-    Celana(modifier = Modifier)
+internal fun MeasurementCelanaView(
+    onEvent: (DesignMeasurementEvent) -> Unit,
+    uiState: DesignMeasurementState
+) {
+    Celana(
+        modifier = Modifier,
+        onEvent = onEvent,
+        uiState = uiState)
 }
 
 @Composable
-fun Celana (modifier: Modifier) {
+fun Celana (
+    modifier: Modifier,
+    onEvent: (DesignMeasurementEvent) -> Unit,
+    uiState: DesignMeasurementState) {
     Column (modifier = modifier){
         CustomOutlinedTextFieldNumber(
             placeHolder = "Lingkar Pinggang",
-            value = "",
-            onValueChange = {}
+            value = uiState.lingkarPinggang,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LingkarPinggang(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Lingkar Panggul 1",
-            value = "",
-            onValueChange = {}
+            value = uiState.lingkarPanggul1,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LingkarPanggul1(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Lingkar Panggul 2",
-            value = "",
-            onValueChange = {}
+            value = uiState.lingkarPanggul2,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LingkarPanggul2(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Tinggi Panggul",
-            value = "",
-            onValueChange = {}
+            value = uiState.tinggiPanggul,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.TinggiPanggul(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Lingkar Miatak",
-            value = "",
-            onValueChange = {}
+            value = uiState.lingkarMiatak,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LingkarMiatak(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Paha Atas",
-            value = "",
-            onValueChange = {}
+            value = uiState.pahaAtas,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PahaAtas(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Panjang Celana",
-            value = "",
-            onValueChange = {}
+            value = uiState.panjangCelana,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangCelana(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Panjang Lutut",
-            value = "",
-            onValueChange = {}
+            value = uiState.panjangLutut,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangLutut(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Lingkar Lutut",
-            value = "",
-            onValueChange = {}
+            value = uiState.lingkarLutut,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LingkarLutut(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Lingkar Bawah Celana",
-            value = "",
-            onValueChange = {}
+            value = uiState.lingkarBawahCelana,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LingkarBawahCelana(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Tinggi Duduk",
-            value = "",
-            onValueChange = {}
+            value = uiState.tinggiDuduk,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.TinggiDuduk(it))}
         ) { }
     }
 }

@@ -4,39 +4,51 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.desainmu.presentation.common.sharedComponents.CustomOutlinedTextFieldNumber
+import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementEvent
+import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementState
 
 @Composable
-internal fun MeasurementRokView() {
-    Rok(modifier = Modifier)
+internal fun MeasurementRokView(
+    onEvent: (DesignMeasurementEvent) -> Unit,
+    uiState: DesignMeasurementState
+) {
+    Rok(
+        modifier = Modifier,
+        onEvent = onEvent,
+        uiState = uiState
+        )
 }
 
 @Composable
-fun Rok (modifier: Modifier) {
+fun Rok (
+    modifier: Modifier,
+    onEvent: (DesignMeasurementEvent) -> Unit,
+    uiState: DesignMeasurementState) {
     Column (modifier = modifier){
         CustomOutlinedTextFieldNumber(
             placeHolder = "Lingkar Pinggang",
-            value = "",
-            onValueChange = {}
+            value = uiState.lingkarPinggang,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LingkarPinggang(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Lingkar Panggul 1",
-            value = "",
-            onValueChange = {}
+            value = uiState.lingkarPanggul1,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LingkarPanggul1(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Lingkar Panggul 2",
-            value = "",
-            onValueChange = {}
+            value = uiState.lingkarPanggul2,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LingkarPanggul2(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Tinggi Panggul",
-            value = "",
-            onValueChange = {}
+            value = uiState.tinggiPanggul,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.TinggiPanggul(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Panjang Rok",
-            value = "",
-            onValueChange = {}
+            value = uiState.panjangRok,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangRok(it))}
         ) { }
     }
 }
