@@ -12,6 +12,7 @@ import com.example.desainmu.presentation.ui.addOrder.components.AddOrderContent
 import com.example.desainmu.presentation.ui.addOrder.components.AddOrderTopBar
 
 sealed class AddOrderNav {
+    //class ini tidak diperlukan sebenarnya jika sudah punya AddOrderEvent
     data class ToMeasurement(val design: Design) : AddOrderNav()
     data object NavigateUp : AddOrderNav()
     data class OnEvent(val event: AddOrderEvent) : AddOrderNav()

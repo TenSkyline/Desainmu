@@ -24,6 +24,6 @@ fun NavGraphBuilder.addOrderMeasurementScreen(navigateUp: () -> Unit = {}) {
     composable(route, arguments) { backStackEntry ->
         val designArgs = backStackEntry.arguments?.getInt(DesignArgs) ?: 0
         val design = Design.entries.find{ it.ordinal == designArgs } ?: Design.Kaos
-        AddOrderMeasurementRoute(design = design, navigateUp)
+        AddOrderMeasurementRoute(design = design, navigateUp = navigateUp)
     }
 }

@@ -2,12 +2,18 @@ package com.example.desainmu.presentation.ui.designMeasurement.components
 
 import androidx.compose.runtime.Composable
 import com.example.desainmu.model.Design
+import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementEvent
+import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementState
 
 @Composable
-internal fun DesignMeasurementItemView (selectedDesign: Design) {
+internal fun DesignMeasurementItemView (
+    selectedDesign: Design,
+    onEvent: (DesignMeasurementEvent) -> Unit,
+    uiState: DesignMeasurementState
+) {
     when (selectedDesign) {
         Design.Kaos -> {
-            MeasurementKaosView()
+            MeasurementKaosView(onEvent = onEvent, uiState = uiState)
         }
         Design.Celana -> {
             MeasurementCelanaView()
