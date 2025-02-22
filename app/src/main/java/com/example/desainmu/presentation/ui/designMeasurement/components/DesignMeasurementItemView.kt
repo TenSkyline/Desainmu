@@ -12,8 +12,8 @@ internal fun DesignMeasurementItemView (
     uiState: DesignMeasurementState
 ) {
     when (selectedDesign) {
-        Design.Kaos -> {
-            MeasurementKaosView(onEvent = onEvent, uiState = uiState)
+        Design.KaosLakiPolaDasar -> {
+            MeasurementKaosLakiPolaDasarView(onEvent = onEvent, uiState = uiState)
         }
         Design.Celana -> {
             MeasurementCelanaView(onEvent = onEvent, uiState = uiState)

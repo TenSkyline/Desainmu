@@ -20,12 +20,12 @@ sealed class AddOrderNav {
 }
 
 @Composable
-internal fun AddOrderRoute(navigateToMeasurement: (Design) -> Unit, navigateUp: () -> Unit = {}) {
+internal fun AddOrderRoute(navigateToDesignMeasurement: (Design) -> Unit, navigateUp: () -> Unit = {}) {
     val viewModel: AddOrderViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val eventVariation: (AddOrderNav) -> Unit = { nav ->
         when (nav) {
-            is AddOrderNav.ToMeasurement -> navigateToMeasurement(nav.design)
+            is AddOrderNav.ToMeasurement -> navigateToDesignMeasurement(nav.design)
             is AddOrderNav.NavigateUp -> navigateUp()
             is AddOrderNav.OnEvent -> viewModel.handleEvent(nav.event)
             is AddOrderNav.UiState -> viewModel.uiState

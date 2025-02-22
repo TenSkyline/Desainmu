@@ -6,7 +6,7 @@ import java.time.LocalDate
 data class AddOrderState (
     val title: String = "",
     val description: String = "",
-    val selectedDesign: Design = Design.Kaos,
+    val selectedDesign: Design = Design.KaosLakiPolaDasar,
     val selectedDate: LocalDate = LocalDate.now()
 )
 

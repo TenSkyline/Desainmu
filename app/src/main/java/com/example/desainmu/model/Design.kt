@@ -1,7 +1,7 @@
 package com.example.desainmu.model
 
 enum class Design(val title: String) {
-    Kaos("Kaos L/P Pola Dasar"),
+    KaosLakiPolaDasar("Kaos Laki Pola Dasar"),
     Celana("Celana L/P Pola Dasar"),
     KemejaL("Kemeja Laki Pola Dasar"),
     KemejaP("Kemeja Perempuan Pola Dasar"),

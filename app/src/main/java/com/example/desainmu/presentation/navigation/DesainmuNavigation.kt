@@ -9,10 +9,12 @@ import com.example.desainmu.presentation.ui.dashboard.navigation.DASHBOARD_ROUTE
 import com.example.desainmu.presentation.ui.dashboard.navigation.dashboardScreen
 import com.example.desainmu.presentation.ui.delayedPayment.navigation.delayedPaymentScreen
 import com.example.desainmu.presentation.ui.delayedPayment.navigation.navigateToDelayedPayment
-import com.example.desainmu.presentation.ui.designMeasurement.navigation.addOrderMeasurementScreen
-import com.example.desainmu.presentation.ui.designMeasurement.navigation.navigateToAddOrderMeasurement
+import com.example.desainmu.presentation.ui.designMeasurement.navigation.designMeasurementScreen
+import com.example.desainmu.presentation.ui.designMeasurement.navigation.navigateToDesignMeasurement
 import com.example.desainmu.presentation.ui.history.navigation.historyScreen
 import com.example.desainmu.presentation.ui.history.navigation.navigateToHistory
+import com.example.desainmu.presentation.ui.result.navigation.navigateToResult
+import com.example.desainmu.presentation.ui.result.navigation.resultScreen
 
 @Composable
 fun DesainmuNavigation(startDestination: String = DASHBOARD_ROUTE) {
@@ -21,18 +23,22 @@ fun DesainmuNavigation(startDestination: String = DASHBOARD_ROUTE) {
         dashboardScreen(navigateToAddOrder = {
             navController.navigateToAddOrder()
         }, navigateToDelayedPayment = {
-          navController.navigateToDelayedPayment()
+            navController.navigateToDelayedPayment()
         }, navigateToHistory = {
             navController.navigateToHistory()
         })
-        addOrderScreen(navigateToMeasurement = {
-            navController.navigateToAddOrderMeasurement(it.ordinal)
+        addOrderScreen(navigateToDesignMeasurement = {
+            navController.navigateToDesignMeasurement(it.ordinal)
         },
             navigateUp = { navController.navigateUp() })
-        addOrderMeasurementScreen(navigateUp = { navController.navigateUp() })
-        // Make sure you have this line!
+        designMeasurementScreen(navigateToResult = {
+            navController.navigateToResult()
+        },
+            navigateUp = { navController.navigateUp() })
+
         delayedPaymentScreen(navigateUp = { navController.navigateUp() })
         historyScreen(navigateUp = { navController.navigateUp() })
+        resultScreen(navigateUp = { navController.navigateUp() })
     }
 }
 

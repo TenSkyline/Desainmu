@@ -12,7 +12,7 @@ import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementE
 import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementState
 
 @Composable
-internal fun MeasurementKaosView(
+internal fun MeasurementKaosLakiPolaDasarView(
     onEvent: (DesignMeasurementEvent) -> Unit,
     uiState: DesignMeasurementState
 ) {
@@ -40,49 +40,19 @@ fun KaosBadan(
     Column(modifier = modifier) {
 
         CustomOutlinedTextFieldNumber(
-            placeHolder = "Lingkar Leher",
-            value = uiState.lingkarLeher,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LingkarLeher(it))}
-        ) { }
-        CustomOutlinedTextFieldNumber(
             placeHolder = "Lingkar Badan",
             value = uiState.lingkarBadan,
             onValueChange = {onEvent.invoke(DesignMeasurementEvent.LingkarBadan(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
-            placeHolder = "Panjang Dada",
-            value = uiState.panjangDada,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangDada(it))}
+            placeHolder = "Panjang Seluruh Bahu",
+            value = uiState.panjangSeluruhBahu,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangSeluruhBahu(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
-            placeHolder = "Lebar Dada",
-            value = uiState.lebarDada,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LebarDada(it))}
-        ) { }
-        CustomOutlinedTextFieldNumber(
-            placeHolder = "Panjang Seluruhnya",
-            value = uiState.panjangSeluruhnya,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangSeluruhnya(it))}
-        ) { }
-        CustomOutlinedTextFieldNumber(
-            placeHolder = "Panjang Bahu",
-            value = uiState.panjangBahu,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangBahu(it))}
-        ) { }
-        CustomOutlinedTextFieldNumber(
-            placeHolder = "Panjang Punggung",
-            value = uiState.panjangPunggung,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangPunggung(it))}
-        ) { }
-        CustomOutlinedTextFieldNumber(
-            placeHolder = "Lebar Punggung",
-            value = uiState.lebarPunggung,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LebarPunggung(it))}
-        ) { }
-        CustomOutlinedTextFieldNumber(
-            placeHolder = "Kerung Lengan",
-            value = uiState.kerungLengan,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.KerungLengan(it))}
+            placeHolder = "Panjang Baju",
+            value = uiState.panjangBaju,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangBaju(it))}
         ) { }
     }
 }

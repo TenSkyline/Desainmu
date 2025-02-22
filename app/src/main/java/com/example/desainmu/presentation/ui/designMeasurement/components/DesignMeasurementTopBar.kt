@@ -11,7 +11,7 @@ import com.example.desainmu.presentation.common.sharedComponents.CustomIconButto
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddOrderMeasurementTopBar(design: Design, navigateUp: () -> Unit) {
+fun DesignMeasurementTopBar(design: Design, navigateUp: () -> Unit) {
     TopAppBar(
         title = { Text("Pengukuran ${design.title}") },
         navigationIcon = {

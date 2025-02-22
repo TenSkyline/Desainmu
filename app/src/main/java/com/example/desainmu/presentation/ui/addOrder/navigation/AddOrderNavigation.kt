@@ -13,8 +13,8 @@ fun NavController.navigateToAddOrder(navOptions: NavOptions? = null) {
     navigate(ADD_ORDER_ROUTE, navOptions)
 }
 
-fun NavGraphBuilder.addOrderScreen(navigateToMeasurement: (Design) -> Unit, navigateUp: () -> Unit = {}) {
+fun NavGraphBuilder.addOrderScreen(navigateToDesignMeasurement: (Design) -> Unit, navigateUp: () -> Unit = {}) {
     composable(ADD_ORDER_ROUTE) {
-        AddOrderRoute(navigateToMeasurement = navigateToMeasurement, navigateUp)
+        AddOrderRoute(navigateToDesignMeasurement = navigateToDesignMeasurement, navigateUp)
     }
 }
