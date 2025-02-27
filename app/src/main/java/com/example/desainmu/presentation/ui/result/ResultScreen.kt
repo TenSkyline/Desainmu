@@ -5,12 +5,17 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +35,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -63,12 +69,11 @@ internal fun ResultScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding)
+                    .padding(16.dp)
             ) {
                 item {
                     Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         ZoomableImage(
@@ -81,16 +86,7 @@ internal fun ResultScreen(
                     }
                 }
                 item{
-                    Text("Bagian Depan")
-                    Text("AF = ${uiState.lineAF} cm")
-                    Text("AE = ${uiState.lineAE} cm")
-                    Text("AK = ${uiState.lineAK} cm")
-                    Text("AB/DC = ${uiState.lineABDC} cm")
-                    Text("AI/DJ = ${uiState.lineAIDJ} cm")
-                    Text("AL/GH = ${uiState.lineALGH} cm")
-                    Text("AD/IJ/BC = ${uiState.lineADIJBC} cm")
-                    Text("FG = ${uiState.lineFG} cm")
-                    Text("Bagian Belakang")
+                    ResultDetails(uiState = ResultState())
                 }
                 item {
                     ElevatedButton(
@@ -116,7 +112,8 @@ fun ZoomableImage(
     var scale by remember { mutableFloatStateOf(1f) }
     var offset by remember { mutableStateOf(Offset.Zero) }
     Box(
-        modifier = modifier.clip(RectangleShape)
+        modifier = modifier
+            .clip(RectangleShape)
             .pointerInput(Unit) {
                 detectTransformGestures { _, pan, zoom, _ ->
                     scale = (scale * zoom).coerceIn(1f, 5f)
@@ -144,6 +141,41 @@ fun ZoomableImage(
             contentScale = ContentScale.Fit
         )
     }
+}
+
+@Composable
+fun ResultDetails(uiState: ResultState) {
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text(
+            text = "Bagian Depan",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        ResultRow(label = "AF", value = uiState.lineAF)
+        ResultRow(label = "AE", value = uiState.lineAE)
+        ResultRow(label = "AK", value = uiState.lineAK)
+        ResultRow(label = "AB/DC", value = uiState.lineABDC)
+        ResultRow(label = "AI/DJ", value = uiState.lineAIDJ.toString())
+        ResultRow(label = "AL/GH", value = uiState.lineALGH)
+        ResultRow(label = "AD/IJ/BC", value = uiState.lineADIJBC.toString())
+        ResultRow(label = "FG", value = uiState.lineFG.toString())
+
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider()
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = "Bagian Belakang",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@Composable
+fun ResultRow(label: String, value: String) {
+    Text(text = "$label = $value cm", style = MaterialTheme.typography.bodyMedium)
 }
 
 @Preview
