@@ -14,16 +14,16 @@ class ResultViewModel : ViewModel() {
     val uiState: StateFlow<ResultState> get() = _uiState.asStateFlow()
 
     fun handleEvent(event: ResultEvent) {
-        when (event) {
-            is ResultEvent.LingkarBadan -> _uiState.update {
-                it.copy(lingkarBadan = event.lingkarBadan)
-            }
-            is ResultEvent.PanjangBaju -> _uiState.update {
-                it.copy(panjangBaju = event.panjangBaju)
-            }
-            is ResultEvent.PanjangSeluruhBahu -> _uiState.update {
-                it.copy(panjangSeluruhBahu = event.panjangSeluruhBahu)
-            }
-        }
+//        when (event) {
+//            is ResultEvent.LingkarBadan -> _uiState.update {
+//                it.copy(lingkarBadan = event.lingkarBadan)
+//            }
+//            is ResultEvent.PanjangBaju -> _uiState.update {
+//                it.copy(panjangBaju = event.panjangBaju)
+//            }
+//            is ResultEvent.PanjangSeluruhBahu -> _uiState.update {
+//                it.copy(panjangSeluruhBahu = event.panjangSeluruhBahu)
+//            }
+//        }
     }
 }
