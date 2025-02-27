@@ -81,7 +81,16 @@ internal fun ResultScreen(
                     }
                 }
                 item{
-                    Text("Lingkar Badan: ${uiState.resultIJ}")
+                    Text("Bagian Depan")
+                    Text("AF = ${uiState.lineAF} cm")
+                    Text("AE = ${uiState.lineAE} cm")
+                    Text("AK = ${uiState.lineAK} cm")
+                    Text("AB/DC = ${uiState.lineABDC} cm")
+                    Text("AI/DJ = ${uiState.lineAIDJ} cm")
+                    Text("AL/GH = ${uiState.lineALGH} cm")
+                    Text("AD/IJ/BC = ${uiState.lineADIJBC} cm")
+                    Text("FG = ${uiState.lineFG} cm")
+                    Text("Bagian Belakang")
                 }
                 item {
                     ElevatedButton(
