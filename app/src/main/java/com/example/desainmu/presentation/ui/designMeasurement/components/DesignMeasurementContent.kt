@@ -20,7 +20,7 @@ import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementS
 fun AddOrderMeasurementContent(
     padding: PaddingValues,
     navigateToResult: () -> Unit,
-    design: Design,
+    selectedDesign: Design,
     onEvent: (DesignMeasurementEvent) -> Unit,
     uiState: DesignMeasurementState
 ) {
@@ -32,7 +32,7 @@ fun AddOrderMeasurementContent(
             .padding(16.dp)
     ) {
 //        AddOrderMeasurementList(selectedDesign = selectedDesign)
-        AddOrderMeasurementList(design = design, onEvent = onEvent, uiState = uiState)
+        AddOrderMeasurementList(selectedDesign = selectedDesign, onEvent = onEvent, uiState = uiState)
         ElevatedButton(
             onClick = {
                 DesignInput.data = uiState

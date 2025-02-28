@@ -16,12 +16,12 @@ import com.example.desainmu.presentation.ui.designMeasurement.components.DesignM
 internal fun DesignMeasurementRoute(
     navigateToResult: () -> Unit,
     navigateUp: () -> Unit = {},
-    design: Design,
+    selectedDesign: Design,
     ){
     val viewModel: DesignMeasurementViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    DesignMeasurementScreen(navigateToResult = navigateToResult, onEvent = viewModel::handleEvent, uiState, design = design, navigateUp)
+    DesignMeasurementScreen(navigateToResult = navigateToResult, onEvent = viewModel::handleEvent, uiState, selectedDesign = selectedDesign, navigateUp)
 }
 
 @Composable
@@ -29,11 +29,11 @@ internal fun DesignMeasurementScreen(
     navigateToResult: () -> Unit,
     onEvent: (DesignMeasurementEvent) -> Unit,
     uiState: DesignMeasurementState,
-    design: Design,
+    selectedDesign: Design,
     navigateUp: () -> Unit = {}) {
     Scaffold(
-        topBar = { DesignMeasurementTopBar(design, navigateUp) },
-        content = { padding -> AddOrderMeasurementContent(padding, navigateToResult = navigateToResult, design = design, onEvent = onEvent, uiState = uiState) }
+        topBar = { DesignMeasurementTopBar(selectedDesign, navigateUp) },
+        content = { padding -> AddOrderMeasurementContent(padding, navigateToResult = navigateToResult, selectedDesign = selectedDesign, onEvent = onEvent, uiState = uiState) }
     )
 }
 

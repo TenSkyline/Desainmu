@@ -13,7 +13,7 @@ import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementS
 
 @Composable
 fun AddOrderMeasurementList(
-    design: Design,
+    selectedDesign: Design,
     onEvent: (DesignMeasurementEvent) -> Unit,
     uiState: DesignMeasurementState
 ) {
@@ -24,7 +24,7 @@ fun AddOrderMeasurementList(
     ) {
         item {
 //            DesignMeasurementItemView(selectedDesign = selectedDesign)
-            DesignMeasurementItemView(selectedDesign = design, onEvent = onEvent, uiState = uiState)
+            DesignMeasurementItemView(selectedDesign = selectedDesign, onEvent = onEvent, uiState = uiState)
         }
     }
 }

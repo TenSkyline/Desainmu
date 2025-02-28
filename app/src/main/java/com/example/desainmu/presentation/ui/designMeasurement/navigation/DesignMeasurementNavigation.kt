@@ -24,6 +24,6 @@ fun NavGraphBuilder.designMeasurementScreen(navigateToResult: () -> Unit, naviga
     composable(route, arguments) { backStackEntry ->
         val designArgs = backStackEntry.arguments?.getInt(DesignArgs) ?: 0
         val design = Design.entries.find{ it.ordinal == designArgs } ?: Design.KaosLakiPolaDasar
-        DesignMeasurementRoute(navigateToResult = navigateToResult, design = design, navigateUp = navigateUp)
+        DesignMeasurementRoute(navigateToResult = navigateToResult, selectedDesign = design, navigateUp = navigateUp)
     }
 }

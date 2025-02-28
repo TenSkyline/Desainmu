@@ -4,13 +4,13 @@ import com.example.desainmu.model.DesignInput
 
 
 data class ResultState(
-    val lineAF: String = "7",
     val lineAK: String = "3",
     val lineALGH: String = "4",
     val lineAE: String = "5",
+    val lineAF: String = "7",
 ) {
-    val lineABDC: String get() {
-        val resultAB = DesignInput.data.panjangBaju
+    val lineABDC: Double get() {
+        val resultAB = DesignInput.data.panjangBaju.toDoubleOrNull() ?: 0.0
         return resultAB
     }
     val lineAIDJ: Double get() {
@@ -21,13 +21,13 @@ data class ResultState(
         val resultADIJBC = DesignInput.data.lingkarBadan.toDoubleOrNull() ?: 0.0
         return resultADIJBC / 4
     }
-    val lineFG: Double get() {
-        val resultFG = DesignInput.data.panjangSeluruhBahu.toDoubleOrNull() ?: 0.0
-        return resultFG
+    val lineAG: Double get() {
+        val resultAG = DesignInput.data.panjangSeluruhBahu.toDoubleOrNull() ?: 0.0
+        return resultAG / 2
     }
-    val lineQP: Double get() {
-        val resultQP = DesignInput.data.panjangBaju.toDoubleOrNull() ?: 0.0
-        return resultQP
+    val lineHJ: Double get() {
+        val resultHJ = DesignInput.data.lingkarBadan.toDoubleOrNull() ?: 0.0
+        return resultHJ / 4
     }
 }
 
