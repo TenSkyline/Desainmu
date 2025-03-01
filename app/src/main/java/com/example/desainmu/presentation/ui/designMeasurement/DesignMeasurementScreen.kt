@@ -14,7 +14,7 @@ import com.example.desainmu.presentation.ui.designMeasurement.components.DesignM
 
 @Composable
 internal fun DesignMeasurementRoute(
-    navigateToResult: () -> Unit,
+    navigateToResult: (Design) -> Unit,
     navigateUp: () -> Unit = {},
     selectedDesign: Design,
     ){
@@ -26,7 +26,7 @@ internal fun DesignMeasurementRoute(
 
 @Composable
 internal fun DesignMeasurementScreen(
-    navigateToResult: () -> Unit,
+    navigateToResult: (Design) -> Unit,
     onEvent: (DesignMeasurementEvent) -> Unit,
     uiState: DesignMeasurementState,
     selectedDesign: Design,

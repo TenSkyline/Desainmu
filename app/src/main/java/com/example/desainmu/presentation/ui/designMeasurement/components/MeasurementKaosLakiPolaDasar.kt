@@ -64,24 +64,24 @@ fun KaosLengan(
     uiState: DesignMeasurementState) {
     Column(modifier = modifier) {
         CustomOutlinedTextFieldNumber(
-            placeHolder = "Panjang Lengan Panjang",
-            value = uiState.panjangLenganPanjang,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangLenganPanjang(it))}
+            placeHolder = "Panjang Lengan",
+            value = uiState.panjangLengan,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangLengan(it))}
         ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Lebar Lengan Panjang",
-            value = uiState.lebarLenganPanjang,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LebarLenganPanjang(it))}
+            value = uiState.lebarLengan,
+            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LebarLengan(it))}
         ) { }
-        CustomOutlinedTextFieldNumber(
-            placeHolder = "Panjang Lengan Pendek",
-            value = uiState.panjangLenganPendek,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangLenganPendek(it))}
-        ) { }
-        CustomOutlinedTextFieldNumber(
-            placeHolder = "Lebar Lengan Pendek",
-            value = uiState.lebarLenganPendek,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LebarLenganPendek(it))}
-        ) { }
+//        CustomOutlinedTextFieldNumber(
+//            placeHolder = "Panjang Lengan Pendek",
+//            value = uiState.panjangLenganPendek,
+//            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangLenganPendek(it))}
+//        ) { }
+//        CustomOutlinedTextFieldNumber(
+//            placeHolder = "Lebar Lengan Pendek",
+//            value = uiState.lebarLenganPendek,
+//            onValueChange = {onEvent.invoke(DesignMeasurementEvent.LebarLenganPendek(it))}
+//        ) { }
     }
 }

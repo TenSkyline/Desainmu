@@ -90,11 +90,11 @@ fun AtasanPBadan (
             value = uiState.panjangSeluruhBahu,
             onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangSeluruhBahu(it))}
         ) { }
-        CustomOutlinedTextFieldNumber(
-            placeHolder = "Panjang Bahu",
-            value = uiState.panjangBahu,
-            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangBahu(it))}
-        ) { }
+//        CustomOutlinedTextFieldNumber(
+//            placeHolder = "Panjang Seluruh Bahu",
+//            value = uiState.panjangSeluruhBahu,
+//            onValueChange = {onEvent.invoke(DesignMeasurementEvent.PanjangSeluruhBahu(it))}
+//        ) { }
         CustomOutlinedTextFieldNumber(
             placeHolder = "Panjang Punggung",
             value = uiState.panjangPunggung,

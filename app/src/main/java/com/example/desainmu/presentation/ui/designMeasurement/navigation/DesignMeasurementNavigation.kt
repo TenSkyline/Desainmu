@@ -18,12 +18,12 @@ fun NavController.navigateToDesignMeasurement(
     navigate(route , navOptions)
 }
 
-fun NavGraphBuilder.designMeasurementScreen(navigateToResult: () -> Unit, navigateUp: () -> Unit = {}) {
+fun NavGraphBuilder.designMeasurementScreen(navigateToResult: (Design) -> Unit, navigateUp: () -> Unit = {}) {
     val route = "$DESIGN_MEASUREMENT_ROUTE/{$DesignArgs}"
     val arguments = listOf(navArgument(DesignArgs) { type = NavType.IntType })
     composable(route, arguments) { backStackEntry ->
         val designArgs = backStackEntry.arguments?.getInt(DesignArgs) ?: 0
         val design = Design.entries.find{ it.ordinal == designArgs } ?: Design.KaosLakiPolaDasar
-        DesignMeasurementRoute(navigateToResult = navigateToResult, selectedDesign = design, navigateUp = navigateUp)
+        DesignMeasurementRoute(navigateToResult = {selectedDesign -> navigateToResult(selectedDesign)}, selectedDesign = design, navigateUp = navigateUp)
     }
 }

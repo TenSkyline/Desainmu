@@ -19,7 +19,7 @@ import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementS
 @Composable
 fun AddOrderMeasurementContent(
     padding: PaddingValues,
-    navigateToResult: () -> Unit,
+    navigateToResult: (Design) -> Unit,
     selectedDesign: Design,
     onEvent: (DesignMeasurementEvent) -> Unit,
     uiState: DesignMeasurementState
@@ -36,7 +36,7 @@ fun AddOrderMeasurementContent(
         ElevatedButton(
             onClick = {
                 DesignInput.data = uiState
-                navigateToResult.invoke()},
+                navigateToResult(selectedDesign)},
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)

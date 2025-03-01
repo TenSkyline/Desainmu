@@ -32,7 +32,7 @@ fun DesainmuNavigation(startDestination: String = DASHBOARD_ROUTE) {
         },
             navigateUp = { navController.navigateUp() })
         designMeasurementScreen(navigateToResult = {
-            navController.navigateToResult()
+            navController.navigateToResult(it)
         },
             navigateUp = { navController.navigateUp() })
 

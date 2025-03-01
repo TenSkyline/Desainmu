@@ -30,12 +30,12 @@ class DesignMeasurementViewModel : ViewModel() {
                 it.copy(lebarDada = event.lebarDada)
             }
 
-            is DesignMeasurementEvent.LebarLenganPanjang -> _uiState.update {
-                it.copy(lebarLenganPanjang = event.lebarLenganPanjang)
-            }
+//            is DesignMeasurementEvent.LebarLenganPanjang -> _uiState.update {
+//                it.copy(lebarLenganPanjang = event.lebarLenganPanjang)
+//            }
 
-            is DesignMeasurementEvent.LebarLenganPendek -> _uiState.update {
-                it.copy(lebarLenganPendek = event.lebarLenganPendek)
+            is DesignMeasurementEvent.LebarLengan -> _uiState.update {
+                it.copy(lebarLengan = event.lebarLengan)
             }
 
             is DesignMeasurementEvent.LebarPunggung -> _uiState.update {
@@ -86,9 +86,9 @@ class DesignMeasurementViewModel : ViewModel() {
                 it.copy(pahaAtas = event.pahaAtas)
             }
 
-            is DesignMeasurementEvent.PanjangBahu -> _uiState.update {
-                it.copy(panjangBahu = event.panjangBahu)
-            }
+//            is DesignMeasurementEvent.PanjangBahu -> _uiState.update {
+//                it.copy(panjangBahu = event.panjangBahu)
+//            }
 
             is DesignMeasurementEvent.PanjangBaju -> _uiState.update {
                 it.copy(panjangBaju = event.panjangBaju)
@@ -110,13 +110,13 @@ class DesignMeasurementViewModel : ViewModel() {
                 it.copy(panjangLengan = event.panjangLengan)
             }
 
-            is DesignMeasurementEvent.PanjangLenganPanjang -> _uiState.update {
-                it.copy(panjangLenganPanjang = event.panjangLenganPanjang)
-            }
+//            is DesignMeasurementEvent.PanjangLenganPanjang -> _uiState.update {
+//                it.copy(panjangLenganPanjang = event.panjangLenganPanjang)
+//            }
 
-            is DesignMeasurementEvent.PanjangLenganPendek -> _uiState.update {
-                it.copy(panjangLenganPendek = event.panjangLenganPendek)
-            }
+//            is DesignMeasurementEvent.PanjangLenganPendek -> _uiState.update {
+//                it.copy(panjangLenganPendek = event.panjangLenganPendek)
+//            }
 
             is DesignMeasurementEvent.PanjangLutut -> _uiState.update {
                 it.copy(panjangLutut = event.panjangLutut)
@@ -134,9 +134,9 @@ class DesignMeasurementViewModel : ViewModel() {
                 it.copy(panjangSeluruhBahu = event.panjangSeluruhBahu)
             }
 
-            is DesignMeasurementEvent.PanjangSeluruhnya -> _uiState.update {
-                it.copy(panjangSeluruhnya = event.panjangSeluruhnya)
-            }
+//            is DesignMeasurementEvent.PanjangSeluruhnya -> _uiState.update {
+//                it.copy(panjangSeluruhnya = event.panjangSeluruhnya)
+//            }
 
             is DesignMeasurementEvent.PanjangSiku -> _uiState.update {
                 it.copy(panjangSiku = event.panjangSiku)
