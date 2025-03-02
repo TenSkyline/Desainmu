@@ -11,14 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.desainmu.presentation.ui.addOrder.AddOrderNav
+import com.example.desainmu.presentation.ui.addOrder.AddOrderEvent
 import com.example.desainmu.presentation.ui.addOrder.AddOrderState
 
 @Composable
 fun AddOrderContent(
     padding: PaddingValues,
-    navigationEvent: (AddOrderNav) -> Unit,
+//    navigationEvent: (AddOrderNav) -> Unit,
     uiState: AddOrderState,
+    onEvent: (AddOrderEvent) -> Unit
 //    onClickDesign: (Design) -> Unit,
 //    onEvent: (AddOrderEvent) -> Unit,
 //    uiState: AddOrderState
@@ -34,12 +35,15 @@ fun AddOrderContent(
 //            selectedDesign = selectedDesign,
 //            onSelectedDesign = { selectedDesign = it },
 //            onEvent = onEvent,
-            onEvent = { navigationEvent.invoke(AddOrderNav.OnEvent(it)) },
+            onEvent = {
+                onEvent.invoke(it)
+//                navigationEvent.invoke(AddOrderNav.OnEvent(it))
+                      },
             uiState = uiState
         )
         ElevatedButton(
 //            onClick = { onClickDesign.invoke(selectedDesign) },
-            onClick = { navigationEvent.invoke(AddOrderNav.ToMeasurement(uiState.selectedDesign)) },
+            onClick = { onEvent.invoke(AddOrderEvent.ToMeasurement(design = uiState.selectedDesign)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .align(alignment = Alignment.BottomCenter)
