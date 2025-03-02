@@ -10,23 +10,23 @@ data class ResultState(
     val lineAF: String = "7",
 ) {
     val lineABDC: Double get() {
-        val resultAB = DesignInput.data.panjangBaju.toDoubleOrNull() ?: 0.0
+        val resultAB = DesignInput.dataDesign.panjangBaju.toDoubleOrNull() ?: 0.0
         return resultAB
     }
     val lineAIDJ: Double get() {
-        val resultAI = DesignInput.data.lingkarBadan.toDoubleOrNull() ?: 0.0
+        val resultAI = DesignInput.dataDesign.lingkarBadan.toDoubleOrNull() ?: 0.0
         return (resultAI / 4) - 2
     }
     val lineADIJBC: Double get() {
-        val resultADIJBC = DesignInput.data.lingkarBadan.toDoubleOrNull() ?: 0.0
+        val resultADIJBC = DesignInput.dataDesign.lingkarBadan.toDoubleOrNull() ?: 0.0
         return resultADIJBC / 4
     }
     val lineAG: Double get() {
-        val resultAG = DesignInput.data.panjangSeluruhBahu.toDoubleOrNull() ?: 0.0
+        val resultAG = DesignInput.dataDesign.panjangSeluruhBahu.toDoubleOrNull() ?: 0.0
         return resultAG / 2
     }
     val lineHJ: Double get() {
-        val resultHJ = DesignInput.data.lingkarBadan.toDoubleOrNull() ?: 0.0
+        val resultHJ = DesignInput.dataDesign.lingkarBadan.toDoubleOrNull() ?: 0.0
         return resultHJ / 4
     }
 }

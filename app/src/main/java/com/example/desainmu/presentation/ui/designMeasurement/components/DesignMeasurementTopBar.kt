@@ -8,16 +8,18 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import com.example.desainmu.model.Design
 import com.example.desainmu.presentation.common.sharedComponents.CustomIconButton
+import com.example.desainmu.presentation.ui.addOrder.AddOrderEvent
+import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DesignMeasurementTopBar(design: Design, navigateUp: () -> Unit) {
+fun DesignMeasurementTopBar(design: Design, onEvent: (DesignMeasurementEvent) -> Unit,) {
     TopAppBar(
         title = { Text("Pengukuran ${design.title}") },
         navigationIcon = {
             CustomIconButton(
                 icon = Icons.AutoMirrored.Filled.ArrowBack,
-                onClick = { navigateUp.invoke() }
+                onClick = { onEvent.invoke(DesignMeasurementEvent.NavigateUp) }
             )
         }
     )

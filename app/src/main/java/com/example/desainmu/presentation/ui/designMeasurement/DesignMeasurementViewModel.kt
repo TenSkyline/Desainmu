@@ -1,19 +1,34 @@
 package com.example.desainmu.presentation.ui.designMeasurement
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.desainmu.presentation.ui.addOrder.AddOrderEffect
+import com.example.desainmu.presentation.ui.addOrder.AddOrderEvent
+import com.example.desainmu.presentation.ui.addOrder.AddOrderState
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class DesignMeasurementViewModel : ViewModel() {
-    private val _uiState: MutableStateFlow<DesignMeasurementState> = MutableStateFlow(
-        DesignMeasurementState()
-    )
-    val uiState: StateFlow<DesignMeasurementState> get() = _uiState.asStateFlow()
+    val uiState get() = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(DesignMeasurementState())
+
+    val uiEffect get() = _uiEffect.asSharedFlow()
+    private val _uiEffect = MutableSharedFlow<DesignMeasurementEffect>()
 
     fun handleEvent(event: DesignMeasurementEvent) {
         when (event) {
+            DesignMeasurementEvent.NavigateUp -> emit(DesignMeasurementEffect.NavigateUp)
+            is DesignMeasurementEvent.ToResult -> emit(
+                DesignMeasurementEffect.ToResult(
+                    design = event.design
+                )
+            )
+
             is DesignMeasurementEvent.BanTangan -> _uiState.update {
                 it.copy(banTangan = event.banTangan)
             }
@@ -29,10 +44,6 @@ class DesignMeasurementViewModel : ViewModel() {
             is DesignMeasurementEvent.LebarDada -> _uiState.update {
                 it.copy(lebarDada = event.lebarDada)
             }
-
-//            is DesignMeasurementEvent.LebarLenganPanjang -> _uiState.update {
-//                it.copy(lebarLenganPanjang = event.lebarLenganPanjang)
-//            }
 
             is DesignMeasurementEvent.LebarLengan -> _uiState.update {
                 it.copy(lebarLengan = event.lebarLengan)
@@ -86,10 +97,6 @@ class DesignMeasurementViewModel : ViewModel() {
                 it.copy(pahaAtas = event.pahaAtas)
             }
 
-//            is DesignMeasurementEvent.PanjangBahu -> _uiState.update {
-//                it.copy(panjangBahu = event.panjangBahu)
-//            }
-
             is DesignMeasurementEvent.PanjangBaju -> _uiState.update {
                 it.copy(panjangBaju = event.panjangBaju)
             }
@@ -110,14 +117,6 @@ class DesignMeasurementViewModel : ViewModel() {
                 it.copy(panjangLengan = event.panjangLengan)
             }
 
-//            is DesignMeasurementEvent.PanjangLenganPanjang -> _uiState.update {
-//                it.copy(panjangLenganPanjang = event.panjangLenganPanjang)
-//            }
-
-//            is DesignMeasurementEvent.PanjangLenganPendek -> _uiState.update {
-//                it.copy(panjangLenganPendek = event.panjangLenganPendek)
-//            }
-
             is DesignMeasurementEvent.PanjangLutut -> _uiState.update {
                 it.copy(panjangLutut = event.panjangLutut)
             }
@@ -133,10 +132,6 @@ class DesignMeasurementViewModel : ViewModel() {
             is DesignMeasurementEvent.PanjangSeluruhBahu -> _uiState.update {
                 it.copy(panjangSeluruhBahu = event.panjangSeluruhBahu)
             }
-
-//            is DesignMeasurementEvent.PanjangSeluruhnya -> _uiState.update {
-//                it.copy(panjangSeluruhnya = event.panjangSeluruhnya)
-//            }
 
             is DesignMeasurementEvent.PanjangSiku -> _uiState.update {
                 it.copy(panjangSiku = event.panjangSiku)
@@ -158,5 +153,9 @@ class DesignMeasurementViewModel : ViewModel() {
                 it.copy(tinggiPanggul = event.tinggiPanggul)
             }
         }
+    }
+
+    private fun emit(effect: DesignMeasurementEffect) = viewModelScope.launch {
+        _uiEffect.emit(effect)
     }
 }

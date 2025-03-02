@@ -3,6 +3,7 @@ package com.example.desainmu.presentation.ui.designMeasurement
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -21,19 +22,29 @@ internal fun DesignMeasurementRoute(
     val viewModel: DesignMeasurementViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    DesignMeasurementScreen(navigateToResult = navigateToResult, onEvent = viewModel::handleEvent, uiState, selectedDesign = selectedDesign, navigateUp)
+    LaunchedEffect(Unit) {
+        viewModel.uiEffect.collect { effect ->
+            when (effect) {
+                DesignMeasurementEffect.NavigateUp -> navigateUp.invoke()
+                is DesignMeasurementEffect.ToResult -> navigateToResult.invoke(effect.design)
+            }
+        }
+    }
+
+    DesignMeasurementScreen(onEvent = viewModel::handleEvent, uiState, selectedDesign = selectedDesign)
 }
 
 @Composable
 internal fun DesignMeasurementScreen(
-    navigateToResult: (Design) -> Unit,
+//    navigateToResult: (Design) -> Unit,
     onEvent: (DesignMeasurementEvent) -> Unit,
     uiState: DesignMeasurementState,
     selectedDesign: Design,
-    navigateUp: () -> Unit = {}) {
+//    navigateUp: () -> Unit = {}
+) {
     Scaffold(
-        topBar = { DesignMeasurementTopBar(selectedDesign, navigateUp) },
-        content = { padding -> AddOrderMeasurementContent(padding, navigateToResult = navigateToResult, selectedDesign = selectedDesign, onEvent = onEvent, uiState = uiState) }
+        topBar = { DesignMeasurementTopBar(selectedDesign, onEvent) },
+        content = { padding -> AddOrderMeasurementContent(padding, selectedDesign = selectedDesign, onEvent = onEvent, uiState = uiState) }
     )
 }
 
