@@ -1,30 +1,33 @@
 package com.example.desainmu.presentation.ui.addOrder.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.desainmu.model.Design
+import com.example.desainmu.presentation.common.sharedComponents.CustomOutlinedTextField
+import com.example.desainmu.presentation.common.sharedComponents.DatePickerFieldToModal
+import com.example.desainmu.presentation.common.sharedComponents.DropdownTextField
 import com.example.desainmu.presentation.ui.addOrder.AddOrderEvent
 import com.example.desainmu.presentation.ui.addOrder.AddOrderState
 
 @Composable
 fun AddOrderContent(
     padding: PaddingValues,
-//    navigationEvent: (AddOrderNav) -> Unit,
     uiState: AddOrderState,
     onEvent: (AddOrderEvent) -> Unit
-//    onClickDesign: (Design) -> Unit,
-//    onEvent: (AddOrderEvent) -> Unit,
-//    uiState: AddOrderState
 ) {
-//    val selectedDesign by remember { mutableStateOf(Design.Kaos) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -32,17 +35,10 @@ fun AddOrderContent(
             .padding(16.dp)
     ) {
         AddOrderDesignList(
-//            selectedDesign = selectedDesign,
-//            onSelectedDesign = { selectedDesign = it },
-//            onEvent = onEvent,
-            onEvent = {
-                onEvent.invoke(it)
-//                navigationEvent.invoke(AddOrderNav.OnEvent(it))
-                      },
+            onEvent = { onEvent.invoke(it) },
             uiState = uiState
         )
         ElevatedButton(
-//            onClick = { onClickDesign.invoke(selectedDesign) },
             onClick = { onEvent.invoke(AddOrderEvent.ToMeasurement(design = uiState.selectedDesign)) },
             modifier = Modifier
                 .fillMaxWidth()
@@ -52,4 +48,51 @@ fun AddOrderContent(
             Text("Berikutnya")
         }
     }
+}
+
+@Composable
+private fun AddOrderDesignList(
+    onEvent: (AddOrderEvent) -> Unit,
+    uiState: AddOrderState
+) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(bottom = 72.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        item {
+            AddOrderItemView(
+                onEvent = onEvent,
+                uiState = uiState
+            )
+        }
+    }
+}
+
+@Composable
+private fun AddOrderItemView(
+    onEvent: (AddOrderEvent) -> Unit,
+    uiState: AddOrderState
+) {
+    CustomOutlinedTextField(
+        placeHolder = "Judul",
+        value = uiState.title,
+        onValueChange = { onEvent.invoke(AddOrderEvent.Title(it)) }
+    ) { }
+    CustomOutlinedTextField(
+        placeHolder = "Deskripsi",
+        value = uiState.description,
+        onValueChange = { onEvent.invoke(AddOrderEvent.Description(it)) }
+    ) { }
+    DatePickerFieldToModal()
+    Spacer(modifier = Modifier.height(16.dp))
+    DropdownTextField(modifier = Modifier,
+        label = "Pilih Desain Ukuran",
+        options = Design.entries.map { it.title },
+        selectedOption = uiState.selectedDesign.title,
+        onOptionSelected = { title ->
+            val design = Design.findByTitle(title)
+            onEvent(AddOrderEvent.SelectedDesign(design))
+        }
+    )
 }

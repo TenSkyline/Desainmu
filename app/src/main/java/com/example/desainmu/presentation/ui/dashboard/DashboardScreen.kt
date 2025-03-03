@@ -1,10 +1,13 @@
 package com.example.desainmu.presentation.ui.dashboard
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -21,25 +24,11 @@ import com.example.desainmu.presentation.common.sharedComponents.CustomIconButto
 import com.example.desainmu.presentation.theme.DesainmuTheme
 import com.example.desainmu.presentation.ui.dashboard.components.DashboardContent
 import com.example.desainmu.presentation.ui.dashboard.components.DashboardDrawerContent
-import com.example.desainmu.presentation.ui.dashboard.components.DashboardFloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-//sealed class DashboardNav {
-//    data object ToDelayed : DashboardNav()
-//    data object ToHistory : DashboardNav()
-//    data object ToAddOrder : DashboardNav()
-//}
-
 @Composable
 internal fun DashboardRoute(navigateToAddOrder: () -> Unit, navigateToDelayedPayment: () -> Unit, navigateToHistory: () -> Unit) {
-//    val eventVariation: (DashboardNav) -> Unit = {
-//        when (it) {
-//            is DashboardNav.ToAddOrder -> navigateToAddOrder()
-//            is DashboardNav.ToDelayed -> navigateToDelayedPayment()
-//            is DashboardNav.ToHistory -> navigateToHistory()
-//        }
-//    }
     val viewModel: DashboardViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -49,21 +38,17 @@ internal fun DashboardRoute(navigateToAddOrder: () -> Unit, navigateToDelayedPay
                 DashboardEffect.ToHistory -> navigateToHistory.invoke()
                 DashboardEffect.ToAddOrder -> navigateToAddOrder.invoke()
                 DashboardEffect.ToDelayedPayment -> navigateToDelayedPayment.invoke()
-
             }
         }
     }
-
     DashboardScreen(
         onEvent = viewModel::handleEvent,
         uiState = uiState
-//        navigationEvent = eventVariation
     )
 }
 
 @Composable
 private fun DashboardScreen(
-//    navigationEvent: (DashboardNav) -> Unit,
     onEvent: (DashboardEvent) -> Unit,
     uiState: DashboardState
 ) {
@@ -76,22 +61,17 @@ private fun DashboardScreen(
             DashboardDrawerContent(onEvent, scope, drawerState)
         },
     ) {
-//        DashboardScaffold(drawerState, scope, navigateToAddOrder)
-//        GenericScaffold(title = "",
-//            drawerState, scope) {
         Scaffold(
             topBar = { MainMenuTopBar(title = "Halaman Utama", drawerState, scope) },
-            floatingActionButton = { DashboardFloatingActionButton(onClick = {onEvent.invoke(DashboardEvent.ToAddOrder)}) },
-//                floatingActionButton = { DashboardFloatingActionButton(onClick = {navigationEvent.invoke(DashboardNav.ToAddOrder)}) },
+            floatingActionButton = { DashboardFAB(onClick = {onEvent.invoke(DashboardEvent.ToAddOrder)}) },
             content = { padding -> DashboardContent(padding, onEvent, uiState) }
         )
-//        }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainMenuTopBar(
+private fun MainMenuTopBar(
     title: String,
     drawerState: DrawerState,
     scope: CoroutineScope,
@@ -118,18 +98,12 @@ fun MainMenuTopBar(
     )
 }
 
-//@Composable
-//private fun DashboardScaffold(
-//    drawerState: DrawerState,
-//    scope: CoroutineScope,
-//    onClick: () -> Unit
-//) {
-//    Scaffold(
-//        topBar = { DashboardTopBar(drawerState, scope) },
-//        floatingActionButton = { DashboardFloatingActionButton(onClick) },
-//        content = { padding -> DashboardContent(padding) }
-//    )
-//}
+@Composable
+private fun DashboardFAB(onClick: () -> Unit) {
+    FloatingActionButton(onClick = { onClick.invoke() }) {
+        Icon(Icons.Filled.Add, "Add")
+    }
+}
 
 @Preview
 @Composable

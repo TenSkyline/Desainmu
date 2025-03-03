@@ -9,9 +9,6 @@ import com.example.desainmu.presentation.ui.dashboard.components.dummyValueOrder
 
 
 data class DashboardState (
-//    val order: String = "Pesanan",
-//    val delayed: String = "Belum Bayar",
-//    val history: String = "Riwayat",
     val selectedTab: DashboardTab = DashboardTab.Order
 )
 
