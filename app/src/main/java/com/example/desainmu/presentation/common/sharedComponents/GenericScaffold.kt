@@ -6,16 +6,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import kotlinx.coroutines.CoroutineScope
 
-@Composable
-fun GenericScaffold(
-    title: String,
-    drawerState: DrawerState,
-    scope: CoroutineScope,
-    content: @Composable (PaddingValues) -> Unit
-) {
-    Scaffold(
-        topBar = { },
-        content = content
-    )
-}
+//@Composable
+//fun GenericScaffold(
+//    title: String,
+//    drawerState: DrawerState,
+//    scope: CoroutineScope,
+//    content: @Composable (PaddingValues) -> Unit
+//) {
+//    Scaffold(
+//        topBar = { },
+//        content = content
+//    )
+//}
 

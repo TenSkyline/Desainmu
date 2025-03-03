@@ -7,9 +7,9 @@ import com.example.desainmu.presentation.ui.dashboard.components.dummyValueHisto
 import com.example.desainmu.presentation.ui.dashboard.components.dummyValueOrder
 
 
-@Immutable
-sealed class DashboardTab(val title: String, val data: List<OrderItemModel>) {
-    data object Order : DashboardTab("Pesanan", dummyValueOrder)
-    data object Delayed : DashboardTab("Belum Bayar", dummyValueDelayed)
-    data object History : DashboardTab("Riwayat", dummyValueHistory)
-}
+//@Immutable
+//sealed class DashboardTab(val title: String, val data: List<OrderItemModel>) {
+//    data object Order : DashboardTab("Pesanan", dummyValueOrder)
+//    data object Delayed : DashboardTab("Belum Bayar", dummyValueDelayed)
+//    data object History : DashboardTab("Riwayat", dummyValueHistory)
+//}

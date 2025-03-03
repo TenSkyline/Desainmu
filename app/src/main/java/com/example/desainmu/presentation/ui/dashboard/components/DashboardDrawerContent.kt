@@ -23,14 +23,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
-import com.example.desainmu.presentation.ui.dashboard.DashboardNav
+import com.example.desainmu.presentation.ui.dashboard.DashboardEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
 @Composable
 fun DashboardDrawerContent(
-    navigationEvent: (DashboardNav) -> Unit,
+    onEvent: (DashboardEvent) -> Unit,
     scope: CoroutineScope,
     drawerState: DrawerState
 ) {
@@ -47,7 +47,7 @@ fun DashboardDrawerContent(
         ) {
             Spacer(Modifier.height(12.dp))
             DrawerTitle()
-            DrawerSection1(navigationEvent, scope, drawerState)
+            DrawerSection1(onEvent, scope, drawerState)
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
             DrawerSection2()
         }
@@ -65,14 +65,19 @@ private fun DrawerTitle() {
 }
 
 @Composable
-private fun DrawerSection1(navigationEvent: (DashboardNav) -> Unit, scope: CoroutineScope, drawerState: DrawerState) {
+private fun DrawerSection1(
+    onEvent: (DashboardEvent) -> Unit,
+    scope: CoroutineScope,
+    drawerState: DrawerState
+) {
     NavigationDrawerItem(
         label = { Text("Belum Bayar") },
         icon = { Icon(Icons.Filled.Warning, contentDescription = "Belum Bayar") },
         selected = false,
         onClick = {
             scope.launch { drawerState.close() }
-            navigationEvent.invoke(DashboardNav.ToDelayed)
+//            navigationEvent.invoke(DashboardNav.ToDelayed)
+            onEvent.invoke(DashboardEvent.ToDelayed)
         }
     )
     NavigationDrawerItem(
@@ -80,7 +85,8 @@ private fun DrawerSection1(navigationEvent: (DashboardNav) -> Unit, scope: Corou
         icon = { Icon(Icons.Filled.Done, contentDescription = "Riwayat") },
         selected = false,
         onClick = { scope.launch { drawerState.close() }
-            navigationEvent.invoke(DashboardNav.ToHistory)
+//            navigationEvent.invoke(DashboardNav.ToHistory)
+            onEvent.invoke(DashboardEvent.ToHistory)
         }
     )
 }
