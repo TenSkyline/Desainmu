@@ -148,10 +148,7 @@ private fun HistoryScreen(
                 ) {
                     if (filteredList.isNotEmpty()) {
                         items(filteredList) {
-                            HistoryItemView(item = it, onClick = {
-                                // Handle the click event for this specific item
-                                // You can add navigation or other actions here
-                            })
+                            HistoryItemView(item = it)
                         }
 
                     } else {

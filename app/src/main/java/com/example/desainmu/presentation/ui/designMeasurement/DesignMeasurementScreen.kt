@@ -36,11 +36,9 @@ internal fun DesignMeasurementRoute(
 
 @Composable
 internal fun DesignMeasurementScreen(
-//    navigateToResult: (Design) -> Unit,
     onEvent: (DesignMeasurementEvent) -> Unit,
     uiState: DesignMeasurementState,
     selectedDesign: Design,
-//    navigateUp: () -> Unit = {}
 ) {
     Scaffold(
         topBar = { DesignMeasurementTopBar(selectedDesign, onEvent) },
