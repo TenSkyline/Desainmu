@@ -39,7 +39,7 @@ data class DesignMeasurementState (
     val tinggiBustier: String = "",
     val tinggiDuduk: String = "",
     val tinggiPanggul: String = "",
-    val isEntryValid: Boolean = false
+    val isEntryValid: Boolean = false,
 )
 
 sealed class DesignMeasurementEvent {

@@ -17,7 +17,7 @@ import com.example.desainmu.presentation.ui.delayedPayment.DelayedPaymentEvent
 import com.example.desainmu.presentation.ui.delayedPayment.DelayedPaymentState
 
 @Composable
-fun DelayedPaymentContent(
+internal fun DelayedPaymentContent(
     innerPadding: PaddingValues,
     uiState: DelayedPaymentState,
     filteredList: List<OrderItemModel>,

@@ -23,7 +23,7 @@ import com.example.desainmu.presentation.ui.addOrder.AddOrderEvent
 import com.example.desainmu.presentation.ui.addOrder.AddOrderState
 
 @Composable
-fun AddOrderContent(
+internal fun AddOrderContent(
     padding: PaddingValues,
     uiState: AddOrderState,
     onEvent: (AddOrderEvent) -> Unit

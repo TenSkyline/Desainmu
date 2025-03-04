@@ -20,7 +20,7 @@ import com.example.desainmu.presentation.ui.dashboard.DashboardState
 import com.example.desainmu.presentation.ui.dashboard.DashboardTab
 
 @Composable
-fun DashboardContent(
+internal fun DashboardContent(
     padding: PaddingValues,
     onEvent: (DashboardEvent) -> Unit,
     uiState: DashboardState
