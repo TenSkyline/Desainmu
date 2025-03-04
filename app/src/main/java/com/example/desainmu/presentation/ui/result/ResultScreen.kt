@@ -45,7 +45,6 @@ internal fun ResultScreen(
     uiState: ResultState,
     selectedDesign: Design
 ) {
-    // Collect the lingkarBadan value from the ViewModel
     Scaffold(
         topBar = { ResultTopBar(onEvent) },
         content = { padding ->

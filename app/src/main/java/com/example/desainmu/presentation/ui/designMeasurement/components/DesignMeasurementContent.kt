@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.desainmu.model.Design
+import com.example.desainmu.model.DesignInput
 import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementEvent
 import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementState
 
@@ -37,6 +38,7 @@ internal fun AddOrderMeasurementContent(
         )
         ElevatedButton(
             onClick = {
+                DesignInput.dataDesign = uiState
                 onEvent.invoke(DesignMeasurementEvent.ToResult(design = selectedDesign))
             },
             modifier = Modifier
