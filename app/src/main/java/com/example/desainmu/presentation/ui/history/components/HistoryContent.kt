@@ -1,4 +1,4 @@
-package com.example.desainmu.presentation.ui.delayedPayment.components
+package com.example.desainmu.presentation.ui.history.components
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
@@ -13,17 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.unit.dp
-import com.example.desainmu.presentation.ui.dashboard.components.DelayedItemView
+import com.example.desainmu.presentation.ui.dashboard.components.HistoryItemView
 import com.example.desainmu.presentation.ui.dashboard.components.OrderItemModel
-import com.example.desainmu.presentation.ui.delayedPayment.DelayedPaymentEvent
-import com.example.desainmu.presentation.ui.delayedPayment.DelayedPaymentState
+import com.example.desainmu.presentation.ui.history.HistoryEvent
+import com.example.desainmu.presentation.ui.history.HistoryState
 
 @Composable
-internal fun DelayedPaymentContent(
+    internal fun HistoryContent(
     innerPadding: PaddingValues,
-    uiState: DelayedPaymentState,
+    uiState: HistoryState,
     filteredList: List<OrderItemModel>,
-    onEvent: (DelayedPaymentEvent) -> Unit,
+    onEvent: (HistoryEvent) -> Unit,
     focusManager: FocusManager,
     context: Context
 ) {
@@ -33,29 +33,26 @@ internal fun DelayedPaymentContent(
             .fillMaxSize()
     ) {
         if (uiState.isSearchActive) {
-            DelayedPaymentSearchTextField(
+            HistoryTextField(
                 searchQuery = uiState.searchQuery,
-                onSearchQueryChanged = { onEvent(DelayedPaymentEvent.SearchItem(it)) },
+                onSearchQueryChanged = { onEvent(HistoryEvent.SearchItem(it)) },
                 focusManager = focusManager,
                 context = context
             )
         }
-        DelayedPaymentList(filteredList = filteredList)
+        HistoryList(filteredList = filteredList)
     }
 }
 
 @Composable
-private fun DelayedPaymentList(filteredList: List<OrderItemModel>) {
+private fun HistoryList(filteredList: List<OrderItemModel>) {
     LazyColumn(
         contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         if (filteredList.isNotEmpty()) {
             items(filteredList) { item ->
-                DelayedItemView(item = item, onClick = {
-                    // Handle the click event for this specific item
-                    // You can add navigation or other actions here
-                })
+                HistoryItemView(item = item)
             }
         } else {
             item {

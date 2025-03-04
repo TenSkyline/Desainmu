@@ -1,4 +1,4 @@
-package com.example.desainmu.presentation.ui.delayedPayment.components
+package com.example.desainmu.presentation.ui.history.components
 
 import android.app.Activity
 import android.content.Context
@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 
 @Composable
-fun DelayedPaymentSearchTextField(
+fun HistoryTextField(
     searchQuery: String,
     onSearchQueryChanged: (String) -> Unit,
     focusManager: FocusManager,

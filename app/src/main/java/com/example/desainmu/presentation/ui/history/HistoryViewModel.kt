@@ -1,22 +1,33 @@
 package com.example.desainmu.presentation.ui.history
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class HistoryViewModel: ViewModel() {
-    private val _uiState: MutableStateFlow<HistoryState> = MutableStateFlow(
-        HistoryState()
-    )
-    val uiState: StateFlow<HistoryState> get() = _uiState.asStateFlow()
+    val uiState get() = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(HistoryState())
+
+    val uiEffect get() = _uiEffect.asSharedFlow()
+    private val _uiEffect = MutableSharedFlow<HistoryEffect>()
 
     fun handleEvent(event: HistoryEvent) {
         when (event) {
-            is HistoryEvent.SearchItem -> _uiState.update { it.copy(searchQuery = event.query)
+            HistoryEvent.NavigateUp -> emit(HistoryEffect.NavigateUp)
+            is HistoryEvent.SearchItem -> _uiState.update {
+                it.copy(searchQuery = event.query)
             }
+
             is HistoryEvent.UpdateSearchActive -> _uiState.update { it.copy(isSearchActive = event.isActive) }
         }
+    }
+
+    private fun emit(effect: HistoryEffect) = viewModelScope.launch {
+        _uiEffect.emit(effect)
     }
 }
