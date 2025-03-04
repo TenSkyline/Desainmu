@@ -28,7 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ResultZoomableImage(
+internal fun ResultZoomableImage(
     painter: Painter,
     contentDescription: String?,
     modifier: Modifier = Modifier

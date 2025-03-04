@@ -13,7 +13,7 @@ import com.example.desainmu.R
 import com.example.desainmu.model.Design
 
 @Composable
-fun ResultDesignImage(selectedDesign: Design) {
+internal fun ResultDesignImage(selectedDesign: Design) {
     when (selectedDesign) {
         Design.KaosLakiPolaDasar -> KaosLakiPolaDasarImage()
         Design.Celana -> CelanaImage()
@@ -25,7 +25,7 @@ fun ResultDesignImage(selectedDesign: Design) {
 }
 
 @Composable
-fun KaosLakiPolaDasarImage() {
+private fun KaosLakiPolaDasarImage() {
     ResultZoomableImage(
         painter = painterResource(id = R.drawable.design_kaos),
         contentDescription = "Result Image",
@@ -37,66 +37,29 @@ fun KaosLakiPolaDasarImage() {
 }
 
 @Composable
-fun CelanaImage() {
+private fun CelanaImage() {
     Text("Todo")
 }
 
 @Composable
-fun KemejaLImage() {
+private fun KemejaLImage() {
     Text("Todo")
 }
 
 @Composable
-fun KemejaPImage() {
+private fun KemejaPImage() {
     Text("Todo")
 }
 
 @Composable
-fun RokImage() {
+private fun RokImage() {
     Text("Todo")
 }
 
 @Composable
-fun AtasanPerempuanImage() {
+private fun AtasanPerempuanImage() {
     Text("Todo")
 }
-//    Column(
-//        modifier = Modifier.fillMaxWidth(),
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        when (selectedDesign) {
-//            Design.KaosLakiPolaDasar -> {
-//                ResultZoomableImage(
-//                    painter = painterResource(id = R.drawable.design_kaos),
-//                    contentDescription = "Result Image",
-//                    modifier = Modifier
-//                        .height(350.dp)
-//                        .width(300.dp)// Set the size of the box
-//                        .border(
-//                            2.dp,
-//                            Color.Black
-//                        ) // Optional: Add a border to visualize the box
-//                )
-//            }
-//
-//            Design.Celana -> {
-//                Text("Todo")
-//            }
-//
-//            Design.KemejaL -> {
-//                Text("Todo")
-//            }
-//
-//            Design.KemejaP -> {
-//                Text("Todo")
-//            }
-//
-//            Design.Rok -> {
-//                Text("Todo")
-//            }
-//
-//            Design.AtasanPerempuan -> {
-//                Text("Todo")
-//            }
-//        }
-//    }
+
+
+

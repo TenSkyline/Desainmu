@@ -32,5 +32,9 @@ data class ResultState(
 }
 
 sealed class ResultEvent {
-    // ... other events
+    data object NavigateUp: ResultEvent()
+}
+
+sealed class ResultEffect {
+    data object NavigateUp: ResultEffect()
 }
