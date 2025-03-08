@@ -1,5 +1,6 @@
 package com.example.desainmu.presentation.ui.history
 
+import com.example.desainmu.model.SortType
 import com.example.desainmu.presentation.ui.dashboard.components.OrderItemModel
 
 data class HistoryState (

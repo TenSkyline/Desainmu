@@ -15,9 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.desainmu.model.DashboardTab
 import com.example.desainmu.presentation.ui.dashboard.DashboardEvent
 import com.example.desainmu.presentation.ui.dashboard.DashboardState
-import com.example.desainmu.presentation.ui.dashboard.DashboardTab
+
 
 @Composable
 internal fun DashboardContent(
@@ -31,6 +32,7 @@ internal fun DashboardContent(
             .padding(horizontal = 16.dp)
     ) {
         SelectCategoryTabView(onEvent, uiState)
+
     }
 }
 
@@ -39,14 +41,11 @@ private fun SelectCategoryTabView(
     onEvent: (DashboardEvent) -> Unit,
     uiState: DashboardState
 ) {
-    val tabs = listOf(DashboardTab.Order, DashboardTab.Delayed, DashboardTab.History)
-
     Column(modifier = Modifier.fillMaxSize()) {
         DashboardTabRow(
-            tabs = tabs,
-            selectedTabIndex = tabs.indexOf(uiState.selectedTab),
+            selectedTabIndex = uiState.selectedTab,
             onTabSelected = { index ->
-                onEvent(DashboardEvent.SelectedTab(tabs[index]))
+                onEvent(DashboardEvent.SelectedTab(uiState.selectedTab))
             }
         )
         DashboardTabContent(
@@ -57,12 +56,11 @@ private fun SelectCategoryTabView(
 
 @Composable
 private fun DashboardTabRow(
-    tabs: List<DashboardTab>,
     selectedTabIndex: Int,
     onTabSelected: (Int) -> Unit
 ) {
     TabRow(selectedTabIndex = selectedTabIndex) {
-        tabs.forEachIndexed { index, tab ->
+        DashboardTab.entries.forEachIndexed { index, tab ->
             Tab(
                 text = { Text(tab.title) },
                 selected = selectedTabIndex == index,

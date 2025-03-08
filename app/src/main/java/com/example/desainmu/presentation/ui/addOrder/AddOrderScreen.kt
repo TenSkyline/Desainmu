@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.desainmu.data.database.ItemsRepository
 import com.example.desainmu.model.Design
 import com.example.desainmu.presentation.common.sharedComponents.CustomIconButton
 import com.example.desainmu.presentation.theme.DesainmuTheme
@@ -20,9 +21,13 @@ import com.example.desainmu.presentation.ui.addOrder.components.AddOrderContent
 @Composable
 internal fun AddOrderRoute(
     navigateToDesignMeasurement: (Design) -> Unit,
-    navigateUp: () -> Unit = {}
+    navigateUp: () -> Unit = {},
+//    saveItem: () -> Unit = {},
+//    itemsRepository: ItemsRepository
 ) {
-    val viewModel: AddOrderViewModel = viewModel()
+    val viewModel: AddOrderViewModel = viewModel(
+//        factory = AddOrderViewModelFactory(itemsRepository)
+    )
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {

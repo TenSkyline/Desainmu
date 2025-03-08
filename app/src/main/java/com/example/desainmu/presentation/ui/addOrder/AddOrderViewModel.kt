@@ -1,5 +1,9 @@
 package com.example.desainmu.presentation.ui.addOrder
 
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -9,7 +13,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class AddOrderViewModel : ViewModel() {
+class AddOrderViewModel(
+//    private val dao: ItemDao
+): ViewModel() {
+    private var addOrderState by mutableStateOf(AddOrderState())
+
     val uiState get() = _uiState.asStateFlow()
     private val _uiState = MutableStateFlow(AddOrderState())
 
@@ -25,23 +33,52 @@ class AddOrderViewModel : ViewModel() {
                 )
             )
 
-            is AddOrderEvent.Title -> _uiState.update {
-                it.copy(title = event.title)
+            is AddOrderEvent.SetTitle -> _uiState.update {
+                AddOrderState(addOrderDetails = it.addOrderDetails.copy(title = event.title))
             }
 
-            is AddOrderEvent.Description -> _uiState.update {
-                it.copy(description = event.description)
+            is AddOrderEvent.SetDescription -> _uiState.update {
+                AddOrderState(addOrderDetails = it.addOrderDetails.copy(description = event.description))
             }
 
-            is AddOrderEvent.DateChanged -> _uiState.update {
-                it.copy(selectedDate = event.date)
+            is AddOrderEvent.SetSelectedDate -> _uiState.update {
+                it.copy(selectedDate = event.selectedDate)
             }
 
-            is AddOrderEvent.SelectedDesign -> _uiState.update {
+            is AddOrderEvent.SetSelectedDesign -> _uiState.update {
                 it.copy(selectedDesign = event.design)
             }
+
+//            is AddOrderEvent.SaveOrder -> {
+//                val title = uiState.value.addOrderDetails.title
+//                val description = uiState.value.addOrderDetails.description
+//
+//                if (title.isBlank() || description.isBlank()){
+//                    return
+//                }
+//
+//                val item = Item(
+//                    title = title,
+//                    description = description
+//                )
+//                viewModelScope.launch {
+//                    dao.upsertItem(item)
+//                }
+//            }
         }
     }
+
+//    private fun validateInput(uiState: AddOrderDetails = addOrderState.addOrderDetails): Boolean {
+//        return with(uiState){
+//            title.isNotBlank() && description.isNotBlank()
+//        }
+//    }
+//
+//    private suspend fun saveItem() {
+//        if (validateInput()) {
+//            itemsRepository.insertItem(addOrderState.addOrderDetails.toItem())
+//        }
+//    }
 
     private fun emit(effect: AddOrderEffect) = viewModelScope.launch {
         _uiEffect.emit(effect)

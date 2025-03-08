@@ -72,4 +72,17 @@ dependencies {
     annotationProcessor(libs.androidx.room.compiler)
 
     implementation(libs.androidx.room.ktx)
+
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
+    api(libs.koin.core)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.composeVM)
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.3")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
 }

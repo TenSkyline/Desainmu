@@ -27,10 +27,14 @@ fun DesainmuNavigation(startDestination: String = DASHBOARD_ROUTE) {
         }, navigateToHistory = {
             navController.navigateToHistory()
         })
-        addOrderScreen(navigateToDesignMeasurement = {
-            navController.navigateToDesignMeasurement(it.ordinal)
-        },
-            navigateUp = { navController.navigateUp() })
+        addOrderScreen(
+            navigateToDesignMeasurement = {
+                navController.navigateToDesignMeasurement(it.ordinal)
+            },
+            navigateUp = { navController.navigateUp() },
+//            saveItem = {},
+//            itemsRepository = {}
+        )
         designMeasurementScreen(navigateToResult = {
             navController.navigateToResult(it)
         },

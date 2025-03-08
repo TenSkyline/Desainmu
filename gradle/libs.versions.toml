@@ -1,5 +1,8 @@
 [versions]
 agp = "8.8.0"
+koinAndroid = "3.2.0-beta-1"
+koin = "3.6.0-Beta4"
+koin-compose = "1.2.0-Beta4"
 kotlin = "2.0.0"
 coreKtx = "1.10.1"
 junit = "4.13.2"
@@ -39,6 +42,11 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 billing = { group = "com.google.androidbrowserhelper", name = "billing", version.ref = "billing" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose" }
+koin-composeVM = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin-compose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

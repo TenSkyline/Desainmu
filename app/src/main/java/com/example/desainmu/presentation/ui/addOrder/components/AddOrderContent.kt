@@ -39,7 +39,9 @@ internal fun AddOrderContent(
             uiState = uiState
         )
         ElevatedButton(
-            onClick = { onEvent.invoke(AddOrderEvent.ToMeasurement(design = uiState.selectedDesign)) },
+            onClick = {
+//                onEvent.invoke(AddOrderEvent.SaveItem)
+                onEvent.invoke(AddOrderEvent.ToMeasurement(design = uiState.selectedDesign)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .align(alignment = Alignment.BottomCenter)
@@ -76,13 +78,13 @@ private fun AddOrderItemView(
 ) {
     CustomOutlinedTextField(
         placeHolder = "Judul",
-        value = uiState.title,
-        onValueChange = { onEvent.invoke(AddOrderEvent.Title(it)) }
+        value = uiState.addOrderDetails.title,
+        onValueChange = { onEvent.invoke(AddOrderEvent.SetTitle(it)) }
     ) { }
     CustomOutlinedTextField(
         placeHolder = "Deskripsi",
-        value = uiState.description,
-        onValueChange = { onEvent.invoke(AddOrderEvent.Description(it)) }
+        value = uiState.addOrderDetails.description,
+        onValueChange = { onEvent.invoke(AddOrderEvent.SetDescription(it)) }
     ) { }
     DatePickerFieldToModal()
     Spacer(modifier = Modifier.height(16.dp))
@@ -92,7 +94,7 @@ private fun AddOrderItemView(
         selectedOption = uiState.selectedDesign.title,
         onOptionSelected = { title ->
             val design = Design.findByTitle(title)
-            onEvent(AddOrderEvent.SelectedDesign(design))
+            onEvent(AddOrderEvent.SetSelectedDesign(design))
         }
     )
 }

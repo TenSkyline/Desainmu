@@ -94,7 +94,7 @@ fun DatePickerModal(
             TextButton(onClick = {
                 datePickerState.selectedDateMillis?.let{
                     val selectedDate = Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).toLocalDate()
-                    viewModel.handleEvent(AddOrderEvent.DateChanged(selectedDate))
+                    viewModel.handleEvent(AddOrderEvent.SetSelectedDate(selectedDate))
                 }
 //                onDateSelected(datePickerState.selectedDateMillis)
                 onDismiss()
