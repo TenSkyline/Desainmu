@@ -1,7 +1,7 @@
 package com.example.desainmu.model
 
-import com.example.desainmu.presentation.ui.addOrder.AddOrderState
-import com.example.desainmu.presentation.ui.designMeasurement.DesignMeasurementState
+import com.example.desainmu.presentation.feature.addOrder.AddOrderState
+import com.example.desainmu.presentation.feature.designMeasurement.DesignMeasurementState
 
 object DesignInput {
     var dataOrder = AddOrderState()

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
 }
 
@@ -68,9 +69,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
 
     ksp(libs.androidx.room.compiler)
-
     annotationProcessor(libs.androidx.room.compiler)
-
     implementation(libs.androidx.room.ktx)
 
     implementation(libs.koin.android)
@@ -79,6 +78,11 @@ dependencies {
     api(libs.koin.core)
     implementation(libs.koin.compose)
     implementation(libs.koin.composeVM)
+    implementation(libs.hilt)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    ksp(libs.hilt.compiler)
+
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
