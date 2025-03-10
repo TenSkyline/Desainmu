@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.desainmu.model.Design
+import com.example.desainmu.model.DesignInput
 import com.example.desainmu.presentation.design.components.CustomOutlinedTextField
 import com.example.desainmu.presentation.design.components.DatePickerFieldToModal
 import com.example.desainmu.presentation.design.components.DropdownTextField
@@ -40,7 +41,7 @@ internal fun AddOrderContent(
         )
         ElevatedButton(
             onClick = {
-                onEvent.invoke(AddOrderEvent.SaveOrder)
+                DesignInput.dataOrder = uiState
                 onEvent.invoke(AddOrderEvent.ToMeasurement(design = uiState.selectedDesign)) },
             modifier = Modifier
                 .fillMaxWidth()

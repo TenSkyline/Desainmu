@@ -21,8 +21,6 @@ import javax.inject.Inject
 class AddOrderViewModel @Inject constructor(
     private val database: DesainmuLocalDb
 ): ViewModel() {
-    private val itemDao = database.itemDao()
-    private var addOrderState by mutableStateOf(AddOrderState())
 
     val uiState get() = _uiState.asStateFlow()
     private val _uiState = MutableStateFlow(AddOrderState())
@@ -54,27 +52,7 @@ class AddOrderViewModel @Inject constructor(
             is AddOrderEvent.SetSelectedDesign -> _uiState.update {
                 it.copy(selectedDesign = event.design)
             }
-
-            AddOrderEvent.SaveOrder -> addOrder()
         }
-    }
-
-    private fun addOrder() = viewModelScope.launch {
-        itemDao.upsertItem(addOrderState.toItemTable())
-    }
-
-    private fun AddOrderState.toItemTable(): ItemTable {
-        return ItemTable(
-            title = "elementum",
-            description = "adipiscing",
-            dateAdded = 1253,
-            selectedDate = 1715,
-            daysLeft = 2401,
-            dateDone = 4400,
-            isDone = false,
-            datePayed = 6157,
-            isPayed = false
-        )
     }
 
     private fun emit(effect: AddOrderEffect) = viewModelScope.launch {

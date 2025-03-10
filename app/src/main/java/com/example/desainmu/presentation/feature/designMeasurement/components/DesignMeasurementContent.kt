@@ -19,7 +19,7 @@ import com.example.desainmu.presentation.feature.designMeasurement.DesignMeasure
 import com.example.desainmu.presentation.feature.designMeasurement.DesignMeasurementState
 
 @Composable
-internal fun AddOrderMeasurementContent(
+internal fun DesignMeasurementContent(
     padding: PaddingValues,
     selectedDesign: Design,
     onEvent: (DesignMeasurementEvent) -> Unit,

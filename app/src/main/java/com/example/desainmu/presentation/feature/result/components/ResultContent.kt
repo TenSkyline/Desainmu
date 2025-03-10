@@ -11,10 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.desainmu.model.Design
+import com.example.desainmu.presentation.feature.result.ResultEvent
 import com.example.desainmu.presentation.feature.result.ResultState
 
 @Composable
-internal fun ResultContent(padding: PaddingValues, uiState: ResultState, selectedDesign: Design) {
+internal fun ResultContent(
+    padding: PaddingValues,
+    uiState: ResultState,
+    selectedDesign: Design,
+    onEvent: (ResultEvent) -> Unit) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -29,7 +34,9 @@ internal fun ResultContent(padding: PaddingValues, uiState: ResultState, selecte
         }
         item {
             ElevatedButton(
-                onClick = { },
+                onClick = {
+                    onEvent.invoke(ResultEvent.SaveItem)
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)

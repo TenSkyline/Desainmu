@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.desainmu.model.Design
@@ -22,7 +23,7 @@ internal fun ResultRoute(
     navigateUp: () -> Unit = {},
     selectedDesign: Design
 ) {
-    val viewModel: ResultViewModel = viewModel()
+    val viewModel: ResultViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
@@ -48,7 +49,7 @@ internal fun ResultScreen(
     Scaffold(
         topBar = { ResultTopBar(onEvent) },
         content = { padding ->
-            ResultContent(padding, uiState = uiState, selectedDesign = selectedDesign)
+            ResultContent(padding, uiState = uiState, selectedDesign = selectedDesign, onEvent = onEvent)
         }
     )
 }

@@ -42,7 +42,7 @@ sealed class AddOrderEvent {
     data class SetSelectedDesign(val design: Design) : AddOrderEvent()
     data object NavigateUp: AddOrderEvent()
     data class ToMeasurement(val design: Design) : AddOrderEvent()
-    data object SaveOrder: AddOrderEvent()
+//    data object SaveOrder: AddOrderEvent()
 }
 
 sealed class AddOrderEffect {

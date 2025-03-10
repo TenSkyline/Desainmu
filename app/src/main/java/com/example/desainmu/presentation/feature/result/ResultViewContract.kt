@@ -1,14 +1,199 @@
 package com.example.desainmu.presentation.feature.result
 
 import com.example.desainmu.model.DesignInput
+import java.time.LocalDate
 
 
 data class ResultState(
+    val dateAdded: Long = LocalDate.now().toEpochDay(),
+    val dateDone: Long = 1111,
+    val isDone: Boolean = false,
+    val datePayed: Long = 2222,
+    val isPayed: Boolean = false,
+//
+//    val banTangan: Double? = null,
+//    val jarakBustier: Double? = null,
+//    val kerungLengan: Double? = null,
+//    val lebarDada: Double? = null,
+//    val lebarLengan: Double? = null,
+//    val lebarPunggung: Double? = null,
+//    val lebarSiku: Double? = null,
+//    val lingkarBadan: Double? = null,
+//    val lingkarBawah: Double, //not sure
+//    val lingkarBawahCelana: Double? = null,
+//    val lingkarLeher: Double? = null,
+//    val lingkarLutut: Double? = null,
+//    val lingkarMiatak: Double? = null,
+//    val lingkarPanggul1: Double? = null,
+//    val lingkarPanggul2: Double? = null,
+//    val lingkarPinggang: Double? = null,
+//    val pahaAtas: Double? = null,
+//    val panjangBaju: Double? = null,
+//    val panjangCelana: Double? = null,
+//    val panjangDada: Double? = null,
+//    val panjangGamis: Double? = null,
+//    val panjangLengan: Double, //not sure
+//    val panjangLutut: Double? = null,
+//    val panjangPunggung: Double? = null,
+//    val panjangRok: Double? = null,
+//    val panjangSeluruhBahu: Double? = null,
+//    val panjangSiku: Double? = null,
+//    val sisiBadan: Double? = null,
+//    val tinggiBustier: Double? = null,
+//    val tinggiDuduk: Double? = null,
+//    val tinggiPanggul: Double? = null,
     val lineAK: String = "3",
     val lineALGH: String = "4",
     val lineAE: String = "5",
     val lineAF: String = "7",
 ) {
+    val title: String get() {
+        val resultTitle = DesignInput.dataOrder.addOrderDetails.title
+        return resultTitle
+    }
+    val description: String get() {
+        val resultDescription = DesignInput.dataOrder.addOrderDetails.description
+        return resultDescription
+    }
+    val selectedDate: Long get() {
+        val resultSelectedDate = DesignInput.dataOrder.selectedDate.toEpochDay()
+        return resultSelectedDate
+    }
+    val daysLeft: Int get() {
+        val resultDaysLeft = DesignInput.dataOrder.selectedDate.toEpochDay() - DesignInput.dataOrder.currentDate.toEpochDay()
+        return resultDaysLeft.toInt()
+    }
+
+    val selectedDesign: String get() {
+        val resultSelectedDesign = DesignInput.dataOrder.selectedDesign
+        return resultSelectedDesign.toString()
+    }
+
+    val banTangan: Double get() {
+        val resultBanTangan = DesignInput.dataDesign.banTangan.toDoubleOrNull() ?: 0.0
+        return resultBanTangan
+    }
+    val jarakBustier: Double get() {
+        val resultJarakBustier = DesignInput.dataDesign.jarakBustier.toDoubleOrNull() ?: 0.0
+        return resultJarakBustier
+    }
+    val kerungLengan: Double get() {
+        val resultKerungLengan = DesignInput.dataDesign.kerungLengan.toDoubleOrNull() ?: 0.0
+        return resultKerungLengan
+    }
+    val lebarDada: Double get() {
+        val resultLebarDada = DesignInput.dataDesign.lebarDada.toDoubleOrNull() ?: 0.0
+        return resultLebarDada
+    }
+    val lebarLengan: Double get() {
+        val resultLebarLengan = DesignInput.dataDesign.lebarLengan.toDoubleOrNull() ?: 0.0
+        return resultLebarLengan
+    }
+    val lebarPunggung: Double get() {
+        val resultLebarPunggung = DesignInput.dataDesign.lebarPunggung.toDoubleOrNull() ?: 0.0
+        return resultLebarPunggung
+    }
+    val lebarSiku: Double get() {
+        val resultLebarSiku = DesignInput.dataDesign.lebarSiku.toDoubleOrNull() ?: 0.0
+        return resultLebarSiku
+    }
+    val lingkarBadan: Double get() {
+        val resultLingkarBadan = DesignInput.dataDesign.lingkarBadan.toDoubleOrNull() ?: 0.0
+        return resultLingkarBadan
+    }
+    val lingkarBawah: Double get() {
+        val resultLingkarBawah = DesignInput.dataDesign.lingkarBawah.toDoubleOrNull() ?: 0.0
+        return resultLingkarBawah
+    }
+    val lingkarBawahCelana: Double get() {
+        val resultLingkarBawahCelana = DesignInput.dataDesign.lingkarBawahCelana.toDoubleOrNull() ?: 0.0
+        return resultLingkarBawahCelana
+    }
+    val lingkarLeher: Double get() {
+        val resultLingkarLeher = DesignInput.dataDesign.lingkarLeher.toDoubleOrNull() ?: 0.0
+        return resultLingkarLeher
+    }
+    val lingkarLutut: Double get() {
+        val resultLingkarLutut = DesignInput.dataDesign.lingkarLutut.toDoubleOrNull() ?: 0.0
+        return resultLingkarLutut
+    }
+    val lingkarMiatak: Double get() {
+        val resultLingkarMiatak = DesignInput.dataDesign.lingkarMiatak.toDoubleOrNull() ?: 0.0
+        return resultLingkarMiatak
+    }
+    val lingkarPanggul1: Double get() {
+        val resultLingkarPanggul1 = DesignInput.dataDesign.lingkarPanggul1.toDoubleOrNull() ?: 0.0
+        return resultLingkarPanggul1
+    }
+    val lingkarPanggul2: Double get() {
+        val resultLingkarPanggul2 = DesignInput.dataDesign.lingkarPanggul2.toDoubleOrNull() ?: 0.0
+        return resultLingkarPanggul2
+    }
+    val lingkarPinggang: Double get() {
+        val resultLingkarPinggang = DesignInput.dataDesign.lingkarPinggang.toDoubleOrNull() ?: 0.0
+        return resultLingkarPinggang
+    }
+    val pahaAtas: Double get() {
+        val resultPahaAtas = DesignInput.dataDesign.pahaAtas.toDoubleOrNull() ?: 0.0
+        return resultPahaAtas
+    }
+    val panjangBaju: Double get() {
+        val resultPanjangBaju = DesignInput.dataDesign.panjangBaju.toDoubleOrNull() ?: 0.0
+        return resultPanjangBaju
+    }
+    val panjangCelana: Double get() {
+        val resultPanjangCelana = DesignInput.dataDesign.panjangCelana.toDoubleOrNull() ?: 0.0
+        return resultPanjangCelana
+    }
+    val panjangDada: Double get() {
+        val resultPanjangDada = DesignInput.dataDesign.panjangDada.toDoubleOrNull() ?: 0.0
+        return resultPanjangDada
+    }
+    val panjangGamis: Double get() {
+        val resultPanjangGamis = DesignInput.dataDesign.panjangGamis.toDoubleOrNull() ?: 0.0
+        return resultPanjangGamis
+    }
+    val panjangLengan: Double get() {
+        val resultPanjangLengan = DesignInput.dataDesign.panjangLengan.toDoubleOrNull() ?: 0.0
+        return resultPanjangLengan
+    }
+    val panjangLutut: Double get() {
+        val resultPanjangLutut = DesignInput.dataDesign.panjangLutut.toDoubleOrNull() ?: 0.0
+        return resultPanjangLutut
+    }
+    val panjangPunggung: Double get() {
+        val resultPanjangPunggung = DesignInput.dataDesign.panjangPunggung.toDoubleOrNull() ?: 0.0
+        return resultPanjangPunggung
+    }
+    val panjangRok: Double get() {
+        val resultPanjangRok = DesignInput.dataDesign.panjangRok.toDoubleOrNull() ?: 0.0
+        return resultPanjangRok
+    }
+    val panjangSeluruhBahu: Double get() {
+        val resultPanjangSeluruhBahu = DesignInput.dataDesign.panjangSeluruhBahu.toDoubleOrNull() ?: 0.0
+        return resultPanjangSeluruhBahu
+    }
+    val panjangSiku: Double get() {
+        val resultPanjangSiku = DesignInput.dataDesign.panjangSiku.toDoubleOrNull() ?: 0.0
+        return resultPanjangSiku
+    }
+    val sisiBadan: Double get() {
+        val resultSisiBadan = DesignInput.dataDesign.sisiBadan.toDoubleOrNull() ?: 0.0
+        return resultSisiBadan
+    }
+    val tinggiBustier: Double get() {
+        val resultTinggiBustier = DesignInput.dataDesign.tinggiBustier.toDoubleOrNull() ?: 0.0
+        return resultTinggiBustier
+    }
+    val tinggiDuduk: Double get() {
+        val resultTinggiDuduk = DesignInput.dataDesign.tinggiDuduk.toDoubleOrNull() ?: 0.0
+        return resultTinggiDuduk
+    }
+    val tinggiPanggul: Double get() {
+        val resultTinggiPanggul = DesignInput.dataDesign.tinggiPanggul.toDoubleOrNull() ?: 0.0
+        return resultTinggiPanggul
+    }
+
     val lineABDC: Double get() {
         val resultAB = DesignInput.dataDesign.panjangBaju.toDoubleOrNull() ?: 0.0
         return resultAB
@@ -33,8 +218,10 @@ data class ResultState(
 
 sealed class ResultEvent {
     data object NavigateUp: ResultEvent()
+    data object SaveItem: ResultEvent()
 }
 
 sealed class ResultEffect {
     data object NavigateUp: ResultEffect()
+//    data object SaveItem: ResultEffect()
 }

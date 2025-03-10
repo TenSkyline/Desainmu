@@ -13,8 +13,10 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.desainmu.model.DashboardTab
 import com.example.desainmu.presentation.feature.dashboard.DashboardEvent
 import com.example.desainmu.presentation.feature.dashboard.DashboardState
@@ -24,7 +26,7 @@ import com.example.desainmu.presentation.feature.dashboard.DashboardState
 internal fun DashboardContent(
     padding: PaddingValues,
     onEvent: (DashboardEvent) -> Unit,
-    uiState: DashboardState
+    uiState: DashboardState,
     ) {
     Column(
         modifier = Modifier
@@ -45,11 +47,12 @@ private fun SelectCategoryTabView(
         DashboardTabRow(
             selectedTabIndex = uiState.selectedTab,
             onTabSelected = { index ->
-                onEvent(DashboardEvent.SelectedTab(uiState.selectedTab))
+//                onEvent(DashboardEvent.SelectedTab(uiState.selectedTab))
+                onEvent(DashboardEvent.SelectedTab(index))
             }
         )
 //        DashboardTabContent(
-//            selectedTab = uiState.selectedTab
+//            selectedTab = DashboardTab.entries[uiState.selectedTab]
 //        )
     }
 }
@@ -73,17 +76,22 @@ private fun DashboardTabRow(
 }
 
 @Composable
-private fun DashboardTabContent(selectedTab: DashboardTab) {
+private fun DashboardTabContent(
+    selectedTab: DashboardTab,
+
+) {
+    //Use collectAsState to listen to the new value emitted by the state flow
     val listState = rememberLazyListState()
     LaunchedEffect(selectedTab) {
         listState.animateScrollToItem(0)
     }
+
     LazyColumn(
         contentPadding = PaddingValues(vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         state = listState
     ) {
-//        items(selectedTab.data) { item ->
+//        items(selectedTab.ordinal, key = { it }) { item ->
 //            DashboardTabItem(item = item, selectedTab = selectedTab)
 //        }
     }
@@ -92,8 +100,35 @@ private fun DashboardTabContent(selectedTab: DashboardTab) {
 @Composable
 private fun DashboardTabItem(item: OrderItemModel, selectedTab: DashboardTab) {
     when (selectedTab) {
-        DashboardTab.Order -> OrderItemView(item = item, onClick = { })
-        DashboardTab.Delayed -> DelayedItemView(item = item, onClick = { })
+        DashboardTab.Order -> OrderItemView(item = item, onClick = { /* Handle click */ })
+        DashboardTab.Delayed -> DelayedItemView(item = item, onClick = { /* Handle click */ })
         DashboardTab.History -> HistoryItemView(item = item)
     }
 }
+
+
+//@Composable
+//private fun DashboardTabContent(selectedTab: DashboardTab) {
+//    val listState = rememberLazyListState()
+//    LaunchedEffect(selectedTab) {
+//        listState.animateScrollToItem(0)
+//    }
+//    LazyColumn(
+//        contentPadding = PaddingValues(vertical = 24.dp),
+//        verticalArrangement = Arrangement.spacedBy(16.dp),
+//        state = listState
+//    ) {
+//        items(selectedTab.ordinal) { item ->
+//            DashboardTabItem(item = item, selectedTab = selectedTab)
+//        }
+//    }
+//}
+//
+//@Composable
+//private fun DashboardTabItem(item: OrderItemModel, selectedTab: DashboardTab) {
+//    when (selectedTab) {
+//        DashboardTab.Order -> OrderItemView(item = item, onClick = { })
+//        DashboardTab.Delayed -> DelayedItemView(item = item, onClick = { })
+//        DashboardTab.History -> HistoryItemView(item = item)
+//    }
+//}

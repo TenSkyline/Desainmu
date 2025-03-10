@@ -11,7 +11,6 @@ data class OrderItemModel(
     val daysLeft: Int,
     val isDone: Boolean,
     val isPayed: Boolean,
-    val tabs: DashboardTab = DashboardTab.Order
 )
 
 

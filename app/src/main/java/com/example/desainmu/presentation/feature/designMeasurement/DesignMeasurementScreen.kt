@@ -11,12 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.desainmu.model.Design
 import com.example.desainmu.presentation.design.components.CustomIconButton
 import com.example.desainmu.presentation.design.theme.DesainmuTheme
-import com.example.desainmu.presentation.feature.designMeasurement.components.AddOrderMeasurementContent
+import com.example.desainmu.presentation.feature.designMeasurement.components.DesignMeasurementContent
 
 @Composable
 internal fun DesignMeasurementRoute(
@@ -24,7 +24,7 @@ internal fun DesignMeasurementRoute(
     navigateUp: () -> Unit = {},
     selectedDesign: Design,
 ) {
-    val viewModel: DesignMeasurementViewModel = viewModel()
+    val viewModel: DesignMeasurementViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
@@ -57,7 +57,7 @@ internal fun DesignMeasurementScreen(
             )
         },
         content = { padding ->
-            AddOrderMeasurementContent(
+            DesignMeasurementContent(
                 padding,
                 selectedDesign = selectedDesign,
                 onEvent = onEvent,

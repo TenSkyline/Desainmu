@@ -2,26 +2,28 @@ package com.example.desainmu.presentation.feature.dashboard
 
 import com.example.desainmu.data.database.model.ItemTable
 import com.example.desainmu.model.DashboardTab
+import com.example.desainmu.presentation.feature.dashboard.components.OrderItemModel
 
 
 data class DashboardState (
 //    val selectedTab: DashboardTab = DashboardTab.Order,
     val selectedTab: Int = DashboardTab.Order.ordinal,
     val categories: List<ItemTable> = emptyList(),
+    val items: List<OrderItemModel> = emptyList()
 //    val sortType: SortType = SortType.TITLE_NAME
 )
+
+sealed class DashboardEffect {
+    data object ToDelayedPayment : DashboardEffect()
+    data object ToHistory : DashboardEffect()
+    data object ToAddOrder : DashboardEffect()
+}
 
 sealed class DashboardEvent {
     data object ToDelayed : DashboardEvent()
     data object ToHistory : DashboardEvent()
     data object ToAddOrder : DashboardEvent()
     data class SelectedTab(val selectedTab: Int) : DashboardEvent()
-}
-
-sealed class DashboardEffect {
-    data object ToDelayedPayment : DashboardEffect()
-    data object ToHistory : DashboardEffect()
-    data object ToAddOrder : DashboardEffect()
 }
 
 //sealed class DashboardTab(val title: String, val data: Flow<List<Item>>) {
