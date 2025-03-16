@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.desainmu.data.database.DesainmuLocalDb
 import com.example.desainmu.data.database.model.ItemTable
-import com.example.desainmu.presentation.feature.dashboard.components.DashboardItemModel
+import com.example.desainmu.model.ItemModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,9 +41,6 @@ class DashboardViewModel @Inject constructor(
             DashboardEvent.ToDelayed -> emit(DashboardEffect.ToDelayedPayment)
             DashboardEvent.ToHistory -> emit(DashboardEffect.ToHistory)
 
-//            is DashboardEvent.SelectedTab -> _uiState.update {
-//                it.copy(selectedTab = event.selectedTab)
-//            }
             is DashboardEvent.SelectedTab -> {
                 _uiState.update { it.copy(selectedTab = event.selectedTab) }
                 loadDataForTab(event.selectedTab) // Call the function here
@@ -103,8 +100,8 @@ class DashboardViewModel @Inject constructor(
     }
 
     //    Extention function to convert ItemTable to OrderItemModel
-    private fun ItemTable.toOrderItemModel(): DashboardItemModel {
-        return DashboardItemModel(
+    private fun ItemTable.toOrderItemModel(): ItemModel {
+        return ItemModel(
             id = this.id,
             title = this.title,
             subtitle = this.description,

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.unit.dp
 import com.example.desainmu.presentation.feature.dashboard.components.DelayedItemView
-import com.example.desainmu.presentation.feature.dashboard.components.DashboardItemModel
+import com.example.desainmu.model.ItemModel
 import com.example.desainmu.presentation.feature.delayedPayment.DelayedPaymentEvent
 import com.example.desainmu.presentation.feature.delayedPayment.DelayedPaymentState
 
@@ -22,7 +22,7 @@ import com.example.desainmu.presentation.feature.delayedPayment.DelayedPaymentSt
 internal fun DelayedPaymentContent(
     innerPadding: PaddingValues,
     uiState: DelayedPaymentState,
-    filteredList: List<DashboardItemModel>,
+    filteredList: List<ItemModel>,
     onEvent: (DelayedPaymentEvent) -> Unit,
     focusManager: FocusManager,
     context: Context
@@ -45,7 +45,7 @@ internal fun DelayedPaymentContent(
 }
 
 @Composable
-private fun DelayedPaymentList(filteredList: List<DashboardItemModel>) {
+private fun DelayedPaymentList(filteredList: List<ItemModel>) {
     LazyColumn(
         contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)

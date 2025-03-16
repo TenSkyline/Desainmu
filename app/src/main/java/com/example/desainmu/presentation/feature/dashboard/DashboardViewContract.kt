@@ -2,18 +2,18 @@ package com.example.desainmu.presentation.feature.dashboard
 
 import com.example.desainmu.data.database.model.ItemTable
 import com.example.desainmu.model.DashboardTab
-import com.example.desainmu.presentation.feature.dashboard.components.DashboardItemModel
+import com.example.desainmu.model.ItemModel
 
 
 data class DashboardState (
 //    val selectedTab: DashboardTab = DashboardTab.Order,
     val selectedTab: Int = DashboardTab.Order.ordinal,
     val categories: List<ItemTable> = emptyList(),
-    val items: List<DashboardItemModel> = emptyList(),
+    val items: List<ItemModel> = emptyList(),
 //    val sortType: SortType = SortType.TITLE_NAME
-    val dashboardOrderItems: List<DashboardItemModel> = emptyList(),
-    val dashboardDelayedItems: List<DashboardItemModel> = emptyList(),
-    val dashboardHistoryItems: List<DashboardItemModel> = emptyList(),
+    val dashboardOrderItems: List<ItemModel> = emptyList(),
+    val dashboardDelayedItems: List<ItemModel> = emptyList(),
+    val dashboardHistoryItems: List<ItemModel> = emptyList(),
     // ... more tabs
     val isLoading: Boolean = false,
     val error: String? = null

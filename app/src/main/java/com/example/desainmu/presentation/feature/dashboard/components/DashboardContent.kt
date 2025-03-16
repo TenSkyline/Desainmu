@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.desainmu.model.DashboardTab
+import com.example.desainmu.model.ItemModel
 import com.example.desainmu.presentation.feature.dashboard.DashboardEvent
 import com.example.desainmu.presentation.feature.dashboard.DashboardState
 
@@ -45,7 +46,6 @@ private fun SelectCategoryTabView(
         DashboardTabRow(
             selectedTabIndex = uiState.selectedTab,
             onTabSelected = { index ->
-//                onEvent(DashboardEvent.SelectedTab(uiState.selectedTab))
                 onEvent(DashboardEvent.SelectedTab(index))
             }
         )
@@ -81,7 +81,6 @@ private fun DashboardTabContent(uiState: DashboardState) {
                 itemType = "order",
                 onItemClick = { }
             )
-//            OrderItemView(item = uiState.dashboardOrderItems[0], onClick = {})
         }
 
         1 -> {
@@ -91,7 +90,6 @@ private fun DashboardTabContent(uiState: DashboardState) {
                 itemType = "delayed",
                 onItemClick = { }
             )
-//            DelayedItemView(item = uiState.dashboardDelayedItems[1], onClick = {})
         }
         2 -> {
             // Display data for tab 2
@@ -100,7 +98,6 @@ private fun DashboardTabContent(uiState: DashboardState) {
                 itemType = "history",
                 onItemClick = { }
             )
-//            HistoryItemView(item = uiState.dashboardHistoryItems[2])
         }
         // ... more cases
         else -> {
@@ -116,23 +113,32 @@ private fun DashboardTabContent(uiState: DashboardState) {
 }
 
 @Composable
-fun ItemsList(
-    items: List<DashboardItemModel>,
+private fun ItemsList(
+    items: List<ItemModel>,
     itemType: String,
-    onItemClick: (DashboardItemModel) -> Unit) {
+    onItemClick: (ItemModel) -> Unit) {
 
     LazyColumn {
         items(items) { item ->
             Spacer(modifier = Modifier.height(8.dp))
             when (itemType) {
-                "order" -> OrderItemView(item, onClick = { onItemClick(item) })
-                "delayed" -> DelayedItemView(item, onClick = { onItemClick(item) })
+                "order" -> OrderItemView(item, onClick = { handleItemClick(item, onItemClick) })
+                "delayed" -> DelayedItemView(item, onClick = { handleItemClick(item, onItemClick) })
                 "history" -> HistoryItemView(item)
                 else -> Text("Unknown item type", style = MaterialTheme.typography.bodySmall)
             }
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
+}
+
+private fun handleItemClick(item: ItemModel, onItemClick: (ItemModel) -> Unit) {
+    val updatedItem = if (!item.isDone) {
+        item.copy(isDone = true, isPayed = false)
+    } else {
+        item.copy(isPayed = true)
+    }
+    onItemClick(updatedItem)
 }
 
 //@Composable

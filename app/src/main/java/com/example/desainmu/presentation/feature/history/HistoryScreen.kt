@@ -16,10 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.desainmu.presentation.design.components.CustomIconButton
-import com.example.desainmu.presentation.feature.dashboard.components.DashboardItemModel
 import com.example.desainmu.presentation.feature.history.components.HistoryContent
 
 @Composable
@@ -27,7 +27,7 @@ internal fun HistoryRoute(
     navigateUp: () -> Unit = {},
 //    dummyValueHistory: List<DashboardItemModel>
 ) {
-    val viewModel: HistoryViewModel = viewModel()
+    val viewModel: HistoryViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {

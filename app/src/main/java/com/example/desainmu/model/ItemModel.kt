@@ -1,8 +1,6 @@
-package com.example.desainmu.presentation.feature.dashboard.components
+package com.example.desainmu.model
 
-import com.example.desainmu.model.DesignInput
-
-data class DashboardItemModel(
+data class ItemModel(
     val id: Int,
     val title: String,
     val subtitle: String,

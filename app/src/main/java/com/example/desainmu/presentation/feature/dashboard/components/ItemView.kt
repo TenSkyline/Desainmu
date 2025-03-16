@@ -17,12 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.desainmu.model.ItemModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 @Composable
-internal fun OrderItemView(item: DashboardItemModel, onClick: () -> Unit) {
+internal fun OrderItemView(item: ItemModel, onClick: () -> Unit) {
     BaseItemView(item = item, onClick = onClick) {
         Text("Tenggat waktu: ${formatDate(item.selectedDate)}", style = MaterialTheme.typography.bodySmall)
         Text("Sisa Hari: ${item.daysLeft}", style = MaterialTheme.typography.bodySmall)
@@ -30,7 +31,7 @@ internal fun OrderItemView(item: DashboardItemModel, onClick: () -> Unit) {
 }
 
 @Composable
-internal fun DelayedItemView(item: DashboardItemModel, onClick: () -> Unit) {
+internal fun DelayedItemView(item: ItemModel, onClick: () -> Unit) {
     BaseItemView(item = item, onClick = onClick) {
         Text("Tanggal Selesai: ${formatDate(item.dateDone)}", style = MaterialTheme.typography.bodySmall)
         Text("Lama Pengerjaan: ${item.daysOfWork} Hari", style = MaterialTheme.typography.bodySmall)
@@ -38,7 +39,7 @@ internal fun DelayedItemView(item: DashboardItemModel, onClick: () -> Unit) {
 }
 
 @Composable
-internal fun HistoryItemView(item: DashboardItemModel) {
+internal fun HistoryItemView(item: ItemModel) {
     BaseItemView(item = item, onClick = null) {
         Text("Tanggal Selesai: ${formatDate(item.dateDone)}", style = MaterialTheme.typography.bodySmall)
         Text("Tanggal Pembayaran: ${formatDate(item.datePayed)}", style = MaterialTheme.typography.bodySmall)
@@ -48,7 +49,7 @@ internal fun HistoryItemView(item: DashboardItemModel) {
 
 @Composable
 private fun BaseItemView(
-    item: DashboardItemModel,
+    item: ItemModel,
     onClick: (() -> Unit)?,
     additionalContent: @Composable () -> Unit
 ) {

@@ -16,10 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.desainmu.presentation.design.components.CustomIconButton
-import com.example.desainmu.presentation.feature.dashboard.components.DashboardItemModel
 import com.example.desainmu.presentation.feature.delayedPayment.components.DelayedPaymentContent
 
 @Composable
@@ -28,7 +28,7 @@ internal fun DelayedPaymentRoute(
 //    dummyValueDelayed: List<DashboardItemModel>,
 
     ) {
-    val viewModel: DelayedPaymentViewModel = viewModel()
+    val viewModel: DelayedPaymentViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
