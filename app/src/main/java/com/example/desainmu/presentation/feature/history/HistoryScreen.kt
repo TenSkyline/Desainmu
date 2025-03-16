@@ -19,13 +19,13 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.desainmu.presentation.design.components.CustomIconButton
-import com.example.desainmu.presentation.feature.dashboard.components.OrderItemModel
+import com.example.desainmu.presentation.feature.dashboard.components.DashboardItemModel
 import com.example.desainmu.presentation.feature.history.components.HistoryContent
 
 @Composable
 internal fun HistoryRoute(
     navigateUp: () -> Unit = {},
-    dummyValueHistory: List<OrderItemModel>
+//    dummyValueHistory: List<DashboardItemModel>
 ) {
     val viewModel: HistoryViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -38,24 +38,26 @@ internal fun HistoryRoute(
         }
     }
 
-    HistoryScreen(onEvent = viewModel::handleEvent, uiState, dummyValueHistory)
+    HistoryScreen(onEvent = viewModel::handleEvent, uiState,
+//        dummyValueHistory
+    )
 }
 
 @Composable
 private fun HistoryScreen(
     onEvent: (HistoryEvent) -> Unit,
     uiState: HistoryState,
-    dummyValueHistory: List<OrderItemModel>
+//    dummyValueHistory: List<DashboardItemModel>
 ) {
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 
-    val filteredList by remember(uiState.searchQuery, dummyValueHistory) {
+    val filteredList by remember(uiState.searchQuery, uiState.items) {
         derivedStateOf {
             if (uiState.searchQuery.isBlank()) {
-                dummyValueHistory
+                uiState.items
             } else {
-                dummyValueHistory.filter {
+                uiState.items.filter {
                     it.title.contains(uiState.searchQuery, ignoreCase = true)
                 }
             }

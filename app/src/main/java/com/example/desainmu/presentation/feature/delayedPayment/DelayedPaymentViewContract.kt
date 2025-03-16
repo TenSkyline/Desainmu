@@ -1,9 +1,12 @@
 package com.example.desainmu.presentation.feature.delayedPayment
 
+import com.example.desainmu.presentation.feature.dashboard.components.DashboardItemModel
+
 data class DelayedPaymentState (
     val searchQuery: String = "",
     val isSearchActive: Boolean = false,
 //    val filteredList: List<OrderItemModel> = emptyList()
+    val items: List<DashboardItemModel> = emptyList(),
 )
 
 sealed class DelayedPaymentEvent {

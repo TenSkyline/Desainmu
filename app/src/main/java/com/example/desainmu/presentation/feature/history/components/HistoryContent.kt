@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.unit.dp
 import com.example.desainmu.presentation.feature.dashboard.components.HistoryItemView
-import com.example.desainmu.presentation.feature.dashboard.components.OrderItemModel
+import com.example.desainmu.presentation.feature.dashboard.components.DashboardItemModel
 import com.example.desainmu.presentation.feature.history.HistoryEvent
 import com.example.desainmu.presentation.feature.history.HistoryState
 
@@ -22,7 +22,7 @@ import com.example.desainmu.presentation.feature.history.HistoryState
     internal fun HistoryContent(
     innerPadding: PaddingValues,
     uiState: HistoryState,
-    filteredList: List<OrderItemModel>,
+    filteredList: List<DashboardItemModel>,
     onEvent: (HistoryEvent) -> Unit,
     focusManager: FocusManager,
     context: Context
@@ -45,7 +45,7 @@ import com.example.desainmu.presentation.feature.history.HistoryState
 }
 
 @Composable
-private fun HistoryList(filteredList: List<OrderItemModel>) {
+private fun HistoryList(filteredList: List<DashboardItemModel>) {
     LazyColumn(
         contentPadding = PaddingValues(vertical = 24.dp, horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)

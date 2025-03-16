@@ -1,47 +1,20 @@
 package com.example.desainmu.presentation.feature.result
 
 import com.example.desainmu.model.DesignInput
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
+import java.time.temporal.ChronoUnit
 
 
 data class ResultState(
-    val dateAdded: Long = LocalDate.now().toEpochDay(),
-    val dateDone: Long = 1111,
+    val dateAdded: Long = System.currentTimeMillis(),
+    val dateDone: Long = 0,
     val isDone: Boolean = false,
-    val datePayed: Long = 2222,
+    val datePayed: Long = 0,
     val isPayed: Boolean = false,
-//
-//    val banTangan: Double? = null,
-//    val jarakBustier: Double? = null,
-//    val kerungLengan: Double? = null,
-//    val lebarDada: Double? = null,
-//    val lebarLengan: Double? = null,
-//    val lebarPunggung: Double? = null,
-//    val lebarSiku: Double? = null,
-//    val lingkarBadan: Double? = null,
-//    val lingkarBawah: Double, //not sure
-//    val lingkarBawahCelana: Double? = null,
-//    val lingkarLeher: Double? = null,
-//    val lingkarLutut: Double? = null,
-//    val lingkarMiatak: Double? = null,
-//    val lingkarPanggul1: Double? = null,
-//    val lingkarPanggul2: Double? = null,
-//    val lingkarPinggang: Double? = null,
-//    val pahaAtas: Double? = null,
-//    val panjangBaju: Double? = null,
-//    val panjangCelana: Double? = null,
-//    val panjangDada: Double? = null,
-//    val panjangGamis: Double? = null,
-//    val panjangLengan: Double, //not sure
-//    val panjangLutut: Double? = null,
-//    val panjangPunggung: Double? = null,
-//    val panjangRok: Double? = null,
-//    val panjangSeluruhBahu: Double? = null,
-//    val panjangSiku: Double? = null,
-//    val sisiBadan: Double? = null,
-//    val tinggiBustier: Double? = null,
-//    val tinggiDuduk: Double? = null,
-//    val tinggiPanggul: Double? = null,
+    val daysOfWork: Int = 0,
+
     val lineAK: String = "3",
     val lineALGH: String = "4",
     val lineAE: String = "5",
@@ -56,13 +29,19 @@ data class ResultState(
         return resultDescription
     }
     val selectedDate: Long get() {
-        val resultSelectedDate = DesignInput.dataOrder.selectedDate.toEpochDay()
+        val resultSelectedDate = DesignInput.dataOrder.selectedDate
         return resultSelectedDate
     }
     val daysLeft: Int get() {
-        val resultDaysLeft = DesignInput.dataOrder.selectedDate.toEpochDay() - DesignInput.dataOrder.currentDate.toEpochDay()
+        val selectedDateLocal = Instant.ofEpochMilli(DesignInput.dataOrder.selectedDate)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+        val resultDaysLeft = ChronoUnit.DAYS.between(DesignInput.dataOrder.currentDate, selectedDateLocal)
         return resultDaysLeft.toInt()
     }
+//    val daysOfWork: Int get() {
+//        val resultDaysOfWork =
+//    }
 
     val selectedDesign: String get() {
         val resultSelectedDesign = DesignInput.dataOrder.selectedDesign
@@ -219,9 +198,12 @@ data class ResultState(
 sealed class ResultEvent {
     data object NavigateUp: ResultEvent()
     data object SaveItem: ResultEvent()
+    data object NavigateToDashboard : ResultEvent()
+
 }
 
 sealed class ResultEffect {
     data object NavigateUp: ResultEffect()
-//    data object SaveItem: ResultEffect()
+    data object NavigateToDashboard: ResultEffect()
+
 }

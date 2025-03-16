@@ -17,34 +17,38 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
-internal fun OrderItemView(item: OrderItemModel, onClick: () -> Unit) {
+internal fun OrderItemView(item: DashboardItemModel, onClick: () -> Unit) {
     BaseItemView(item = item, onClick = onClick) {
-        Text("Tenggat waktu: ${item.selectedDate}", style = MaterialTheme.typography.bodySmall)
+        Text("Tenggat waktu: ${formatDate(item.selectedDate)}", style = MaterialTheme.typography.bodySmall)
         Text("Sisa Hari: ${item.daysLeft}", style = MaterialTheme.typography.bodySmall)
     }
 }
 
 @Composable
-internal fun DelayedItemView(item: OrderItemModel, onClick: () -> Unit) {
+internal fun DelayedItemView(item: DashboardItemModel, onClick: () -> Unit) {
     BaseItemView(item = item, onClick = onClick) {
-        Text("Tanggal Selesai: ${item.dateDone}", style = MaterialTheme.typography.bodySmall)
-        Text("Lama Pengerjaan: ${item.dateDone} Hari", style = MaterialTheme.typography.bodySmall)
+        Text("Tanggal Selesai: ${formatDate(item.dateDone)}", style = MaterialTheme.typography.bodySmall)
+        Text("Lama Pengerjaan: ${item.daysOfWork} Hari", style = MaterialTheme.typography.bodySmall)
     }
 }
 
 @Composable
-internal fun HistoryItemView(item: OrderItemModel) {
+internal fun HistoryItemView(item: DashboardItemModel) {
     BaseItemView(item = item, onClick = null) {
-        Text("Tanggal Pembayaran: ${item.dateDone}", style = MaterialTheme.typography.bodySmall)
-        Text("Lama Pengerjaan: ${item.daysLeft} Hari", style = MaterialTheme.typography.bodySmall)
+        Text("Tanggal Selesai: ${formatDate(item.dateDone)}", style = MaterialTheme.typography.bodySmall)
+        Text("Tanggal Pembayaran: ${formatDate(item.datePayed)}", style = MaterialTheme.typography.bodySmall)
+        Text("Lama Pengerjaan: ${item.daysOfWork} Hari", style = MaterialTheme.typography.bodySmall)
     }
 }
 
 @Composable
 private fun BaseItemView(
-    item: OrderItemModel,
+    item: DashboardItemModel,
     onClick: (() -> Unit)?,
     additionalContent: @Composable () -> Unit
 ) {
@@ -83,6 +87,12 @@ private fun BaseItemView(
             }
         }
     }
+}
+
+private fun formatDate(longDate: Long?): String {
+    if (longDate == null) return "-"
+    val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    return sdf.format(Date(longDate))
 }
 
 //@Preview

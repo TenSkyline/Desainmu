@@ -36,6 +36,7 @@ internal fun ResultContent(
             ElevatedButton(
                 onClick = {
                     onEvent.invoke(ResultEvent.SaveItem)
+                    onEvent.invoke(ResultEvent.NavigateToDashboard)
                 },
                 modifier = Modifier
                     .fillMaxWidth()

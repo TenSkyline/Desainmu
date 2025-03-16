@@ -19,13 +19,13 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.desainmu.presentation.design.components.CustomIconButton
-import com.example.desainmu.presentation.feature.dashboard.components.OrderItemModel
+import com.example.desainmu.presentation.feature.dashboard.components.DashboardItemModel
 import com.example.desainmu.presentation.feature.delayedPayment.components.DelayedPaymentContent
 
 @Composable
 internal fun DelayedPaymentRoute(
     navigateUp: () -> Unit = {},
-    dummyValueDelayed: List<OrderItemModel>,
+//    dummyValueDelayed: List<DashboardItemModel>,
 
     ) {
     val viewModel: DelayedPaymentViewModel = viewModel()
@@ -39,26 +39,34 @@ internal fun DelayedPaymentRoute(
         }
     }
 
-    DelayedPaymentScreen(onEvent = viewModel::handleEvent, uiState, dummyValueDelayed)
+    DelayedPaymentScreen(onEvent = viewModel::handleEvent, uiState,
+//        dummyValueDelayed
+    )
 }
 
 @Composable
 private fun DelayedPaymentScreen(
     onEvent: (DelayedPaymentEvent) -> Unit,
     uiState: DelayedPaymentState,
-    dummyValueDelayed: List<OrderItemModel>
+//    dummyValueDelayed: List<DashboardItemModel>
 ) {
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 
-    val filteredList by remember(uiState.searchQuery, dummyValueDelayed) {
+    val filteredList by remember(uiState.searchQuery, uiState.items
+//        dummyValueDelayed
+    ) {
         derivedStateOf {
             if (uiState.searchQuery.isBlank()) {
-                dummyValueDelayed
+                uiState.items
+//                dummyValueDelayed
             } else {
-                dummyValueDelayed.filter {
+                uiState.items.filter {
                     it.title.contains(uiState.searchQuery, ignoreCase = true)
                 }
+//                dummyValueDelayed.filter {
+//                    it.title.contains(uiState.searchQuery, ignoreCase = true)
+//                }
             }
         }
     }

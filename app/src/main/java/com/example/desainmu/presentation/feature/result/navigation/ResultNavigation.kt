@@ -18,13 +18,16 @@ fun NavController.navigateToResult(design: Design, navOptions: NavOptions? = nul
     navigate(route, navOptions)
 }
 
-fun NavGraphBuilder.resultScreen(navigateUp: () -> Unit = {}) {
+fun NavGraphBuilder.resultScreen(
+    navigateToDashboard: () -> Unit = {},
+    navigateUp: () -> Unit = {}
+) {
     val route = "$RESULT_ROUTE/{${DesignArgs}}"
     val arguments = listOf(navArgument(DesignArgs) { type = NavType.IntType })
     composable(route, arguments) { backStackEntry ->
         val designOrdinal = backStackEntry.arguments?.getInt(DesignArgs) ?: 0
         val design = Design.entries.find { it.ordinal == designOrdinal } ?: Design.KaosLakiPolaDasar
-        ResultRoute(selectedDesign = design, navigateUp = navigateUp)
+        ResultRoute(selectedDesign = design, navigateToDashboard = navigateToDashboard ,navigateUp = navigateUp)
     }
 }
 

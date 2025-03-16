@@ -7,6 +7,7 @@ import com.example.desainmu.presentation.feature.addOrder.navigation.addOrderScr
 import com.example.desainmu.presentation.feature.addOrder.navigation.navigateToAddOrder
 import com.example.desainmu.presentation.feature.dashboard.navigation.DASHBOARD_ROUTE
 import com.example.desainmu.presentation.feature.dashboard.navigation.dashboardScreen
+import com.example.desainmu.presentation.feature.dashboard.navigation.navigateToDashboard
 import com.example.desainmu.presentation.feature.delayedPayment.navigation.delayedPaymentScreen
 import com.example.desainmu.presentation.feature.delayedPayment.navigation.navigateToDelayedPayment
 import com.example.desainmu.presentation.feature.designMeasurement.navigation.designMeasurementScreen
@@ -42,7 +43,12 @@ fun DesainmuNavigation(startDestination: String = DASHBOARD_ROUTE) {
 
         delayedPaymentScreen(navigateUp = { navController.navigateUp() })
         historyScreen(navigateUp = { navController.navigateUp() })
-        resultScreen(navigateUp = { navController.navigateUp() })
+        resultScreen(
+            navigateToDashboard = {
+                navController.navigateToDashboard()
+            },
+            navigateUp = { navController.navigateUp() }
+        )
     }
 }
 

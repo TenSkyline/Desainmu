@@ -16,6 +16,7 @@ data class ItemTable(
     val selectedDate: Long, // Number of days since the epoch
     val daysLeft: Int, //[selectedDate] - [dateAdded]
     val dateDone: Long, // Number of days since the epoch
+    val daysOfWork: Int, //[dateDone] - [selectedDate]
     val isDone: Boolean,
     val datePayed: Long, // Number of days since the epoch
     val isPayed: Boolean,

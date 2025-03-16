@@ -38,16 +38,12 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DatePickerFieldToModal(modifier: Modifier = Modifier, viewModel: AddOrderViewModel = viewModel()) {
-//    var selectedDate by remember { mutableStateOf<Long?>(null) }
-//    var showModal by remember { mutableStateOf(false) }
     val uiState by viewModel.uiState.collectAsState()
     var showDatePicker by remember { mutableStateOf(false) }
-    val datePickerState = rememberDatePickerState(initialSelectedDateMillis = uiState.selectedDate.atStartOfDay(
-        ZoneId.systemDefault()).toInstant().toEpochMilli())
+    val datePickerState = rememberDatePickerState(initialSelectedDateMillis = uiState.selectedDate)
 
     OutlinedTextField(
-//        value = selectedDate?.let { convertMillisToDate(it) } ?: "",
-        value = datePickerState.selectedDateMillis?.let { convertMillisToDate(it) } ?: "",
+        value = convertMillisToDate(uiState.selectedDate),
         onValueChange = { },
         label = { Text(stringResource(R.string.due_date)) },
         placeholder = { Text(stringResource(R.string.date_format)) },
@@ -58,9 +54,6 @@ fun DatePickerFieldToModal(modifier: Modifier = Modifier, viewModel: AddOrderVie
             .fillMaxWidth()
             .pointerInput(datePickerState.selectedDateMillis) {
                 awaitEachGesture {
-                    // Modifier.clickable doesn't work for text fields, so we use Modifier.pointerInput
-                    // in the Initial pass to observe events before the text field consumes them
-                    // in the Main pass.
                     awaitFirstDown(pass = PointerEventPass.Initial)
                     val upEvent = waitForUpOrCancellation(pass = PointerEventPass.Initial)
                     if (upEvent != null) {
@@ -74,7 +67,6 @@ fun DatePickerFieldToModal(modifier: Modifier = Modifier, viewModel: AddOrderVie
         DatePickerModal(
             viewModel = viewModel,
             datePickerState = datePickerState,
-//            onDateSelected = { selectedDate = it },
             onDismiss = { showDatePicker = false }
         )
     }
@@ -85,18 +77,15 @@ fun DatePickerFieldToModal(modifier: Modifier = Modifier, viewModel: AddOrderVie
 fun DatePickerModal(
     viewModel: AddOrderViewModel = viewModel(),
     datePickerState: DatePickerState,
-//    onDateSelected: (Long?) -> Unit,
     onDismiss: () -> Unit,
 ) {
     DatePickerDialog(
         onDismissRequest = { onDismiss() },
         confirmButton = {
             TextButton(onClick = {
-                datePickerState.selectedDateMillis?.let{
-                    val selectedDate = Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).toLocalDate()
-                    viewModel.handleEvent(AddOrderEvent.SetSelectedDate(selectedDate))
+                datePickerState.selectedDateMillis?.let {
+                    viewModel.handleEvent(AddOrderEvent.SetSelectedDate(it)) // Save as Long
                 }
-//                onDateSelected(datePickerState.selectedDateMillis)
                 onDismiss()
             }) {
                 Text("Simpan")

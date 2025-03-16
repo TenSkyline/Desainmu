@@ -28,6 +28,7 @@ class ResultViewModel @Inject constructor(
         when (event) {
             ResultEvent.NavigateUp -> emit(ResultEffect.NavigateUp)
             ResultEvent.SaveItem -> saveItem()
+            ResultEvent.NavigateToDashboard -> emit(ResultEffect.NavigateToDashboard)
         }
     }
 
@@ -43,6 +44,7 @@ class ResultViewModel @Inject constructor(
             selectedDate = this.selectedDate,
             daysLeft = this.daysLeft,
             dateDone = this.dateDone,
+            daysOfWork = this.daysOfWork,
             isDone = this.isDone,
             datePayed = this.datePayed,
             isPayed = this.isPayed,

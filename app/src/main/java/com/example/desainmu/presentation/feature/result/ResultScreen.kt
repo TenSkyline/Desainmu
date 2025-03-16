@@ -21,6 +21,7 @@ import com.example.desainmu.presentation.feature.result.components.ResultContent
 @Composable
 internal fun ResultRoute(
     navigateUp: () -> Unit = {},
+    navigateToDashboard: () -> Unit = {},
     selectedDesign: Design
 ) {
     val viewModel: ResultViewModel = hiltViewModel()
@@ -30,7 +31,8 @@ internal fun ResultRoute(
         viewModel.uiEffect.collect { effect ->
             when (effect) {
                 ResultEffect.NavigateUp -> navigateUp.invoke()
-            }
+                ResultEffect.NavigateToDashboard -> navigateToDashboard.invoke()
+                }
         }
     }
 

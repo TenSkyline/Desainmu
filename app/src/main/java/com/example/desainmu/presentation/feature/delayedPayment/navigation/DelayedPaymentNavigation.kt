@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.example.desainmu.presentation.feature.dashboard.components.dummyValueDelayed
+//import com.example.desainmu.presentation.feature.dashboard.components.dummyValueDelayed
 import com.example.desainmu.presentation.feature.delayedPayment.DelayedPaymentRoute
 
 const val DELAYED_PAYMENT_ROUTE = "delayed_payment_route"
@@ -15,6 +15,8 @@ fun NavController.navigateToDelayedPayment(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.delayedPaymentScreen(navigateUp: () -> Unit = {}) {
     composable(DELAYED_PAYMENT_ROUTE) {
-        DelayedPaymentRoute(navigateUp, dummyValueDelayed)
+        DelayedPaymentRoute(navigateUp,
+//            dummyValueDelayed
+        )
     }
 }
