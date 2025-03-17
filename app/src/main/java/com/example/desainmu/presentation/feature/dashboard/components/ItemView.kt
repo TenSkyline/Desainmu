@@ -8,7 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,16 +27,16 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
-internal fun OrderItemView(item: ItemModel, onClick: () -> Unit) {
-    BaseItemView(item = item, onClick = onClick) {
+internal fun OrderItemView(item: ItemModel, onClick: (ItemModel) -> Unit, onDelete: (ItemModel) -> Unit) {
+    BaseItemView(item = item, onClick = onClick, onDeleteClick = onDelete) {
         Text("Tenggat waktu: ${formatDate(item.selectedDate)}", style = MaterialTheme.typography.bodySmall)
         Text("Sisa Hari: ${item.daysLeft}", style = MaterialTheme.typography.bodySmall)
     }
 }
 
 @Composable
-internal fun DelayedItemView(item: ItemModel, onClick: () -> Unit) {
-    BaseItemView(item = item, onClick = onClick) {
+internal fun DelayedItemView(item: ItemModel, onClick: (ItemModel) -> Unit) {
+    BaseItemView(item = item, onClick = onClick, onDeleteClick = null) {
         Text("Tanggal Selesai: ${formatDate(item.dateDone)}", style = MaterialTheme.typography.bodySmall)
         Text("Lama Pengerjaan: ${item.daysOfWork} Hari", style = MaterialTheme.typography.bodySmall)
     }
@@ -40,7 +44,7 @@ internal fun DelayedItemView(item: ItemModel, onClick: () -> Unit) {
 
 @Composable
 internal fun HistoryItemView(item: ItemModel) {
-    BaseItemView(item = item, onClick = null) {
+    BaseItemView(item = item, onClick = null, onDeleteClick = null) {
         Text("Tanggal Selesai: ${formatDate(item.dateDone)}", style = MaterialTheme.typography.bodySmall)
         Text("Tanggal Pembayaran: ${formatDate(item.datePayed)}", style = MaterialTheme.typography.bodySmall)
         Text("Lama Pengerjaan: ${item.daysOfWork} Hari", style = MaterialTheme.typography.bodySmall)
@@ -50,7 +54,8 @@ internal fun HistoryItemView(item: ItemModel) {
 @Composable
 private fun BaseItemView(
     item: ItemModel,
-    onClick: (() -> Unit)?,
+    onClick: ((ItemModel) -> Unit)?,
+    onDeleteClick: ((ItemModel) -> Unit)?,
     additionalContent: @Composable () -> Unit
 ) {
     Surface(
@@ -72,7 +77,7 @@ private fun BaseItemView(
                 )
                 Spacer(modifier = Modifier.size(8.dp))
                 Text(
-                    text = item.subtitle,
+                    text = item.description,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2,
                     style = MaterialTheme.typography.bodyMedium
@@ -82,9 +87,22 @@ private fun BaseItemView(
             }
             if (onClick != null) {
                 Checkbox(
-                    checked = item.isDone,
-                    onCheckedChange = { onClick() }
+                    checked = item.isDone || item.isPayed,
+                    onCheckedChange = {
+                        if (!item.isDone) {
+                            // Set isDone = true, isPayed = false
+                            onClick(item.copy(isDone = true, isPayed = false))
+                        } else {
+                            // Set isPayed = true
+                            onClick(item.copy(isPayed = true))
+                        }
+                    }
                 )
+            }
+            if (onDeleteClick != null) {
+                IconButton(onClick = { onDeleteClick(item) }) {
+                    Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete")
+                }
             }
         }
     }
@@ -92,7 +110,7 @@ private fun BaseItemView(
 
 private fun formatDate(longDate: Long?): String {
     if (longDate == null) return "-"
-    val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val sdf = SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault())
     return sdf.format(Date(longDate))
 }
 

@@ -13,16 +13,28 @@ interface ItemDao {
     @Upsert
     suspend fun upsertItem(itemTable: ItemTable)
 
-    @Delete
-    suspend fun delete(itemTable: ItemTable)
+    @Query("DELETE FROM items WHERE id = :itemId")
+    suspend fun deleteById(itemId: Int)
 
     //Find item based on id
     @Query("SELECT * from items WHERE id = :id")
     fun getItems(id: Int): ItemTable
 
-    //Sort item based on title
-//    @Query("SELECT * from items ORDER BY title ASC")
-//    fun getItemsByTitle(): Flow<List<Item>>
+    //Update isDone
+    @Query("UPDATE items SET isDone = :isDone WHERE id = :id")
+    suspend fun updateIsDone(id: Int, isDone: Boolean)
+
+    //Update isPayed
+    @Query("UPDATE items SET isPayed = :isPayed WHERE id = :id")
+    suspend fun updateIsPayed(id: Int, isPayed: Boolean)
+
+    //Update dateDone
+    @Query("UPDATE items SET dateDone = :dateDone WHERE id = :id")
+    suspend fun updateDateDone(id: Int, dateDone: Long)
+
+    //Update datePayed
+    @Query("UPDATE items SET datePayed = :datePayed WHERE id = :id")
+    suspend fun updateDatePayed(id: Int, datePayed: Long)
 
     //Sort item based on days left (for dashboard order tab)
     @Query("SELECT * FROM items WHERE isDone = 0 AND isPayed = 0 ORDER BY daysLeft ASC")

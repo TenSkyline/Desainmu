@@ -3,7 +3,7 @@ package com.example.desainmu.model
 data class ItemModel(
     val id: Int,
     val title: String,
-    val subtitle: String,
+    val description: String,
     val dateAdded: Long,
     val selectedDate: Long,
     val daysLeft: Int,

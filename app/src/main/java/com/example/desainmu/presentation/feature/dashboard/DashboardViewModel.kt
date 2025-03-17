@@ -45,6 +45,28 @@ class DashboardViewModel @Inject constructor(
                 _uiState.update { it.copy(selectedTab = event.selectedTab) }
                 loadDataForTab(event.selectedTab) // Call the function here
             }
+            is DashboardEvent.ItemClickedDone -> {
+                viewModelScope.launch {
+                    val item = event.item
+                    itemDao.updateIsDone(item.id, true)
+                    itemDao.updateDateDone(item.id, System.currentTimeMillis())
+                    loadDataForTab(_uiState.value.selectedTab)  // Refresh UI
+                }
+            }
+            is DashboardEvent.ItemClickedPayed -> {
+                viewModelScope.launch {
+                    val item = event.item
+                    itemDao.updateIsPayed(item.id, true)
+                    itemDao.updateDatePayed(item.id, System.currentTimeMillis())
+                    loadDataForTab(_uiState.value.selectedTab)  // Refresh UI
+                }
+            }
+            is DashboardEvent.Delete -> {
+                viewModelScope.launch {
+                    itemDao.deleteById(event.id)
+                    loadDataForTab(_uiState.value.selectedTab)  // Refresh UI
+                }
+            }
         }
     }
 
@@ -104,7 +126,7 @@ class DashboardViewModel @Inject constructor(
         return ItemModel(
             id = this.id,
             title = this.title,
-            subtitle = this.description,
+            description = this.description,
             dateAdded = this.dateAdded,
             selectedDate = this.selectedDate,
             daysLeft = this.daysLeft,

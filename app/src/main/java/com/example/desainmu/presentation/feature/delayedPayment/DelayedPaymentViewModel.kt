@@ -61,7 +61,7 @@ class DelayedPaymentViewModel @Inject constructor(
         return ItemModel(
             id = this.id,
             title = this.title,
-            subtitle = this.description,
+            description = this.description,
             dateAdded = this.dateAdded,
             selectedDate = this.selectedDate,
             daysLeft = this.daysLeft,
