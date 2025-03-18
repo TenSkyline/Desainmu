@@ -1,7 +1,6 @@
 package com.example.desainmu.data.database.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
 import com.example.desainmu.data.database.model.ItemTable
@@ -18,7 +17,7 @@ interface ItemDao {
 
     //Find item based on id
     @Query("SELECT * from items WHERE id = :id")
-    fun getItems(id: Int): ItemTable
+    fun getItemById(id: Int): ItemTable
 
     //Update isDone
     @Query("UPDATE items SET isDone = :isDone WHERE id = :id")

@@ -32,14 +32,15 @@ internal fun ResultRoute(
             when (effect) {
                 ResultEffect.NavigateUp -> navigateUp.invoke()
                 ResultEffect.NavigateToDashboard -> navigateToDashboard.invoke()
-                }
+            }
         }
     }
 
     ResultScreen(
         onEvent = viewModel::handleEvent,
         uiState,
-        selectedDesign = selectedDesign)
+        selectedDesign = selectedDesign
+    )
 }
 
 @Composable
@@ -51,7 +52,12 @@ internal fun ResultScreen(
     Scaffold(
         topBar = { ResultTopBar(onEvent) },
         content = { padding ->
-            ResultContent(padding, uiState = uiState, selectedDesign = selectedDesign, onEvent = onEvent)
+            ResultContent(
+                padding,
+                uiState = uiState,
+                selectedDesign = selectedDesign,
+                onEvent = onEvent
+            )
         }
     )
 }

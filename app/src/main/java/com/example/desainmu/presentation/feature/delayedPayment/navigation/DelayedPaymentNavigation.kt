@@ -13,10 +13,14 @@ fun NavController.navigateToDelayedPayment(navOptions: NavOptions? = null) {
     navigate(DELAYED_PAYMENT_ROUTE, navOptions)
 }
 
-fun NavGraphBuilder.delayedPaymentScreen(navigateUp: () -> Unit = {}) {
+fun NavGraphBuilder.delayedPaymentScreen(
+    navigateUp: () -> Unit = {},
+    navigateToItemDetail: (Int) -> Unit
+) {
     composable(DELAYED_PAYMENT_ROUTE) {
-        DelayedPaymentRoute(navigateUp,
-//            dummyValueDelayed
+        DelayedPaymentRoute(
+            navigateUp,
+            navigateToItemDetail = navigateToItemDetail
         )
     }
 }

@@ -10,24 +10,29 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Checkbox
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.desainmu.model.ItemModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 @Composable
-internal fun OrderItemView(item: ItemModel, onClick: (ItemModel) -> Unit, onDelete: (ItemModel) -> Unit) {
+internal fun OrderItemView(item: DashboardItemModel, onClick: (DashboardItemModel) -> Unit, onDelete: (DashboardItemModel) -> Unit) {
     BaseItemView(item = item, onClick = onClick, onDeleteClick = onDelete) {
         Text("Tenggat waktu: ${formatDate(item.selectedDate)}", style = MaterialTheme.typography.bodySmall)
         Text("Sisa Hari: ${item.daysLeft}", style = MaterialTheme.typography.bodySmall)
@@ -35,15 +40,15 @@ internal fun OrderItemView(item: ItemModel, onClick: (ItemModel) -> Unit, onDele
 }
 
 @Composable
-internal fun DelayedItemView(item: ItemModel, onClick: (ItemModel) -> Unit) {
-    BaseItemView(item = item, onClick = onClick, onDeleteClick = null) {
+internal fun DelayedItemView(item: DashboardItemModel, onClick: (DashboardItemModel) -> Unit, onDelete: (DashboardItemModel) -> Unit) {
+    BaseItemView(item = item, onClick = onClick, onDeleteClick = onDelete) {
         Text("Tanggal Selesai: ${formatDate(item.dateDone)}", style = MaterialTheme.typography.bodySmall)
         Text("Lama Pengerjaan: ${item.daysOfWork} Hari", style = MaterialTheme.typography.bodySmall)
     }
 }
 
 @Composable
-internal fun HistoryItemView(item: ItemModel) {
+internal fun HistoryItemView(item: DashboardItemModel) {
     BaseItemView(item = item, onClick = null, onDeleteClick = null) {
         Text("Tanggal Selesai: ${formatDate(item.dateDone)}", style = MaterialTheme.typography.bodySmall)
         Text("Tanggal Pembayaran: ${formatDate(item.datePayed)}", style = MaterialTheme.typography.bodySmall)
@@ -53,11 +58,14 @@ internal fun HistoryItemView(item: ItemModel) {
 
 @Composable
 private fun BaseItemView(
-    item: ItemModel,
-    onClick: ((ItemModel) -> Unit)?,
-    onDeleteClick: ((ItemModel) -> Unit)?,
+    item: DashboardItemModel,
+    onClick: ((DashboardItemModel) -> Unit)?,
+    onDeleteClick: ((DashboardItemModel) -> Unit)?,
     additionalContent: @Composable () -> Unit
 ) {
+    var showDoneDialog by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
+
     Surface(
         shadowElevation = 2.dp,
         shape = RoundedCornerShape(8.dp),
@@ -86,24 +94,67 @@ private fun BaseItemView(
                 additionalContent()
             }
             if (onClick != null) {
-                Checkbox(
-                    checked = item.isDone || item.isPayed,
-                    onCheckedChange = {
-                        if (!item.isDone) {
-                            // Set isDone = true, isPayed = false
-                            onClick(item.copy(isDone = true, isPayed = false))
-                        } else {
-                            // Set isPayed = true
-                            onClick(item.copy(isPayed = true))
-                        }
-                    }
-                )
-            }
-            if (onDeleteClick != null) {
-                IconButton(onClick = { onDeleteClick(item) }) {
-                    Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete")
+                IconButton(onClick = { showDoneDialog = true }) {
+                    Icon(imageVector = Icons.Default.Done, contentDescription = "Done")
                 }
             }
+            if (onDeleteClick != null) {
+                IconButton(onClick = { showDeleteDialog = true }) {
+                    Icon(imageVector = Icons.Default.Delete , contentDescription = "Delete")
+                }
+            }
+        }
+        // Checkbox Confirmation Dialog
+        if (showDoneDialog) {
+            AlertDialog(
+                onDismissRequest = { showDoneDialog = false },
+                title = { Text("Ubah Status Pesanan?") },
+                text = {
+                    if (!item.isDone) {
+                        Text("Ubah status pesanan ke Belum Bayar jika barang sudah jadi dan tinggal menunggu pembayaran")
+                    } else {
+                        Text("Selesaikan pesanan jika pesanan sudah dibayar")
+                    }
+                },
+                confirmButton = {
+                    TextButton(onClick = {
+                        if (!item.isDone) {
+                            onClick?.invoke(item.copy(isDone = true, isPayed = false))
+                        } else {
+                            onClick?.invoke(item.copy(isPayed = true))
+                        }
+                        showDoneDialog = false
+                    }) {
+                        Text("Ya")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showDoneDialog = false }) {
+                        Text("Tidak")
+                    }
+                }
+            )
+        }
+        // Delete Confirmation Dialog
+        if (showDeleteDialog) {
+            AlertDialog(
+                onDismissRequest = { showDeleteDialog = false },
+                title = { Text("Hapus Pesanan") },
+                text = { Text("Yakin ingin menghapus pesanan ini?") },
+                confirmButton = {
+                    TextButton(onClick = {
+                        onDeleteClick?.invoke(item)
+                        showDeleteDialog = false
+                    }) {
+                        Text("Hapus")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showDeleteDialog = false }) {
+                        Text("Batal")
+                    }
+                }
+            )
         }
     }
 }

@@ -14,6 +14,8 @@ import com.example.desainmu.presentation.feature.designMeasurement.navigation.de
 import com.example.desainmu.presentation.feature.designMeasurement.navigation.navigateToDesignMeasurement
 import com.example.desainmu.presentation.feature.history.navigation.historyScreen
 import com.example.desainmu.presentation.feature.history.navigation.navigateToHistory
+import com.example.desainmu.presentation.feature.itemDetail.navigation.itemDetailScreen
+import com.example.desainmu.presentation.feature.itemDetail.navigation.navigateToItemDetail
 import com.example.desainmu.presentation.feature.result.navigation.navigateToResult
 import com.example.desainmu.presentation.feature.result.navigation.resultScreen
 
@@ -27,21 +29,28 @@ fun DesainmuNavigation(startDestination: String = DASHBOARD_ROUTE) {
             navController.navigateToDelayedPayment()
         }, navigateToHistory = {
             navController.navigateToHistory()
-        })
+        }, navigateToItemDetail = { itemId ->
+            navController.navigateToItemDetail(itemId)
+        }
+        )
         addOrderScreen(
             navigateToDesignMeasurement = {
                 navController.navigateToDesignMeasurement(it.ordinal)
             },
             navigateUp = { navController.navigateUp() },
-//            saveItem = {},
-//            itemsRepository = {}
         )
-        designMeasurementScreen(navigateToResult = {
-            navController.navigateToResult(it)
-        },
+        designMeasurementScreen(
+            navigateToResult = {
+                navController.navigateToResult(it)
+            },
             navigateUp = { navController.navigateUp() })
 
-        delayedPaymentScreen(navigateUp = { navController.navigateUp() })
+        delayedPaymentScreen(
+            navigateUp = { navController.navigateUp() },
+            navigateToItemDetail = { itemId ->
+                navController.navigateToItemDetail(itemId)
+            }
+        )
         historyScreen(navigateUp = { navController.navigateUp() })
         resultScreen(
             navigateToDashboard = {
@@ -49,6 +58,7 @@ fun DesainmuNavigation(startDestination: String = DASHBOARD_ROUTE) {
             },
             navigateUp = { navController.navigateUp() }
         )
+        itemDetailScreen(navigateUp = { navController.navigateUp() })
     }
 }
 

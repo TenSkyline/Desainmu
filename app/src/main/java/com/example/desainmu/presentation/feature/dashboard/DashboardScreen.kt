@@ -29,7 +29,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun DashboardRoute(navigateToAddOrder: () -> Unit, navigateToDelayedPayment: () -> Unit, navigateToHistory: () -> Unit) {
+internal fun DashboardRoute(
+    navigateToAddOrder: () -> Unit,
+    navigateToDelayedPayment: () -> Unit,
+    navigateToHistory: () -> Unit,
+    navigateToItemDetail: (Int) -> Unit
+) {
     val viewModel: DashboardViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -39,6 +44,7 @@ internal fun DashboardRoute(navigateToAddOrder: () -> Unit, navigateToDelayedPay
                 DashboardEffect.ToHistory -> navigateToHistory.invoke()
                 DashboardEffect.ToAddOrder -> navigateToAddOrder.invoke()
                 DashboardEffect.ToDelayedPayment -> navigateToDelayedPayment.invoke()
+                is DashboardEffect.ToItemDetail -> navigateToItemDetail.invoke(effect.itemId)
             }
         }
     }

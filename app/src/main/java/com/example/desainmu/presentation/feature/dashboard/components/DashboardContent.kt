@@ -1,23 +1,25 @@
 package com.example.desainmu.presentation.feature.dashboard.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.desainmu.data.database.model.ItemTable
 import com.example.desainmu.model.DashboardTab
-import com.example.desainmu.model.ItemModel
 import com.example.desainmu.presentation.feature.dashboard.DashboardEvent
 import com.example.desainmu.presentation.feature.dashboard.DashboardState
 
@@ -81,36 +83,35 @@ private fun DashboardTabContent(
         0 -> {
             // Display data for tab 0
             ItemsList(
+                onEvent = onEvent,
                 items = uiState.dashboardOrderItems,
                 itemType = "order",
                 onItemClick = {
-                    onEvent.invoke(DashboardEvent.ItemClickedDone(it))
+                    onEvent.invoke(DashboardEvent.IsDone(it))
                 },
-                onDeleteClick = { onEvent.invoke(DashboardEvent.Delete(it.id)) }
+                onDeleteClick = { onEvent.invoke(DashboardEvent.Delete(it.id)) },
             )
         }
 
         1 -> {
             // Display data for tab 1
             ItemsList(
+                onEvent = onEvent,
                 items = uiState.dashboardDelayedItems,
                 itemType = "delayed",
-                onItemClick = { onEvent.invoke(DashboardEvent.ItemClickedPayed(it)) },
+                onItemClick = { onEvent.invoke(DashboardEvent.IsPayed(it)) },
                 onDeleteClick = { }
             )
         }
         2 -> {
             // Display data for tab 2
             ItemsList(
+                onEvent = onEvent,
                 items = uiState.dashboardHistoryItems,
                 itemType = "history",
                 onItemClick = { },
                 onDeleteClick = { }
             )
-        }
-        // ... more cases
-        else -> {
-            // Display data when selectedTab is not handled
         }
     }
     if(uiState.isLoading){
@@ -123,37 +124,43 @@ private fun DashboardTabContent(
 
 @Composable
 private fun ItemsList(
-    items: List<ItemModel>,
+    onEvent: (DashboardEvent) -> Unit,
+    items: List<DashboardItemModel>,
     itemType: String,
-    onItemClick: (ItemModel) -> Unit,
-    onDeleteClick: (ItemModel) -> Unit
+    onItemClick: (DashboardItemModel) -> Unit,
+    onDeleteClick: (DashboardItemModel) -> Unit
 ) {
     LazyColumn {
         items(items) { item ->
             Spacer(modifier = Modifier.height(8.dp))
-            when (itemType) {
-                "order" -> OrderItemView(
-                    item,
-                    onClick = { onItemClick(item) },
-                    onDelete = { onDeleteClick(item) }
-                )
-                "delayed" -> DelayedItemView(item, onClick = { onItemClick(item) })
-                "history" -> HistoryItemView(item)
-                else -> Text("Unknown item type", style = MaterialTheme.typography.bodySmall)
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        onEvent.invoke(DashboardEvent.ToItemDetail(item.id))
+                    }, // Make the entire item clickable
+                shape = RoundedCornerShape(8.dp),
+                shadowElevation = 2.dp
+            ) {
+                when (itemType) {
+                    "order" -> OrderItemView(
+                        item,
+                        onClick = { onItemClick(item) },
+                        onDelete = { onDeleteClick(item) }
+                    )
+                    "delayed" -> DelayedItemView(item,
+                        onClick = { onItemClick(item) },
+                        onDelete = { onDeleteClick(item) }
+                    )
+                    "history" -> HistoryItemView(item)
+                    else -> Text("Unknown item type", style = MaterialTheme.typography.bodySmall)
+                }
             }
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
 
-//private fun handleItemClick(item: ItemModel, onItemClick: (ItemModel) -> Unit) {
-//    val updatedItem = if (!item.isDone) {
-//        item.copy(isDone = true, isPayed = false)
-//    } else {
-//        item.copy(isPayed = true)
-//    }
-//    onItemClick(updatedItem)
-//}
 
 //@Composable
 //fun ItemsList(items: List<DashboardItemModel>){

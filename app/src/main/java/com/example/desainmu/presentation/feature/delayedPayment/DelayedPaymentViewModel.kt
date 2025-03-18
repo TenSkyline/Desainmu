@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.desainmu.data.database.DesainmuLocalDb
 import com.example.desainmu.data.database.model.ItemTable
-import com.example.desainmu.model.ItemModel
+import com.example.desainmu.presentation.feature.dashboard.components.DashboardItemModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,8 +37,8 @@ class DelayedPaymentViewModel @Inject constructor(
             is DelayedPaymentEvent.SearchItem -> _uiState.update {
                 it.copy(searchQuery = event.query)
             }
-
             is DelayedPaymentEvent.UpdateSearchActive -> _uiState.update { it.copy(isSearchActive = event.isActive) }
+            is DelayedPaymentEvent.ToItemDetail -> emit(DelayedPaymentEffect.ToItemDetail(event.itemId))
         }
     }
 
@@ -57,8 +57,8 @@ class DelayedPaymentViewModel @Inject constructor(
         }
     }
 
-    private fun ItemTable.toOrderItemModel(): ItemModel {
-        return ItemModel(
+    private fun ItemTable.toOrderItemModel(): DashboardItemModel {
+        return DashboardItemModel(
             id = this.id,
             title = this.title,
             description = this.description,

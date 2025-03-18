@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.desainmu.data.database.DesainmuLocalDb
 import com.example.desainmu.data.database.model.ItemTable
-import com.example.desainmu.model.ItemModel
+import com.example.desainmu.presentation.feature.dashboard.components.DashboardItemModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,12 +40,13 @@ class DashboardViewModel @Inject constructor(
             DashboardEvent.ToAddOrder -> emit(DashboardEffect.ToAddOrder)
             DashboardEvent.ToDelayed -> emit(DashboardEffect.ToDelayedPayment)
             DashboardEvent.ToHistory -> emit(DashboardEffect.ToHistory)
+            is DashboardEvent.ToItemDetail -> emit(DashboardEffect.ToItemDetail(event.itemId))
 
             is DashboardEvent.SelectedTab -> {
                 _uiState.update { it.copy(selectedTab = event.selectedTab) }
                 loadDataForTab(event.selectedTab) // Call the function here
             }
-            is DashboardEvent.ItemClickedDone -> {
+            is DashboardEvent.IsDone -> {
                 viewModelScope.launch {
                     val item = event.item
                     itemDao.updateIsDone(item.id, true)
@@ -53,7 +54,7 @@ class DashboardViewModel @Inject constructor(
                     loadDataForTab(_uiState.value.selectedTab)  // Refresh UI
                 }
             }
-            is DashboardEvent.ItemClickedPayed -> {
+            is DashboardEvent.IsPayed -> {
                 viewModelScope.launch {
                     val item = event.item
                     itemDao.updateIsPayed(item.id, true)
@@ -63,7 +64,7 @@ class DashboardViewModel @Inject constructor(
             }
             is DashboardEvent.Delete -> {
                 viewModelScope.launch {
-                    itemDao.deleteById(event.id)
+                    itemDao.deleteById(event.itemId)
                     loadDataForTab(_uiState.value.selectedTab)  // Refresh UI
                 }
             }
@@ -105,7 +106,6 @@ class DashboardViewModel @Inject constructor(
 
                     else -> emptyList()
                 }
-
                 // Update UI with loaded items
                 _uiState.update {
                     when (tabIndex) {
@@ -122,8 +122,8 @@ class DashboardViewModel @Inject constructor(
     }
 
     //    Extention function to convert ItemTable to OrderItemModel
-    private fun ItemTable.toOrderItemModel(): ItemModel {
-        return ItemModel(
+    private fun ItemTable.toOrderItemModel(): DashboardItemModel {
+        return DashboardItemModel(
             id = this.id,
             title = this.title,
             description = this.description,

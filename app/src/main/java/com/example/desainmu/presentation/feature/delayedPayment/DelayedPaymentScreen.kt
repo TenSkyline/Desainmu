@@ -25,8 +25,7 @@ import com.example.desainmu.presentation.feature.delayedPayment.components.Delay
 @Composable
 internal fun DelayedPaymentRoute(
     navigateUp: () -> Unit = {},
-//    dummyValueDelayed: List<DashboardItemModel>,
-
+    navigateToItemDetail: (Int) -> Unit
     ) {
     val viewModel: DelayedPaymentViewModel = hiltViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -35,12 +34,14 @@ internal fun DelayedPaymentRoute(
         viewModel.uiEffect.collect { effect ->
             when (effect) {
                 DelayedPaymentEffect.NavigateUp -> navigateUp.invoke()
+                is DelayedPaymentEffect.ToItemDetail -> navigateToItemDetail.invoke(effect.itemId)
             }
         }
     }
 
-    DelayedPaymentScreen(onEvent = viewModel::handleEvent, uiState,
-//        dummyValueDelayed
+    DelayedPaymentScreen(
+        onEvent = viewModel::handleEvent,
+        uiState
     )
 }
 
@@ -48,25 +49,19 @@ internal fun DelayedPaymentRoute(
 private fun DelayedPaymentScreen(
     onEvent: (DelayedPaymentEvent) -> Unit,
     uiState: DelayedPaymentState,
-//    dummyValueDelayed: List<DashboardItemModel>
 ) {
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 
     val filteredList by remember(uiState.searchQuery, uiState.items
-//        dummyValueDelayed
     ) {
         derivedStateOf {
             if (uiState.searchQuery.isBlank()) {
                 uiState.items
-//                dummyValueDelayed
             } else {
                 uiState.items.filter {
                     it.title.contains(uiState.searchQuery, ignoreCase = true)
                 }
-//                dummyValueDelayed.filter {
-//                    it.title.contains(uiState.searchQuery, ignoreCase = true)
-//                }
             }
         }
     }
