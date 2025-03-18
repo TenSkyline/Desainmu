@@ -17,12 +17,19 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.desainmu.presentation.design.components.CustomIconButton
+import com.example.desainmu.presentation.design.components.CustomOutlinedTextFieldView
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
 internal fun ItemDetailRoute(
@@ -141,10 +148,22 @@ private fun ItemDetailView(uiState: ItemDetailState) {
         uiState.isLoading -> Text("Loading...")
         uiState.error != null -> Text(uiState.error)
         uiState.item != null -> {
-            Text("Title: ${uiState.item.title}")
-            Text("Description: ${uiState.item.description}")
-            Text("Date Added: ${uiState.item.dateAdded}")
-            Text("Selected Date: ${uiState.item.selectedDate}")
+            CustomOutlinedTextFieldView(
+                placeHolder = "Judul",
+                value = uiState.item.title
+            )
+            CustomOutlinedTextFieldView(
+                placeHolder = "Deskripsi",
+                value = uiState.item.description
+            )
+            Text("Tanggal Pesan: ${formatDate(uiState.item.dateAdded)}")
+            Text("Tenggat Waktu: ${formatDate(uiState.item.selectedDate)}")
         }
     }
+}
+
+private fun formatDate(longDate: Long?): String {
+    if (longDate == null) return "-"
+    val sdf = SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault())
+    return sdf.format(Date(longDate))
 }
