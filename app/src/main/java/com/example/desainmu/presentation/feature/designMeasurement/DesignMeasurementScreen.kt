@@ -84,10 +84,10 @@ private fun DesignMeasurementTopBar(
     )
 }
 
-@Preview
-@Composable
-private fun AddOrderMeasurementScreenPreview() {
-    DesainmuTheme {
+//@Preview
+//@Composable
+//private fun AddOrderMeasurementScreenPreview() {
+//    DesainmuTheme {
 //        AddOrderMeasurementScreen()
-    }
-}
+//    }
+//}

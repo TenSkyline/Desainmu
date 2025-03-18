@@ -1,5 +1,6 @@
 package com.example.desainmu.presentation.feature.itemDetail
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -100,42 +101,50 @@ private fun ItemDetailContent(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
                 .padding(16.dp)
         ) {
-            ItemDetailView(uiState = uiState)
-            ElevatedButton(
-                onClick = {},
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                    .padding(16.dp)
+                    .fillMaxSize()
+                    .padding(bottom = 80.dp) // To make space for buttons
             ) {
-                Text("Edit")
+                ItemDetailView(uiState = uiState)
             }
-            ElevatedButton(
-                onClick = {},
+
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .align(Alignment.BottomCenter)
-                    .padding(16.dp)
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp) // Adds space between buttons
             ) {
-                Text("Hapus")
+                ElevatedButton(
+                    onClick = {},
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Edit")
+                }
+                ElevatedButton(
+                    onClick = {},
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Hapus")
+                }
             }
         }
     }
 }
 
 @Composable
-private fun ItemDetailView(uiState: ItemDetailState){
+private fun ItemDetailView(uiState: ItemDetailState) {
     when {
-            uiState.isLoading -> Text("Loading...")
-            uiState.error != null -> Text(uiState.error)
-            uiState.item != null -> {
-                Text("Title: ${uiState.item.title}")
-                Text("Description: ${uiState.item.description}")
-                Text("Date Added: ${uiState.item.dateAdded}")
-                Text("Selected Date: ${uiState.item.selectedDate}")
-            }
+        uiState.isLoading -> Text("Loading...")
+        uiState.error != null -> Text(uiState.error)
+        uiState.item != null -> {
+            Text("Title: ${uiState.item.title}")
+            Text("Description: ${uiState.item.description}")
+            Text("Date Added: ${uiState.item.dateAdded}")
+            Text("Selected Date: ${uiState.item.selectedDate}")
         }
+    }
 }
