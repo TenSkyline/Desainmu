@@ -11,5 +11,8 @@ enum class Design(val title: String) {
     companion object {
         fun findByTitle(title: String): Design = entries.find { it.title == title }
             ?: throw IllegalArgumentException("No enum constant with title $title")
+
+        fun findByName(name: String): Design = entries.find { it.name == name }
+            ?: throw IllegalArgumentException("No enum constant with name $name")
     }
 }
