@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -40,6 +41,23 @@ class ItemDetailViewModel @Inject constructor(
     fun handleEvent(event: ItemDetailEvent) {
         when (event) {
             ItemDetailEvent.NavigateUp -> emit(ItemDetailEffect.NavigateUp)
+
+            ItemDetailEvent.ShowDeleteConfirmation -> {
+                _uiState.update { it.copy(showDeleteConfirmation = true) }
+            }
+
+            ItemDetailEvent.DismissDeleteConfirmation -> {
+                _uiState.update { it.copy(showDeleteConfirmation = false) }
+            }
+
+            ItemDetailEvent.Delete -> {
+                uiState.value.item?.let { item ->
+                    viewModelScope.launch(Dispatchers.IO) {
+                        itemDao.deleteById(item.id)
+                        emit(ItemDetailEffect.NavigateUp) // Navigate up after deletion
+                    }
+                }
+            }
         }
     }
 

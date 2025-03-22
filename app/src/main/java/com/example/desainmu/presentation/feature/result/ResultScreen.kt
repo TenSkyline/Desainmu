@@ -12,7 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.desainmu.model.Design
 import com.example.desainmu.presentation.design.components.CustomIconButton
 import com.example.desainmu.presentation.design.theme.DesainmuTheme

@@ -5,10 +5,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -26,6 +28,23 @@ internal fun ItemDetailContent(
     uiState: ItemDetailState,
     onEvent: (ItemDetailEvent) -> Unit
 ) {
+    if (uiState.showDeleteConfirmation) {
+        AlertDialog(
+            onDismissRequest = { onEvent(ItemDetailEvent.DismissDeleteConfirmation) },
+            title = { Text("Konfirmasi Hapus") },
+            text = { Text("Ingin menghapus pesanan ini?") },
+            confirmButton = {
+                TextButton(onClick = { onEvent(ItemDetailEvent.Delete) }) {
+                    Text("Hapus")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { onEvent(ItemDetailEvent.DismissDeleteConfirmation) }) {
+                    Text("Batal")
+                }
+            }
+        )
+    }
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -56,7 +75,7 @@ internal fun ItemDetailContent(
                 Text("Edit")
             }
             ElevatedButton(
-                onClick = {},
+                onClick = {onEvent(ItemDetailEvent.ShowDeleteConfirmation)},
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(4.dp)
